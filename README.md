@@ -14,4 +14,6 @@ MFDS 2025 T4
 |-------------------|-----------------------------------------------------------------|
 | **SRS (Google Docs)**    | https://docs.google.com/document/d/1CYysPexvYWvIQ6jjmQ_p7hrp-09WSNshRH8fUAjpkmk/edit?usp=sharing |
 | **Figma**            | https://www.figma.com/design/JQ3OjzJLQsijfvnB6UjnfV/Prototipo-equipo-4?node-id=0-1&t=DFjqru9Ppjta82Uf-1 |
-| **ClickUp**      | https://app.clickup.com/9017309907/v/s/90171619129 |
+| **ClickUp / Diagrama de gantt**      | https://app.clickup.com/9017309907/v/g/8cqjepk-817 |
+| **Google Drive**      | https://drive.google.com/drive/u/0/folders/1nCNR6q-MuE9xWVLCN8ATyhoVaotNmrvF |
+| **Matriz de riesgos**      | https://docs.google.com/spreadsheets/d/16sUWWZUljg7rGhZmupBW-PGZbriJR5gVaxwGD1q49Rw/edit?gid=0#gid=0 |
