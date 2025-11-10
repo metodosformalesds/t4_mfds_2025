@@ -9,7 +9,7 @@ function Header() {
 
           <div className="user-actions">
             <a href="#">Iniciar sesión</a>
-            <a href="#">Registrarse</a>
+            <a href="/register">Registrarse</a>
             <a href="#">Carrito (0)</a>
           </div>
         </div>
@@ -18,7 +18,7 @@ function Header() {
       <nav>
         <div className="container">
           <ul className="nav-links">
-            <li><a href="#">Inicio</a></li>
+            <li><a href="/">Inicio</a></li>
             <li><a href="#">Productos</a></li>
             <li><a href="#">Artistas</a></li>
             <li><a href="#">Categorías</a></li>

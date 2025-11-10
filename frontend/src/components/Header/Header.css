@@ -24,19 +24,6 @@ header {
   border-bottom: 1px solid #f0f0f0;
 }
 
-/* Logo reborn */
-.logo {
-  font-family: 'Georgia', 'Times New Roman', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-  font-size: 2.4rem;
-  font-weight: bold;
-  color: #450693;
-  text-decoration: none;
-}
-
-.logo span {
-  color: #FF3F7F;
-}
-
 /* Acciones de usuario */
 .user-actions {
   display: flex;
