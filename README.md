@@ -16,5 +16,6 @@ MFDS 2025 T4
 | **Figma**            | https://www.figma.com/design/JQ3OjzJLQsijfvnB6UjnfV/Prototipo-equipo-4?node-id=0-1&t=DFjqru9Ppjta82Uf-1 |
 | **ClickUp**      | https://app.clickup.com/9017309907/v/g/8cqjepk-817 |
 | **Google Drive**      | https://drive.google.com/drive/u/0/folders/1nCNR6q-MuE9xWVLCN8ATyhoVaotNmrvF |
-| **Matriz de riesgos / Diagrama de gant**      | https://docs.google.com/spreadsheets/d/16sUWWZUljg7rGhZmupBW-PGZbriJR5gVaxwGD1q49Rw/edit?gid=0#gid=0 |
+| **Diagrama de gantt**      | https://docs.google.com/spreadsheets/d/16sUWWZUljg7rGhZmupBW-PGZbriJR5gVaxwGD1q49Rw/edit?gid=2068701658#gid=2068701658 |
+| **Matriz de riesgos**      | https://docs.google.com/spreadsheets/d/16sUWWZUljg7rGhZmupBW-PGZbriJR5gVaxwGD1q49Rw/edit?gid=0#gid=0 |
 | **Presentación ejecutiva**      | https://docs.google.com/presentation/d/1UynpmpW9q-uBkr-ZkHsQDDztgxtFUUwkHgCWHB_qcyI/edit?slide=id.p#slide=id.p |
