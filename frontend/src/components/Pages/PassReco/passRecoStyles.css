@@ -1,0 +1,354 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   VARIABLES PARA PERSONALIZAR EL DISEÑO
+   ======================================== */
+:root {
+  /* Ancho de los paneles */
+  --panel-purple-width-forgot: 1; /* Panel morado (info) */
+  --panel-white-width-forgot: 1.8; /* Panel blanco (formulario) - más grande */
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+.forgot-password-container {
+  min-height: 100vh;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 63, 127, 0.1) 0.68%,
+    rgba(255, 63, 127, 0.2) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tarjeta principal - sin sombra, plana */
+.forgot-password-card {
+  width: 100%;
+  max-width: 1100px;
+  background: white;
+  border-radius: 30px;
+  overflow: hidden;
+  display: flex;
+  position: relative;
+  z-index: 2;
+}
+
+/* Panel izquierdo - Información (Morado) */
+.forgot-info-panel {
+  flex: var(--panel-purple-width-forgot);
+  background: linear-gradient(135deg, #7c00e8 0%, #6200c4 100%);
+  padding: 60px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 30px 0 0 30px;
+}
+
+.info-content-forgot {
+  text-align: center;
+  width: 100%;
+}
+
+.info-title-forgot {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 50px;
+}
+
+.btn-back {
+  padding: 14px 50px;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 25px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-back:hover {
+  background: white;
+  color: #7c00e8;
+}
+
+/* Panel derecho - Formulario (Blanco) */
+.forgot-form-panel {
+  flex: var(--panel-white-width-forgot);
+  padding: 60px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #f5f5f5;
+}
+
+.forgot-title {
+  font-size: 56px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.title-re-forgot {
+  color: #450693;
+  font-family: "Playfair Display", serif;
+}
+
+.title-born-forgot {
+  color: #ff3f7f;
+  font-family: "Playfair Display", serif;
+}
+
+.form-container-forgot {
+  width: 100%;
+}
+
+.input-wrapper-forgot {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.input-icon-forgot {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  color: #666;
+  pointer-events: none;
+}
+
+.input-field-forgot {
+  width: 100%;
+  padding: 20px 20px 20px 55px;
+  background: #e6d5f0;
+  border: none;
+  border-radius: 15px;
+  font-size: 15px;
+  color: #333;
+  outline: none;
+  transition: background 0.3s;
+}
+
+.input-field-forgot::placeholder {
+  color: #666;
+  font-family: "Poppins", sans-serif;
+}
+
+.input-field-forgot:focus {
+  background: #ddc7ed;
+}
+
+.button-container-forgot {
+  display: flex;
+  gap: 16px;
+  margin-top: 35px;
+}
+
+.btn-recover,
+.btn-cancel-forgot {
+  flex: 1;
+  padding: 16px 24px;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: white;
+  font-family: "Poppins", sans-serif;
+}
+
+.btn-recover {
+  border: 2px solid #2d1b4e;
+  color: #2d1b4e;
+}
+
+.btn-recover:hover {
+  background: #f5f0fa;
+}
+
+.btn-cancel-forgot {
+  border: 2px solid #ffc107;
+  color: #ffc107;
+}
+
+.btn-cancel-forgot:hover {
+  background: #fffbf0;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 968px) {
+  .forgot-password-card {
+    flex-direction: column-reverse;
+  }
+
+  .forgot-info-panel {
+    padding: 40px 30px;
+    border-radius: 0 0 30px 30px;
+  }
+
+  .forgot-form-panel {
+    padding: 40px 35px;
+  }
+
+  .forgot-title {
+    font-size: 48px;
+    margin-bottom: 35px;
+  }
+
+  .info-title-forgot {
+    font-size: 36px;
+    margin-bottom: 35px;
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+/* Móviles */
+@media (max-width: 640px) {
+  .forgot-password-container {
+    padding: 15px;
+  }
+
+  .forgot-password-card {
+    border-radius: 20px;
+  }
+
+  .forgot-form-panel {
+    padding: 30px 25px;
+  }
+
+  .forgot-info-panel {
+    padding: 35px 25px;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .forgot-title {
+    font-size: 40px;
+    margin-bottom: 30px;
+  }
+
+  .info-title-forgot {
+    font-size: 30px;
+    margin-bottom: 30px;
+    line-height: 1.4;
+  }
+
+  .input-field-forgot {
+    padding: 18px 18px 18px 52px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  .input-icon-forgot {
+    width: 20px;
+    height: 20px;
+    left: 18px;
+  }
+
+  .input-wrapper-forgot {
+    margin-bottom: 20px;
+  }
+
+  .button-container-forgot {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 25px;
+  }
+
+  .btn-recover,
+  .btn-cancel-forgot {
+    width: 100%;
+    padding: 14px 24px;
+  }
+
+  .btn-back {
+    padding: 12px 40px;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 375px) {
+  .forgot-title {
+    font-size: 34px;
+  }
+
+  .info-title-forgot {
+    font-size: 26px;
+  }
+
+  .forgot-form-panel,
+  .forgot-info-panel {
+    padding: 25px 20px;
+  }
+
+  .input-wrapper-forgot {
+    margin-bottom: 18px;
+  }
+
+  .input-field-forgot {
+    padding: 16px 16px 16px 48px;
+    font-size: 14px;
+  }
+
+  .button-container-forgot {
+    margin-top: 20px;
+  }
+
+  .btn-recover,
+  .btn-cancel-forgot {
+    padding: 13px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Landscape mobile */
+@media (max-width: 968px) and (max-height: 500px) {
+  .forgot-password-container {
+    padding: 10px;
+  }
+
+  .forgot-title {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  .info-title-forgot {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .forgot-form-panel,
+  .forgot-info-panel {
+    padding: 25px 30px;
+  }
+
+  .input-wrapper-forgot {
+    margin-bottom: 15px;
+  }
+
+  .button-container-forgot {
+    margin-top: 20px;
+  }
+}
