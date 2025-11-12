@@ -6,14 +6,83 @@ export default function RegisterReborn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  /* const navigate = useNavigate(); */
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (password !== confirmPassword) {
       alert("Las contraseñas no coinciden");
       return;
     }
-    console.log("Registro:", { username, email, password });
+
+    if (!username || !email || !password){
+      setError("Por favor completa llena todos los campos");
+      return;
+    }
+    // console.log("Registro:", { username, email});
     // Aquí iría tu lógica de registro
+
+    /* 
+    Para amplify, en caso de instalar las librerías y dependencias
+      setLoading(true);
+      setError("");
+      
+      try{
+        await Auth.signUp({
+          username: email,
+          password,
+          attributes:{
+          email, name:username,
+          },
+        });
+
+        alert("Registro exitoso. Revisa tu correo para confirmar");
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        navigate("/login");
+      }catc(err){
+        setError(err.message || "Hubo un error en el registro");
+        console.error(err);
+      }finally{
+        setLoading(False);
+      }
+
+
+
+      ----- Para versión local ----
+      try {
+      const response = await fetch("http://localhost:8000/", { <---- URL para fecth el registro del backend
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Registro exitoso. Por favor inicia sesión");
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        navigate("/login");
+      } else {
+        setError(data.detail || "Error en el registro");
+      }
+    } catch (err) {
+      setError("Error de conexión con el servidor");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+    */
   };
 
   const handleCancel = () => {
@@ -24,8 +93,7 @@ export default function RegisterReborn() {
   };
 
   const handleLogin = () => {
-    console.log("Ir a login");
-    // Aquí iría la navegación al login
+    // navigate("/login");
   };
 
   return (
