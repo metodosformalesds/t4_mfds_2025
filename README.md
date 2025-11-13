@@ -19,3 +19,4 @@ MFDS 2025 T4
 | **Diagrama de gantt**      | https://docs.google.com/spreadsheets/d/16sUWWZUljg7rGhZmupBW-PGZbriJR5gVaxwGD1q49Rw/edit?gid=2068701658#gid=2068701658 |
 | **Matriz de riesgos**      | https://docs.google.com/spreadsheets/d/16sUWWZUljg7rGhZmupBW-PGZbriJR5gVaxwGD1q49Rw/edit?gid=0#gid=0 |
 | **Presentación ejecutiva**      | https://docs.google.com/presentation/d/1UynpmpW9q-uBkr-ZkHsQDDztgxtFUUwkHgCWHB_qcyI/edit?slide=id.p#slide=id.p |
+| **Enlace de Amplify**      | https://main.dk8x1ivj443zp.amplifyapp.com/ |
