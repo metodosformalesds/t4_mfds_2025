@@ -5,7 +5,7 @@ from .user import UserResponse
 
 class ProductBase(BaseModel):
     name: str
-    descrption: Optional[str] = None
+    description: Optional[str] = None
     price: float
     category: str #'producto' o 'material'
     stock: int = 1
@@ -17,7 +17,7 @@ class ProductCreate(ProductBase):
 
 class ProductUpdate(BaseModel):
     name: Optional[str] = None
-    descrption: Optional[str] = None
+    description: Optional[str] = None
     price: Optional[float] = None
     category: Optional[str] = None
     stock: Optional[int] = None

@@ -25,7 +25,7 @@ class UserUpdate(BaseModel):
 
 class UserResponse(UserBase):
     id: int
-    Rol: str
+    rol: str
     stripe_customer_id: Optional[str] = None
     stripe_account_id: Optional[str] = None
     stripe_status: str
@@ -39,7 +39,7 @@ class UserLogin(BaseModel):
     password: str
 
 class Token(BaseModel):
-    access_toke: str
+    access_token: str
     token_type: str
     user: UserResponse
 
