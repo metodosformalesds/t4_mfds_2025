@@ -1,42 +1,17 @@
 import React from 'react';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
-import BtnGeneral from './components/Botones/btn-general/btnGeneral';
+import { CardProducto } from './components/Cards/card_producto';
 
 function App() {
   return (
-     <div style={{ padding: "20px", display: "flex", gap: "10px", flexWrap: "wrap" }}>
-      {/* Diferentes colores, misma estructura */}
-      <BtnGeneral 
-        color="morado" 
-        text="Botón Morado" 
-        onClick={() => console.log("Morado")}
+      <CardProducto 
+        productName="Vestido tradicional"
+        artistName="María González" 
+        price="$650.00 mxn"
+        imageUrl="https://placehold.co/600x400"
+        onViewDetails={() => console.log("Ver detalles")}
+        onAddToCart={() => console.log("Agregar al carrito")}
+        buttonText="Comprar ahora"
       />
-      
-      <BtnGeneral 
-        color="rosa" 
-        text="Botón Rosa" 
-        onClick={() => console.log("Rosa")}
-      />
-      
-      <BtnGeneral 
-        color="amarillo" 
-        text="Botón Amarillo" 
-        onClick={() => console.log("Amarillo")}
-      />
-      
-      <BtnGeneral 
-        color="morado-claro" 
-        text="Botón Morado Claro" 
-        onClick={() => console.log("Morado Claro")}
-      />
-
-      <BtnGeneral 
-        color="morado" 
-        property1="variant-2"
-        text="Botón con Borde" 
-      />
-    </div>
   );
 }
 

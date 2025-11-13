@@ -63,5 +63,3 @@ BtnGeneral.propTypes = {
   color: PropTypes.oneOf(["morado", "rosa", "amarillo", "morado-claro"]),
   disabled: PropTypes.bool,
 };
-
-export default BtnGeneral;

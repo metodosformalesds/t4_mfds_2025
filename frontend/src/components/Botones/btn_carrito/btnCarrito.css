@@ -1,0 +1,99 @@
+:root {
+  --collection-1-amarillo: rgba(255, 196, 0, 1);
+  --collection-1-morado-claro: rgba(140, 0, 255, 1);
+  --collection-1-morado-oscuro: rgba(69, 6, 147, 1);
+  --collection-1-rosa: rgba(255, 63, 127, 1);
+}
+
+/* BOTÓN BASE */
+.btn-carrito {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-carrito:hover {
+  transform: scale(1.05);
+  background-color: rgba(255, 196, 0, 0.1);
+}
+
+.btn-carrito:active {
+  transform: scale(0.95);
+}
+
+.btn-carrito:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ICONO DEL CARRITO  */
+.carrito-icon {
+  width: 50px;
+  height: 50px;
+  transition: transform 0.2s ease;
+}
+
+.btn-carrito:hover .carrito-icon {
+  transform: rotate(-5deg);
+}
+
+/* VERSIÓN RESPONSIVA */
+
+@media (max-width: 768px) {
+  .carrito-icon {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .btn-carrito {
+    padding: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carrito-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .btn-carrito {
+    padding: 5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .carrito-icon {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* ESTADOS ESPECIALES */
+.btn-carrito.con-items::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--collection-1-rosa);
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.btn-carrito.small .carrito-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.btn-carrito.large .carrito-icon {
+  width: 60px;
+  height: 60px;
+}
