@@ -1,3 +1,10 @@
+/* 
+  Autor: Ian Luis Domínguez Ramírez 222611
+  Fecha: 11 de noviembre de 2025
+  Descripción: Esta vista es la página de inicio de sesión de usuario. El usuario ingresa sus credenciales y se verifican
+    en la base de datos para redirigir al usuario a la página de inicio.
+*/
+
 import React, { useState } from 'react';
 import './loginStyles.css';
 

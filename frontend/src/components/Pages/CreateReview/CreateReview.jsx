@@ -1,3 +1,10 @@
+/* 
+  Autor: Ian Luis Domínguez Ramírez 222611
+  Fecha: 12 de noviembre de 2025
+  Descripción: La vista de Crear reseñas, sirve para que cuando un usuario desee realizar una reseña de un producto, esta página se muestra para que el usuario pueda ingresar la información necesaria y dar una calificación. 
+*/
+
+
 import React, { useState } from 'react';
 import './CreateReviewStyles.css';
 

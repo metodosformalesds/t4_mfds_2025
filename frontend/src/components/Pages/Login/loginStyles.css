@@ -1,3 +1,9 @@
+/* 
+  Autor: Ian Luis Domínguez Ramírez 222611
+  Fecha: 11 de noviembre de 2025
+  Descripción: El archivo es encargado de decorar y asegurar que la página se vea como en el prototipo.
+*/
+
 * {
   margin: 0;
   padding: 0;
@@ -24,7 +30,6 @@
   /*Ancho de los paneles */
   --panel-white-width: 1.5; /* Panel blanco (formulario) - cambiar para ajustar ancho */
   --panel-purple-width: 0.5; /* Panel morado (info) - cambiar para ajustar ancho */
-  /* Ejemplo: 1.5 y 1 = 60/40, 2 y 1 = 66/33, 3 y 1 = 75/25 */
 }
 
 body {
