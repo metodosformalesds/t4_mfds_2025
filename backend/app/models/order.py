@@ -37,4 +37,5 @@ class Order(Base):
     # Relaciones
     buyer = relationship("User", foreign_keys=[buyer_id], back_populates="orders_as_buyer")
     seller = relationship("User", foreign_keys=[seller_id], back_populates="orders_as_seller")
-    items = relationship("OrderItem", back_populates="order")
+    items = relationship("OrderProduct", back_populates="order")
+    payment = relationship("Payment", back_populates="order")

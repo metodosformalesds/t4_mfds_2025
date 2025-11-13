@@ -38,7 +38,7 @@ class Product(Base):
 
     # Relaciones
     user = relationship("User", back_populates="products")
-    orders = relationship("OrderItem", back_populates="product")
+    orders = relationship("OrderProduct", back_populates="product")
     reviews = relationship("Review", back_populates="product")
     favorite_by = relationship("FavoriteProduct", back_populates="product")
     cart_items = relationship("CartItem", back_populates="product")

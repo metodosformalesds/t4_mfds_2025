@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Text
+from sqlalchemy import Column, Integer, String, Text, DateTime
+from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from core.database import Base
 
@@ -13,19 +14,23 @@ class User(Base):
     email = Column(String(100), unique=True, index=True, nullable=False)
     hashed_password = Column(String(255), nullable=False)
     phone = Column(String(20))
-    Rol = Column(String(20), default="customer")
-    profile_picture = Column(String(255))
+    rol = Column(String(20), default="customer")
+    profile_picture = Column(String(255), default="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/profile-picture/user.webp")
 
     # Stripe
     stripe_customer_id  = Column(String(255), nullable=True)
     stripe_account_id = Column(String(255), nullable=True)
     stripe_status = Column(String(50), default="pending")
+    
+    # Timestamps
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     # Relaciones
     products = relationship("Product", back_populates="user")
     orders_as_buyer = relationship("Order", foreign_keys="Order.buyer_id", back_populates="buyer")
     orders_as_seller = relationship("Order", foreign_keys="Order.seller_id", back_populates="seller")
-    reviews_written = relationship("Review", back_populates="reviewer")
+    reviews_written = relationship("Review", foreign_keys="Review.reviewer_id", back_populates="reviewer")
     reviews_received = relationship("Review", foreign_keys="Review.seller_id", back_populates="seller")
     favorite_products = relationship("FavoriteProduct", back_populates="user")
     favorite_artists = relationship("FavoriteArtist", foreign_keys="FavoriteArtist.user_id", back_populates="user")
