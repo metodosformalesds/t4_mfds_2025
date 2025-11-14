@@ -18,7 +18,10 @@ def add_favorite_product(
     db: Session = Depends(get_db),
     current_user: UserResponse = Depends(get_current_user)
 ):
-    return favorite_service.add_favorite_product(db, current_user.id, favorite.product_id)
+    try:
+        return favorite_service.add_favorite_product(db, current_user.id, favorite.product_id)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
 @router.delete("/products/{product_id}")
 def remove_favorite_product(

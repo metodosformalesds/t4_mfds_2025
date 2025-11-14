@@ -37,7 +37,7 @@ app.include_router(payments.router, prefix="/api/payments", tags=["payments"])
 
 @app.get("/")
 def root():
-    return {"message": "ArteMex API is running!"}
+    return {"message": "Reborn API is running!"}
 
 @app.get("/health")
 def health_check():

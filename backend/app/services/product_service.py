@@ -53,3 +53,8 @@ class ProductService:
         if db_product:
             db_product.view_count += 1
             db.commit()
+
+    def delete_product(self, db: Session, product_id: int):
+        # Esta función se mantiene aquí pero NO se usa en las rutas
+        # Se puede eliminar en futuro si no es necesaria en otros módulos
+        pass

@@ -38,4 +38,4 @@ class ProductResponse(ProductBase):
     model_config = ConfigDict(from_attributes=True)
 
 class ProductWithArtist(ProductResponse):
-    artist: UserResponse
+    user: UserResponse
