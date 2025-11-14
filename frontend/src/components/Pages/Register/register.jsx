@@ -1,3 +1,11 @@
+/* 
+  Autor: Ian Domínguez
+  Fecha: 11 de noviembre de 205
+  Componente: vista de para registro de usuario
+  Descripción: Muestra un formulario para la creación de un nuevo usuario dentro de la plataforma
+*/
+
+
 import React, { useState } from "react";
 import "./registerStyles.css";
 
