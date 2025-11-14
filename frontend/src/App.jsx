@@ -1,11 +1,11 @@
 import React from 'react';
-import {Inicio} from "./pages/inicio/inicio";
+import { BtnGeneral } from './components/Botones/btn_general/btnGeneral';
 
 function App() {
   return (
-    <div className="App">
-      <Inicio />
-    </div>
+    <BtnGeneral 
+    property1='default'
+    />
   );
 }
 
