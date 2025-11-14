@@ -38,6 +38,8 @@ function reducer(state, action) {
     switch (action) {
       case "mouse_enter":
         return { property1: "default" };
+      case "mouse_leave":
+        return { property1: "default" };
       default:
         return state;
     }
@@ -46,6 +48,8 @@ function reducer(state, action) {
   if (state.property1 === "default") {
     switch (action) {
       case "mouse_leave":
+        return { property1: "variant-2" };
+      case "mouse_enter":
         return { property1: "variant-2" };
       default:
         return state;
