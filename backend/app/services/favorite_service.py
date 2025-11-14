@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_
 from models.favoriteproduct import FavoriteProduct
 from models.favoriteartist import FavoriteArtist
+from models.product import Product
 
 class FavoriteService:
     # Product Favorites
@@ -17,6 +18,10 @@ class FavoriteService:
         
         if existing:
             return existing
+        # Verificar que el producto existe
+        product = db.query(Product).filter(Product.id == product_id).first()
+        if not product:
+            raise ValueError("Product not found")
         
         favorite = FavoriteProduct(user_id=user_id, product_id=product_id)
         db.add(favorite)

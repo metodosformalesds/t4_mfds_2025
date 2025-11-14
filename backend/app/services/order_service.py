@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 from sqlalchemy import and_
 import uuid
+from decimal import Decimal
 from models.order import Order
 from models.orderproduct import OrderProduct as OrderItem
 from models.product import Product
@@ -14,7 +15,7 @@ class OrderService:
 
     def create_order(self, db: Session, order: OrderCreate, buyer_id: int):
         # Calcular totales y verificar stock
-        total_amount = 0
+        total_amount = Decimal('0.0')
         order_items = []
         seller_id = None
         
@@ -28,7 +29,9 @@ class OrderService:
             elif seller_id != product.user_id:
                 raise ValueError("All products must be from the same seller")
             
-            item_total = product.price * item.quantity
+            # Asegurar cálculos con Decimal
+            item_price = Decimal(product.price)
+            item_total = item_price * Decimal(item.quantity)
             total_amount += item_total
             
             order_items.append({
@@ -39,7 +42,7 @@ class OrderService:
             })
         
         # Calcular comisiones
-        platform_fee = total_amount * 0.05  # 5% para la plataforma
+        platform_fee = total_amount * Decimal('0.05')  # 5% para la plataforma
         seller_amount = total_amount - platform_fee
         
         # Crear orden
@@ -63,7 +66,7 @@ class OrderService:
                 product_id=item_data['product'].id,
                 quantity=item_data['quantity'],
                 unit_price=item_data['unit_price'],
-                total_price=item_data['total_price']
+                total_price=float(item_data['total_price'])
             )
             db.add(db_item)
             
