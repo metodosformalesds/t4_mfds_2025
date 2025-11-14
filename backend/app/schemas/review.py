@@ -9,17 +9,23 @@ class ReviewBase(BaseModel):
     comment: str
     rating: int #1-5
 
-class ReviewCreate(BaseModel):
+
+class ReviewCreate(ReviewBase):
     product_id: int
     order_id: int
-    
+
+
 class ReviewResponse(BaseModel):
-    id:int
+    id: int
     product: ProductResponse
     reviewer: UserResponse
     seller: UserResponse
+    title: str
+    comment: str
+    rating: int
     is_verified_purchase: bool
-    create_at: datetime
+    created_at: datetime
     updated_at: Optional[datetime] = None
+    order_id: Optional[int] = None
 
     model_config = ConfigDict(from_attributes=True)
