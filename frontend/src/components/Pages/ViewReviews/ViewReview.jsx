@@ -1,3 +1,12 @@
+/* 
+  Autor: Ian Domínguez
+  Fecha: 12 de noviembre de 2025
+  Componente: Ver reseñas de un producto
+  Descripción: Vista para todas las reseñas de diferentes usuarios sobre un producto.
+
+*/
+
+
 import React, { useState, useEffect } from 'react';
 import './ViewReviewStyles.css';
 
