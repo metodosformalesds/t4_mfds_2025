@@ -62,5 +62,3 @@ export const Footer = ({ className, href }) => {
 Footer.propTypes = {
     href: PropTypes.string,
 };
-
-export default Footer;

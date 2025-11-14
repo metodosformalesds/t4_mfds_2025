@@ -3,18 +3,6 @@
   --collection-1-morado-claro: rgba(140, 0, 255, 1);
   --collection-1-morado-oscuro: rgba(69, 6, 147, 1);
   --collection-1-rosa: rgba(255, 63, 127, 1);
-  --reborn-texto-font-family: "Poppins", Helvetica;
-  --reborn-texto-font-size: 36px;
-  --reborn-texto-font-style: normal;
-  --reborn-texto-font-weight: 400;
-  --reborn-texto-letter-spacing: 0px;
-  --reborn-texto-line-height: normal;
-  --reborn-titulo-font-family: "Playfair", Helvetica;
-  --reborn-titulo-font-size: 96px;
-  --reborn-titulo-font-style: normal;
-  --reborn-titulo-font-weight: 900;
-  --reborn-titulo-letter-spacing: 0px;
-  --reborn-titulo-line-height: normal;
 }
 
 /* CARD PRINCIPAL */
@@ -84,7 +72,7 @@
   letter-spacing: 0;
   line-height: 1.2;
   margin: 0;
-  text-align: center;
+  text-align: left;
   width: 100%;
   word-wrap: break-word;
 }

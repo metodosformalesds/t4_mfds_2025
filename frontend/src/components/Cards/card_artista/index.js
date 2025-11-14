@@ -1,0 +1,1 @@
+export { CardArtista } from './cardArtista';
