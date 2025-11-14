@@ -67,20 +67,3 @@ def update_product(
         raise HTTPException(status_code=404, detail="Product not found")
     
     return updated_product
-
-@router.delete("/{product_id}")
-def delete_product(
-    product_id: int,
-    db: Session = Depends(get_db),
-    current_user: UserResponse = Depends(get_current_user)
-):
-    # Verificar que el producto pertenece al usuario
-    product = product_service.get_product(db, product_id)
-    if not product or product.user_id != current_user.id:
-        raise HTTPException(status_code=404, detail="Product not found")
-    
-    success = product_service.delete_product(db, product_id)
-    if not success:
-        raise HTTPException(status_code=404, detail="Product not found")
-    
-    return {"message": "Product deleted successfully"}
