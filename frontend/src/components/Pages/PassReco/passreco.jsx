@@ -1,3 +1,11 @@
+/* 
+  Autor: Ian Domínguez
+  Fecha: 11 de noviembre de 2025
+  Componente: Vista para ingresar los datos necesarios para proceder con la recuperación de la contraseña
+  Descripción: Muestra un formulario para enviar los datos necesarios y generar la petición para recuperar la contraseña
+*/
+
+
 import React, { useState } from "react";
 import "./passRecoStyles.css";
 
