@@ -1,3 +1,12 @@
+/* 
+  Autor: Erick Rangel
+  Fecha: 11 de noviembre de 205
+  Descripción: muestra un hero y artículos y artistas relevantes (con mayor reseñas)
+
+  se exporta a app.jsx usando index.js
+*/
+
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BtnGeneral } from '../../components/Botones/btn_general';

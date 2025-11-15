@@ -1,10 +1,22 @@
+/* 
+  Autor: Erick Rangel
+  Fecha: 11 de noviembre de 205
+  Componente: header
+  Descripción: 
+  
+  muestra logo, links de navegación y autenticación
+  se exporta a otros lados del código usando index.js
+*/
+
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import './Header.css';
 
 export const Header = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const location = useLocation();
+	const { user, isAuthenticated, logout } = useAuth();
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
@@ -13,6 +25,12 @@ export const Header = () => {
 	// Cerrar menú al hacer clic en un enlace 
 	const closeMenu = () => {
 		setIsMenuOpen(false);
+	};
+
+	// Función para manejar logout
+	const handleLogout = () => {
+		logout();
+		closeMenu();
 	};
 
 	// Función para verificar si la ruta está activa
@@ -45,12 +63,29 @@ export const Header = () => {
 				{/* NAVEGACIÓN PRINCIPAL*/}
 				<nav className={`header-nav ${isMenuOpen ? 'active' : ''}`}>
 					<ul>
-						{/* LOGIN MÓVIL */}
+						{/* LOGIN MÓVIL - Cambia según autenticación */}
 						<li className="mobile-login-item">
-							<Link to="/login" className="mobile-login-link" onClick={closeMenu}>
-								<span className="login-icon"></span>
-								Bienvenido, identifícate
-							</Link>
+							{isAuthenticated ? (
+								// Usuario logueado - móvil
+								<div className="user-menu-mobile">
+									<Link to="/perfil" className="mobile-login-link" onClick={closeMenu}>
+										<span className="login-icon"></span>
+										Mi Perfil
+									</Link>
+									<button 
+										className="logout-button-mobile" 
+										onClick={handleLogout}
+									>
+										Cerrar Sesión
+									</button>
+								</div>
+							) : (
+								// Usuario no logueado - móvil
+								<Link to="/auth" className="mobile-login-link" onClick={closeMenu}>
+									<span className="login-icon"></span>
+									Bienvenido, identifícate
+								</Link>
+							)}
 						</li>
 						
 						{/* ENLACES DE NAVEGACIÓN - Ahora con Links y estado activo */}
@@ -93,10 +128,27 @@ export const Header = () => {
 					</ul>
 				</nav>
 
+				{/* ACCIONES DEL HEADER - Cambia según autenticación */}
 				<div className="header-actions">
-					<Link to="/login" className="desktop-login-link">
-						Bienvenido, identifícate
-					</Link>
+					{isAuthenticated ? (
+						// Usuario logueado - desktop
+						<div className="user-menu-desktop">
+							<Link to="/perfil" className="desktop-login-link">
+								Mi Perfil
+							</Link>
+							<button 
+								className="logout-button-desktop" 
+								onClick={handleLogout}
+							>
+								Cerrar Sesión
+							</button>
+						</div>
+					) : (
+						// Usuario no logueado - desktop
+						<Link to="/auth" className="desktop-login-link">
+							Bienvenido, identifícate
+						</Link>
+					)}
 				</div>
 			</div>
 

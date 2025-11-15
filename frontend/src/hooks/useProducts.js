@@ -1,4 +1,15 @@
-// src/hooks/useProducts.js
+/* 
+  Autor: Erick Rangel
+  hook: useProducts.js
+  fecha: 14-11-2025
+  descripcion:
+  - Fetch de productos con filtros por categoría, paginación (skip y limit)
+  - soporta estados de carga y manejo de errores
+  - recargar productos refetch o fetch manual fetchProducts
+  - Soporta fetch automático al inicializar o cuando cambian las dependencias
+    usa productService para comunicarse con el backend
+*/
+
 import { useState, useEffect, useCallback } from 'react';
 import { productService } from '../services/productService';
 
