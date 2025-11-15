@@ -312,9 +312,7 @@
   cursor: not-allowed;
 }
 
-/* ========== VERSIÓN RESPONSIVA ========== */
 
-/* Tablets */
 @media (max-width: 1024px) {
   .contenido-catalogo {
     grid-template-columns: 260px 1fr;
@@ -332,7 +330,6 @@
   }
 }
 
-/* Tabletas pequeñas */
 @media (max-width: 768px) {
   .contenido-catalogo {
     grid-template-columns: 1fr;
@@ -375,7 +372,6 @@
   }
 }
 
-/* Móviles */
 @media (max-width: 480px) {
   .contenido-catalogo {
     padding: 15px 10px;
@@ -419,7 +415,6 @@
   }
 }
 
-/* Móviles muy pequeños */
 @media (max-width: 360px) {
   .contenido-catalogo {
     padding: 10px 8px;
@@ -438,13 +433,12 @@
   }
 }
 
-/* Estados de carga y error */
 .estado-catalogo {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 50vh;
+  height: 100%;
   text-align: center;
   font-family: var(--reborn-texto-font-family);
 }
@@ -467,16 +461,6 @@
 .estado-catalogo.error p {
   color: #666;
   margin-bottom: 20px;
-}
-
-.btn-reintentar {
-  background-color: var(--collection-1-morado-oscuro);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: var(--reborn-texto-font-family);
 }
 
 @keyframes spin {
