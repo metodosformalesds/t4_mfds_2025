@@ -1,4 +1,18 @@
-// src/services/productService.js
+/* 
+  Autor: Erick Rangel
+  servicio: authService.js
+  fecha: 14-11-2025
+
+  maneja todas las operaciones relacionadas con productos:
+  - Obtener lista de productos con filtros y búsqueda
+  - Obtener un producto específico por su ID
+  - Obtener productos del usuario actualmente autenticado
+  - Incrementar el contador de vistas de un producto
+
+  apiCliente se comunica al backend.
+*/
+
+
 import { apiClient } from './api';
 
 class ProductService {

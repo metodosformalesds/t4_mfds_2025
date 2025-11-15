@@ -1,4 +1,21 @@
-// src/pages/Catalogo/Catalogo.jsx
+/* 
+  Autor: Erick Rangel  
+  pagina: Catalogo.jsx
+  fecha: 13-11-2025
+  descripcion:
+  - Mostrar lista de productos/materiales con filtros, ordenamiento y paginación
+  - Filtrar por stock disponible
+  - Ordenar por nombre, reseñas, calificación o precio
+  - Navegar entre páginas de productos
+  - Ver detalles de un producto y agregarlo al carrito 
+  - muestra mensajes de carga, error o ausencia de productos
+  - utiliza hook useProducts para obtener datos desde el backend
+  - utiliza componentes Header, Footer y CardProducto para la presentación visual
+
+  se exporta a app.jsx usando index.js
+*/
+
+
 import React, { useState, useCallback, useEffect } from 'react';
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';

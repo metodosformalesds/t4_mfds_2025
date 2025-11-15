@@ -1,3 +1,13 @@
+/* 
+  Autor: Erick Rangel
+  Fecha: 11 de noviembre de 205
+  Componente: footer
+  Descripción: 
+  
+  muestra logo, links de navegación e información de contacto
+  se exporta a otros lados del código usando index.js
+*/
+
 import PropTypes from "prop-types";
 import React from "react";
 import "./Footer.css";
