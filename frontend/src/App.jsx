@@ -1,11 +1,19 @@
 import React from 'react';
-import { BtnGeneral } from './components/Botones/btn_general/btnGeneral';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Inicio } from './pages/inicio';
+import { Catalogo } from './pages/catalogo';
 
 function App() {
   return (
-    <BtnGeneral 
-    property1='default'
-    />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Inicio />} />
+        <Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/artistas" element={<Inicio />} />
+        <Route path="/categorias" element={<Inicio />} />
+        <Route path="/login" element={<Inicio />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

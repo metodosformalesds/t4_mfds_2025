@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BtnGeneral } from '../../components/Botones/btn_general';
 import { BtnCarrito } from '../../components/Botones/btn_carrito';
 import { CardProducto } from '../../components/Cards/card_producto'; 
@@ -8,6 +9,8 @@ import { Header } from '../../components/Header';
 import './inicio.css';
 
 export const Inicio = () => {
+  const navigate = useNavigate();
+
   // Datos de ejemplo para productos
   const productosDestacados = [
     {
@@ -73,7 +76,7 @@ export const Inicio = () => {
             property1="default"
             text="Explorar productos"
             color="amarillo"
-            onClick={() => console.log("Explorar productos")}
+            onClick={() => navigate('/catalogo')} 
           />
         </div>
       </section>
@@ -81,7 +84,7 @@ export const Inicio = () => {
       {/* PRODUCTOS DESTACADOS */}
       <section className="seccion-productos">
         <div className="contenedor-titulo">
-          <h2 className="titulo-seccion">Productos Destacados</h2>
+          <h2 className="titulo-seccion">Productos populares</h2>
         </div>
         <div className="grid-productos">
           {productosDestacados.map((producto) => (

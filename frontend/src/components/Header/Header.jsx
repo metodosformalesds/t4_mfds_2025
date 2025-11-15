@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
 export const Header = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const location = useLocation();
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
@@ -13,12 +15,19 @@ export const Header = () => {
 		setIsMenuOpen(false);
 	};
 
+	// Función para verificar si la ruta está activa
+	const isActive = (path) => {
+		return location.pathname === path;
+	};
+
 	return (
 		<header className="header">
 			<div className="header-container">
-				{/* LOGO */}
+				{/* LOGO - Ahora es un Link */}
 				<div className="header-logo">
-					<div className="logo">Re<span className="logo-accent">born</span></div>
+					<Link to="/" className="logo-link" onClick={closeMenu}>
+						<div className="logo">Re<span className="logo-accent">born</span></div>
+					</Link>
 				</div>
 
 				{/* BOTÓN HAMBURGUESA*/}
@@ -33,30 +42,62 @@ export const Header = () => {
 					<span></span>
 				</button>
 
-				{/* NAVEGACIÓN PRINCIPAL */}
+				{/* NAVEGACIÓN PRINCIPAL - Ahora con Links */}
 				<nav className={`header-nav ${isMenuOpen ? 'active' : ''}`}>
 					<ul>
 						{/* LOGIN MÓVIL */}
 						<li className="mobile-login-item">
-							<a href="/login" className="mobile-login-link" onClick={closeMenu}>
-								<span className="login-icon">👤</span>
+							<Link to="/login" className="mobile-login-link" onClick={closeMenu}>
+								<span className="login-icon"></span>
 								Bienvenido, identifícate
-							</a>
+							</Link>
 						</li>
 						
-						{/* ENLACES DE NAVEGACIÓN */}
-						<li><a href="/inicio" onClick={closeMenu}>Inicio</a></li>
-						<li><a href="/productos" onClick={closeMenu}>Productos</a></li>
-						<li><a href="/artistas" onClick={closeMenu}>Artistas</a></li>
-						<li><a href="/categorias" onClick={closeMenu}>Categorías</a></li>
+						{/* ENLACES DE NAVEGACIÓN - Ahora con Links y estado activo */}
+						<li>
+							<Link 
+								to="/" 
+								className={`nav-link ${isActive('/') ? 'active' : ''}`}
+								onClick={closeMenu}
+							>
+								Inicio
+							</Link>
+						</li>
+						<li>
+							<Link 
+								to="/catalogo" 
+								className={`nav-link ${isActive('/catalogo') ? 'active' : ''}`}
+								onClick={closeMenu}
+							>
+								Catálogo
+							</Link>
+						</li>
+						<li>
+							<Link 
+								to="/artistas" 
+								className={`nav-link ${isActive('/artistas') ? 'active' : ''}`}
+								onClick={closeMenu}
+							>
+								Artistas
+							</Link>
+						</li>
+						<li>
+							<Link 
+								to="/categorias" 
+								className={`nav-link ${isActive('/categorias') ? 'active' : ''}`}
+								onClick={closeMenu}
+							>
+								Categorías
+							</Link>
+						</li>
 					</ul>
 				</nav>
 
-				{/*Solo visible en desktop */}
+				{/* ACCIONES DESKTOP - Ahora con Link */}
 				<div className="header-actions">
-					<a href="/login" className="desktop-login-link">
+					<Link to="/login" className="desktop-login-link">
 						Bienvenido, identifícate
-					</a>
+					</Link>
 				</div>
 			</div>
 
