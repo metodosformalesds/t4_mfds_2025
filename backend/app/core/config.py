@@ -51,17 +51,13 @@ class Settings(BaseSettings):
     AWS_S3_REGION: str = "us-east-1"
 
     # Stripe Configuration
-    STRIPE_API_KEY: str
-    STRIPE_WEBHOOK_SECRET: str
-    
-    # Alias property for backward compatibility
-    @property
-    def STRIPE_SECRET_KEY(self) -> str:
-        return self.STRIPE_API_KEY
+    STRIPE_PUBLIC_KEY: str
+    STRIPE_SECRET_KEY: str
+    STRIPE_WEBHOOK_SECRET: Optional[str] = None
 
     class Config:
-        # La ruta al .env (ten cuidado con rutas relativas como '../..')
-        # Es más seguro usar una ruta absoluta o cargarla de otra forma
+        # La ruta al .env se busca desde la raíz del proyecto (backend/)
+        # Pydantic busca en orden: .env en el directorio actual, luego sube
         env_file = "../.env" 
         env_file_encoding = 'utf-8'
 
