@@ -38,27 +38,42 @@ class S3Service:
         Raises:
             ValueError: Si el archivo es inválido o hay error en S3
         """
+        # Validar tipo de archivo
+        allowed_extensions = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
+        file_ext = self._get_file_extension(filename)
+
+        if not file_ext.startswith("."):
+            file_ext = f".{file_ext}"
+
+        if file_ext.lower() not in allowed_extensions:
+            raise ValueError(
+                f"Tipo de archivo no permitido. Usa: {', '.join(allowed_extensions)}"
+            )
+
+        # Validar tamaño (máximo 5MB)
+        max_size = 5 * 1024 * 1024  # 5MB
+        if len(file_content) > max_size:
+            raise ValueError("El archivo es demasiado grande. Máximo 5MB.")
+
+        # Reusar método genérico para subir archivos en carpeta 'profile-picture'
+        return self.upload_file(file_content, filename, folder="profile-picture")
+
+    def upload_file(self, file_content: bytes, filename: str, folder: str = "uploads") -> str:
+        """
+        Sube un archivo genérico a S3 dentro de la carpeta especificada.
+
+        Args:
+            file_content: bytes
+            filename: nombre original
+            folder: prefijo/carpeta en el bucket
+
+        Returns:
+            URL pública del archivo subido
+        """
         try:
-            # Validar tipo de archivo
-            allowed_extensions = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
-            file_ext = self._get_file_extension(filename)
-            
-            if not file_ext.startswith("."):
-                file_ext = f".{file_ext}"
-            
-            if file_ext.lower() not in allowed_extensions:
-                raise ValueError(
-                    f"Tipo de archivo no permitido. Usa: {', '.join(allowed_extensions)}"
-                )
-
-            # Validar tamaño (máximo 5MB)
-            max_size = 5 * 1024 * 1024  # 5MB
-            if len(file_content) > max_size:
-                raise ValueError("El archivo es demasiado grande. Máximo 5MB.")
-
             # Generar nombre único para el archivo
             unique_filename = self._generate_unique_filename(filename)
-            s3_key = f"profile-picture/{unique_filename}"
+            s3_key = f"{folder}/{unique_filename}"
 
             # Subir a S3
             self.s3_client.put_object(
@@ -66,13 +81,12 @@ class S3Service:
                 Key=s3_key,
                 Body=file_content,
                 ContentType=self._get_content_type(filename),
-                # ACL removido: usar configuración de bucket en su lugar
             )
 
             # Construir URL pública
             s3_url = f"https://{self.bucket_name}.s3.{self.region}.amazonaws.com/{s3_key}"
 
-            logger.info(f"Foto de perfil subida exitosamente: {s3_url}")
+            logger.info(f"Archivo subido exitosamente: {s3_url}")
             return s3_url
 
         except ClientError as e:
