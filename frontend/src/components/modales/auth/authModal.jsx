@@ -9,7 +9,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BtnGeneral } from './Botones/btn_general';
+import { BtnGeneral } from '../../Botones/btn_general';
 import './authModal.css';
 
 export const AuthModal = ({ isOpen, onClose }) => {

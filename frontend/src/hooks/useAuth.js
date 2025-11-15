@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
 
 /**
- * Hook personalizado para manejar la autenticación en la aplicación
+ * Hook para manejar autenticación
  */
 export const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -26,12 +26,15 @@ export const useAuth = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Verificar autenticación al cargar el hook
+  /**
+   * Restaurar sesión al cargar la app
+   */
   useEffect(() => {
     const token = authService.getToken();
-    if (token) {
-      // Podríamos validar el token con el backend aquí
-      setUser({ isAuthenticated: true }); // Estado básico por ahora
+    const savedUser = authService.getUser();
+
+    if (token && savedUser) {
+      setUser({ ...savedUser, isAuthenticated: true });
     }
   }, []);
 
@@ -41,15 +44,13 @@ export const useAuth = () => {
   const register = useCallback(async (userData) => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await authService.register(userData);
       setLoading(false);
-      
-      // Redirigir a login después del registro exitoso
       navigate('/auth?mode=login');
       return response;
-      
+
     } catch (error) {
       setLoading(false);
       setError(error.message || 'Error en el registro');
@@ -63,19 +64,23 @@ export const useAuth = () => {
   const login = useCallback(async (credentials) => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await authService.login(credentials);
-      
-      // Guardar token y datos del usuario
+
+      // Guardar token y usuario
       authService.saveToken(response.access_token);
-      setUser({ ...response.user, isAuthenticated: true });
+      authService.saveUser(response.user);
+
+      setUser({
+        ...response.user,
+        isAuthenticated: true
+      });
+
       setLoading(false);
-      
-      // Redirigir a la página de inicio
       navigate('/');
       return response;
-      
+
     } catch (error) {
       setLoading(false);
       setError(error.message || 'Error en el login');
@@ -89,12 +94,12 @@ export const useAuth = () => {
   const forgotPassword = useCallback(async (data) => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await authService.forgotPassword(data);
       setLoading(false);
       return response;
-      
+
     } catch (error) {
       setLoading(false);
       setError(error.message || 'Error en la recuperación de contraseña');
@@ -107,8 +112,11 @@ export const useAuth = () => {
    */
   const logout = useCallback(() => {
     authService.removeToken();
+    authService.removeUser();
+
     setUser(null);
     setError(null);
+
     navigate('/');
   }, [navigate]);
 

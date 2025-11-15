@@ -42,7 +42,7 @@ export const useProducts = (options = {}) => {
         category: fetchOptions.category !== undefined ? fetchOptions.category : category,
       };
 
-      console.log('🎯 Fetching products with params:', params);
+      console.log('Fetching products with params:', params);
       
       const data = await productService.getProducts(params);
       setProducts(data);

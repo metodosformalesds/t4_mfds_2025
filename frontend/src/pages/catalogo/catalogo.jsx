@@ -202,6 +202,7 @@ export const Catalogo = () => {
             {datosOrdenados.map((producto) => (
               <CardProducto
                 key={producto.id}
+                productId={producto.id}
                 productName={producto.nombre}
                 artistName={producto.artista}
                 price={producto.precio}

@@ -462,3 +462,75 @@
   background-color: rgba(69, 6, 147, 0.05);
 }
 
+/* ========== ENLACE CARRITO ========== */
+
+/* Desktop */
+.cart-link-desktop {
+  background: none;
+  border: none;
+  color: var(--text-dark);
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cart-link-desktop:hover {
+  color: var(--collection-1-morado-oscuro);
+  background-color: rgba(69, 6, 147, 0.05);
+}
+
+/* Móvil */
+.cart-link-mobile {
+  background: none;
+  border: none;
+  color: var(--text-dark);
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 12px 0;
+  text-align: left;
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+  transition: color 0.3s ease;
+}
+
+.cart-link-mobile:hover {
+  color: var(--collection-1-morado-oscuro);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .user-menu-desktop {
+    display: none;
+  }
+  
+  .user-menu-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+  
+  .cart-link-mobile {
+    order: 1; /* Entre Mi Perfil y Cerrar Sesión */
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-link-desktop {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  
+  .cart-link-mobile {
+    font-size: 15px;
+    padding: 10px 0;
+  }
+}

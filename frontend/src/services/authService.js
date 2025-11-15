@@ -12,8 +12,6 @@
 
   apiCliente se comunica al backend.
 */
-
-
 import { apiClient } from './api.js';
 
 /**
@@ -22,8 +20,6 @@ import { apiClient } from './api.js';
 export const authService = {
   /**
    * Registra un nuevo usuario en el sistema
-   * @param {Object} userData - Datos del usuario para registro
-   * @returns {Promise} Promesa con la respuesta del servidor
    */
   async register(userData) {
     try {
@@ -37,14 +33,12 @@ export const authService = {
 
   /**
    * Inicia sesión con email y contraseña
-   * @param {Object} credentials 
-   * @returns {Promise}
    */
   async login(credentials) {
     const formData = new URLSearchParams();
-    formData.append('username', credentials.email); 
+    formData.append('username', credentials.email);
     formData.append('password', credentials.password);
-    
+
     try {
       const response = await apiClient.request('/api/auth/login', {
         method: 'POST',
@@ -60,11 +54,6 @@ export const authService = {
     }
   },
 
-  /**
-   * Solicita recuperación de contraseña
-   * @param {Object} data - Datos para recuperación (username y email)
-   * @returns {Promise} Promesa con la respuesta del servidor
-   */
   async forgotPassword(data) {
     try {
       const response = await apiClient.post('/api/auth/forgot-password', data);
@@ -75,32 +64,36 @@ export const authService = {
     }
   },
 
-  /**
-   * Guarda el token JWT en localStorage
-   * @param {string} token - Token JWT recibido del servidor
-   */
   saveToken(token) {
     localStorage.setItem('access_token', token);
   },
 
-  /**
-   * Obtiene el token JWT almacenado
-   * @returns {string|null} Token JWT o null si no existe
-   */
   getToken() {
     return localStorage.getItem('access_token');
   },
 
-  /**
-   * Elimina el token JWT del almacenamiento
-   */
   removeToken() {
     localStorage.removeItem('access_token');
   },
 
   /**
-   * Verifica si el usuario está autenticado
-   * @returns {boolean} True si existe un token válido
+   * Usuario
+   */
+  saveUser(user) {
+    localStorage.setItem('user', JSON.stringify(user));
+  },
+
+  getUser() {
+    const raw = localStorage.getItem('user');
+    return raw ? JSON.parse(raw) : null;
+  },
+
+  removeUser() {
+    localStorage.removeItem('user');
+  },
+
+  /**
+   * Verifica si hay token guardado
    */
   isAuthenticated() {
     return !!this.getToken();
