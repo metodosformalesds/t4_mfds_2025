@@ -30,6 +30,35 @@ class Settings(BaseSettings):
         # Devuelve la instancia de 'settings' ya modificada
         return self
     
+    # JWT Configuration
+    JWT_SECRET_KEY: str
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    
+    # Alias properties for backward compatibility
+    @property
+    def SECRET_KEY(self) -> str:
+        return self.JWT_SECRET_KEY
+    
+    @property
+    def ALGORITHM(self) -> str:
+        return self.JWT_ALGORITHM
+
+    # AWS Configuration
+    AWS_ACCESS_KEY_ID: str
+    AWS_SECRET_ACCESS_KEY: str
+    AWS_S3_BUCKET_NAME: str
+    AWS_S3_REGION: str = "us-east-1"
+
+    # Stripe Configuration
+    #STRIPE_API_KEY: str
+    #STRIPE_WEBHOOK_SECRET: str
+    
+    # Alias property for backward compatibility
+    #@property
+    #def STRIPE_SECRET_KEY(self) -> str:
+    #    return self.STRIPE_API_KEY
+
     class Config:
         # La ruta al .env (ten cuidado con rutas relativas como '../..')
         # Es más seguro usar una ruta absoluta o cargarla de otra forma

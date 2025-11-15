@@ -1,66 +1,66 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from passlib.context import CryptContext
-from schemas.user import UserCreate
+from schemas.user import UserCreate, UserUpdate
 from models.user import User
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class UserService:
+    def get_user_by_id(self, db: Session, user_id: int):
+        return db.query(User).filter(User.id == user_id).first()
 
-    def get_password_hash(self, password: str) -> str:
-        if len(password.encode("utf-8")) > 72:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="La contraseña no puede tener más de 72 caracteres."
-            )
-        return pwd_context.hash(password)
-
-
-    def get_user_by_email(self, db: Session, email: str) -> User | None:
-        """Busca un usuario por su email."""
+    def get_user_by_email(self, db: Session, email: str):
         return db.query(User).filter(User.email == email).first()
 
-    def get_user_by_username(self, db: Session, username: str) -> User | None:
-        """Busca un usuario por su username."""
+    def get_user_by_username(self, db: Session, username: str):
         return db.query(User).filter(User.username == username).first()
 
-    def get_user_by_id(self, db: Session, id: str) -> User | None:
-        """Busca un usuario por su id."""
-        return db.query(User).filter(User.id == id).first()
-    
-    def create_user(self, db: Session, user_data: UserCreate) -> User:
-        """
-        El núcleo de tu lógica de negocio para registrar un usuario.
-        """
-
-        if self.get_user_by_email(db, email=user_data.email):
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="El email ya está registrado."
-            )
+    def create_user(self, db: Session, user: UserCreate):
+        # Verificar si el usuario ya existe
+        if self.get_user_by_email(db, user.email):
+            raise ValueError("Email already registered")
+        if self.get_user_by_username(db, user.username):
+            raise ValueError("Username already taken")
         
-        if self.get_user_by_username(db, username=user_data.username):
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="El nombre de usuario ya está en uso."
-            )
-
-        hashed_password = self.get_password_hash(user_data.password)
-
+        hashed_password = pwd_context.hash(user.password)
         db_user = User(
-            username=user_data.username,
-            email=user_data.email,
-            hashed_password=hashed_password,  # Se usa la versión hasheada
-            phone=user_data.phone,
-            birthdate=user_data.birthdate
-            # El 'Role' tomará su valor por defecto ("customer")
+            username=user.username,
+            email=user.email,
+            hashed_password=hashed_password,
+            full_name=user.full_name,
+            bio=user.bio,
+            address=user.address,
+            phone=user.phone,
+            rol=user.rol
         )
-
         db.add(db_user)
         db.commit()
-        db.refresh(db_user)  # Refresca para obtener el ID asignado por la BD
-
+        db.refresh(db_user)
         return db_user
 
-user_service = UserService()
+    def update_user(self, db: Session, user_id: int, user_update: UserUpdate):
+        db_user = self.get_user_by_id(db, user_id)
+        if not db_user:
+            return None
+        
+        update_data = user_update.model_dump(exclude_unset=True)
+        
+        # Si se actualiza la contraseña, hashearla
+        if 'password' in update_data:
+            update_data['hashed_password'] = pwd_context.hash(update_data.pop('password'))
+        
+        for field, value in update_data.items():
+            setattr(db_user, field, value)
+        
+        db.commit()
+        db.refresh(db_user)
+        return db_user
+
+    def authenticate_user(self, db: Session, email: str, password: str):
+        user = self.get_user_by_email(db, email)
+        if not user:
+            return False
+        if not pwd_context.verify(password, user.hashed_password):
+            return False
+        return user
