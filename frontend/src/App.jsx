@@ -1,15 +1,19 @@
 import React from 'react';
-import Header from './components/Header/Header';
-import Cuerpo from './components/Cuerpo/Cuerpo';
-import Footer from './components/Footer/Footer';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Inicio } from './pages/inicio';
+import { Catalogo } from './pages/catalogo';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Cuerpo />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Inicio />} />
+        <Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/artistas" element={<Inicio />} />
+        <Route path="/categorias" element={<Inicio />} />
+        <Route path="/login" element={<Inicio />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

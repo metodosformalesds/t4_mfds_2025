@@ -1,0 +1,179 @@
+:root {
+  --collection-1-amarillo: rgba(255, 196, 0, 1);
+  --collection-1-morado-claro: rgba(140, 0, 255, 1);
+  --collection-1-morado-oscuro: rgba(69, 6, 147, 1);
+  --collection-1-rosa: rgba(255, 63, 127, 1);
+  --reborn-texto-font-family: "Poppins", Helvetica;
+  --reborn-titulo-font-family: "Playfair", Helvetica;
+}
+
+/* ========== PÁGINA PRINCIPAL ========== */
+.pagina-inicio {
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+
+/* ========== HERO SECTION ========== */
+.hero-inicio {
+  background: linear-gradient(135deg, var(--collection-1-morado-oscuro) 0%, var(--collection-1-morado-claro) 100%);
+  padding: 100px 40px 80px;
+  text-align: center;
+  color: white;
+  margin-top: 0; 
+}
+
+.contenido-hero {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.titulo-hero {
+  font-family: var(--reborn-titulo-font-family);
+  font-size: 48px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.descripcion-hero {
+  font-family: var(--reborn-texto-font-family);
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.btn-explorar {
+  margin: 0 auto;
+}
+
+/* ========== SECCIONES ========== */
+.seccion-productos,
+.seccion-artistas {
+  padding: 60px 40px;
+  background-color: #f8f9fa;
+}
+
+.contenedor-titulo {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.titulo-seccion {
+  font-family: var(--reborn-titulo-font-family);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--collection-1-morado-oscuro);
+  margin: 0;
+}
+
+/* ========== GRID DE PRODUCTOS ========== */
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ========== GRID DE ARTISTAS ========== */
+.grid-artistas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+
+@media (max-width: 1024px) {
+  .hero-inicio {
+    padding: 90px 30px 70px; 
+  }
+  
+  .titulo-hero {
+    font-size: 36px;
+  }
+  
+  .seccion-productos,
+  .seccion-artistas {
+    padding: 40px 30px;
+  }
+  
+  .grid-productos {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  
+  .grid-artistas {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-inicio {
+    padding: 80px 20px 60px;
+  }
+  
+  .titulo-hero {
+    font-size: 28px;
+  }
+  
+  .descripcion-hero {
+    font-size: 16px;
+  }
+  
+  .seccion-productos,
+  .seccion-artistas {
+    padding: 30px 20px;
+  }
+  
+  .titulo-seccion {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-inicio {
+    padding: 70px 15px 50px; 
+  }
+  
+  .titulo-hero {
+    font-size: 24px;
+  }
+  
+  .descripcion-hero {
+    font-size: 14px;
+  }
+  
+  .seccion-productos,
+  .seccion-artistas {
+    padding: 20px 15px;
+  }
+  
+  .grid-productos {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .grid-artistas {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .titulo-seccion {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-inicio {
+    padding: 65px 12px 45px;
+  }
+  
+  .grid-artistas {
+    grid-template-columns: 1fr;
+  }
+}
