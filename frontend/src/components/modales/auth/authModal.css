@@ -1,0 +1,78 @@
+/*
+    Autor: Erick Rangel
+    Fecha: 15-11-2025
+    Componente: authModal.css
+    Descripción:
+    Estilos para authModal.jsx
+*/
+
+.auth-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.auth-modal {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.auth-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-modal-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--collection-1-morado-oscuro);
+  margin: 0;
+}
+
+.auth-modal-message {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.auth-modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.auth-modal-btn {
+  min-width: 120px;
+}
+
+@media (max-width: 480px) {
+  .auth-modal {
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .auth-modal-buttons {
+    flex-direction: column;
+  }
+  
+  .auth-modal-btn {
+    width: 100%;
+  }
+}
