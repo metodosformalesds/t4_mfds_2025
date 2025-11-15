@@ -86,11 +86,11 @@ export const Catalogo = () => {
 
   // Handlers para acciones
   const agregarAlCarrito = useCallback((producto) => {
-    console.log('🛒 Agregando al carrito:', producto.nombre);
+    console.log('Agregando al carrito:', producto.nombre);
   }, []);
 
   const verDetalles = useCallback((producto) => {
-    console.log('🔍 Viendo detalles:', producto.nombre);
+    console.log('Viendo detalles:', producto.nombre);
     window.location.href = `/producto/${producto.id}`;
   }, []);
 
@@ -102,11 +102,7 @@ export const Catalogo = () => {
       <div className="pagina-catalogo">
         <Header />
         <div className="estado-catalogo error">
-          <h3>Error al cargar productos</h3>
           <p>{error}</p>
-          <button onClick={() => refetch()} className="btn-reintentar">
-            Reintentar
-          </button>
         </div>
         <Footer />
       </div>

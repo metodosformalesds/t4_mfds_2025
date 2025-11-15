@@ -42,7 +42,7 @@ export const Header = () => {
 					<span></span>
 				</button>
 
-				{/* NAVEGACIÓN PRINCIPAL - Ahora con Links */}
+				{/* NAVEGACIÓN PRINCIPAL*/}
 				<nav className={`header-nav ${isMenuOpen ? 'active' : ''}`}>
 					<ul>
 						{/* LOGIN MÓVIL */}
@@ -93,7 +93,6 @@ export const Header = () => {
 					</ul>
 				</nav>
 
-				{/* ACCIONES DESKTOP - Ahora con Link */}
 				<div className="header-actions">
 					<Link to="/login" className="desktop-login-link">
 						Bienvenido, identifícate

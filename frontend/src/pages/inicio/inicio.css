@@ -17,10 +17,10 @@
 /* ========== HERO SECTION ========== */
 .hero-inicio {
   background: linear-gradient(135deg, var(--collection-1-morado-oscuro) 0%, var(--collection-1-morado-claro) 100%);
-  padding: 100px 40px 80px; /* ✅ Ajustado padding-top para compensar header sticky */
+  padding: 100px 40px 80px;
   text-align: center;
   color: white;
-  margin-top: 0; /* ✅ Asegurar que no haya margen superior */
+  margin-top: 0; 
 }
 
 .contenido-hero {
@@ -89,7 +89,7 @@
 
 @media (max-width: 1024px) {
   .hero-inicio {
-    padding: 90px 30px 70px; /* ✅ Ajustado para header responsive */
+    padding: 90px 30px 70px; 
   }
   
   .titulo-hero {
