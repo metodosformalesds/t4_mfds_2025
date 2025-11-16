@@ -20,6 +20,7 @@ class Order(Base):
     # IDs de Stripe
     stripe_payment_intent_id = Column(String(255))  # ID del pago en Stripe
     stripe_transfer_id = Column(String(255))  # ID de la transferencia al vendedor
+    stripe_checkout_session_id = Column(String(255), nullable=True) # Para Stripe checkout
 
     # Información de envío
     address = Column(String(255), nullable=False)

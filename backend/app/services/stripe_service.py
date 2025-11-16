@@ -139,16 +139,12 @@ class StripeService:
 
     # ==================== PAGOS ====================
 
-    def create_payment_intent(
-        self, db: Session, order_id: int, buyer_id: int
+    def create_checkout_session(
+        self, db: Session, order_id: int, buyer_id: int, success_url: str, cancel_url: str
     ) -> str:
         """
-        Crea un PaymentIntent para una orden.
-        Automáticamente cobra al comprador y divide el dinero:
-        - 5% para la plataforma (application_fee)
-        - 95% para el vendedor (transfer_data.destination)
-        
-        Devuelve el client_secret para que el frontend complete el pago.
+        Crea una Checkout Session para una orden.
+        Devuelve la URL de checkout para redirigir al usuario.
         """
         try:
             # Verificar que la orden existe
@@ -156,67 +152,71 @@ class StripeService:
             order = db.query(Order).filter(Order.id == order_id).first()
             if not order:
                 raise ValueError("Orden no encontrada")
-            print(f"DEBUG: Orden encontrada. seller_id={order.seller_id}, buyer_id={order.buyer_id}, total_amount={order.total_amount}")
-
+            
             # Verificar que el comprador es el que está haciendo la solicitud
             if order.buyer_id != buyer_id:
                 raise ValueError("No tienes permiso para pagar esta orden")
 
-            # Verificar que el vendedor tiene cuenta conectada
-            print(f"DEBUG: Buscando vendedor con id={order.seller_id}")
+            # Verificar que el vendedor existe
             seller = db.query(User).filter(User.id == order.seller_id).first()
             if not seller:
                 raise ValueError("Vendedor no encontrado")
-            if not seller.stripe_account_id:
-                raise ValueError("El vendedor no ha completado el onboarding de Stripe")
-            print(f"DEBUG: Vendedor encontrado. stripe_account_id={seller.stripe_account_id}")
 
-            # Convertir el monto total a centavos (Stripe usa centavos)
+            # Convertir el monto total a centavos
             total_amount_cents = int(float(order.total_amount) * 100)
-            print(f"DEBUG: Monto en centavos: {total_amount_cents}")
-
-            # Validar monto mínimo (Stripe requiere mínimo $10 MXN)
-            min_amount_cents = 1000  # $10 MXN
+            
+            # Validar monto mínimo
+            min_amount_cents = 1000
             if total_amount_cents < min_amount_cents:
-                raise ValueError(f"El monto mínimo para un pago es $10 MXN. Tu orden es de ${order.total_amount} MXN")
+                raise ValueError(f"El monto mínimo para un pago es $10 MXN")
 
-            # Calcular la comisión de la plataforma (5%)
+            # Calcular la comisión
             application_fee_cents = int(total_amount_cents * 0.05)
-            print(f"DEBUG: Comisión plataforma: {application_fee_cents}, Monto vendedor: {total_amount_cents - application_fee_cents}")
 
-            # Crear el PaymentIntent
-            print(f"DEBUG: Creando PaymentIntent en Stripe...")
-            payment_intent = stripe.PaymentIntent.create(
-                amount=total_amount_cents,
-                currency="mxn",  # O la moneda que uses
-                automatic_payment_methods={"enabled": True},
-                # Comisión para la plataforma
-                application_fee_amount=application_fee_cents,
-                # Transferir el resto al vendedor
-                transfer_data={"destination": seller.stripe_account_id},
-                # Almacenar metadata para identificar la orden después
-                metadata={"order_id": order_id, "buyer_id": buyer_id},
-            )
-            print(f"DEBUG: PaymentIntent creado en Stripe: {payment_intent.id}")
+            # Si no hay cuenta real en stripe
+            line_items = [{
+                'price_data': {
+                    'currency': 'mxn',
+                    'product_data': {
+                        'name': f'Orden #{order.id} - Reborn',
+                        'description': f'Compra de {len(order.items)} artículos',
+                    },
+                    'unit_amount': total_amount_cents,
+                },
+                'quantity': 1,
+            }]
 
-            # Guardar el payment_intent_id en la orden
-            order.stripe_payment_intent_id = payment_intent.id
+            checkout_params = {
+                'line_items': line_items,
+                'mode': 'payment',
+                'success_url': success_url,
+                'cancel_url': cancel_url,
+                'client_reference_id': str(order_id),
+                'metadata': {
+                    'order_id': order_id,
+                    'buyer_id': buyer_id,
+                },
+                'payment_intent_data': {} if not seller.stripe_account_id else {
+                    'application_fee_amount': application_fee_cents,
+                    'transfer_data': {'destination': seller.stripe_account_id},
+                }
+            }
+
+            # Crear la Checkout Session
+            print(f"DEBUG: Creando Checkout Session en Stripe...")
+            checkout_session = stripe.checkout.Session.create(**checkout_params)
+            
+            print(f"DEBUG: Checkout Session creada: {checkout_session.id}")
+            
+            # Guardar el session_id en la orden
+            order.stripe_checkout_session_id = checkout_session.id
             db.commit()
-            print(f"DEBUG: Orden actualizada en BD")
 
-            # Devolver solo el client_secret al frontend
-            return payment_intent.client_secret
+            return checkout_session.url
 
-        except ValueError as e:
-            print(f"ValueError en create_payment_intent: {str(e)}")
-            raise ValueError(f"Error de validación: {str(e)}")
         except Exception as e:
-            import traceback
-            error_name = type(e).__name__
-            error_msg = str(e)
-            print(f"Exception en create_payment_intent: {error_name}: {error_msg}")
-            traceback.print_exc()
-            raise ValueError(f"Error de Stripe: {error_msg if error_msg else error_name}")
+            print(f"Error creando Checkout Session: {str(e)}")
+            raise ValueError(f"Error de Stripe: {str(e)}")
 
     # ==================== WEBHOOKS ====================
 

@@ -6,6 +6,8 @@ import { ProductDetail } from './pages/producto_detallado';
 import { Auth } from './components/auth';
 import { CartProvider } from './context/CartContext';
 import { Carrito } from './pages/carrito';
+import { CheckoutPage } from './pages/checkout';
+import { OrderConfirmationPage } from './pages/confirmation';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path="/producto/:productId" element={<ProductDetail />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/carrito" element={<Carrito />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/orden-confirmada" element={<OrderConfirmationPage />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>

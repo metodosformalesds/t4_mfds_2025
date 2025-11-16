@@ -1,0 +1,240 @@
+/* ========== FORMULARIO DE DIRECCIÓN ========== */
+.address-form {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--collection-1-morado-oscuro);
+  margin: 0 0 25px 0;
+  text-align: center;
+}
+
+/* OPCIONES DE DIRECCIÓN */
+.profile-address-option,
+.custom-address-option {
+  margin-bottom: 25px;
+  padding: 20px;
+  border: 2px solid #f0f0f0;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.profile-address-option:hover,
+.custom-address-option:hover {
+  border-color: var(--collection-1-morado-claro);
+}
+
+.option-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.option-radio {
+  margin-top: 2px;
+  accent-color: var(--collection-1-morado-claro);
+}
+
+.option-text {
+  flex: 1;
+}
+
+/* VISTA PREVIA DE DIRECCIÓN DEL PERFIL */
+.profile-address-preview {
+  margin-top: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 4px solid var(--collection-1-morado-claro);
+}
+
+.profile-address-preview strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--collection-1-morado-oscuro);
+}
+
+.address-value {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* INPUT DE DIRECCIÓN PERSONALIZADA */
+.custom-address-input {
+  margin-top: 15px;
+}
+
+.input-label {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.address-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.address-textarea:focus {
+  outline: none;
+  border-color: var(--collection-1-morado-claro);
+}
+
+.address-textarea.error {
+  border-color: var(--collection-1-rosa);
+}
+
+.address-textarea:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  display: block;
+  color: var(--collection-1-rosa);
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+/* TIPS DE DIRECCIÓN */
+.address-tips {
+  margin-top: 15px;
+  padding: 15px;
+  background: #fff8e6;
+  border-radius: 6px;
+  border-left: 4px solid var(--collection-1-amarillo);
+}
+
+.address-tips strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.address-tips ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.address-tips li {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+/* ALERTA SIN DIRECCIÓN */
+.no-address-warning {
+  display: flex;
+  gap: 12px;
+  padding: 15px;
+  background: #fff0f0;
+  border-radius: 8px;
+  border-left: 4px solid var(--collection-1-rosa);
+  margin-bottom: 20px;
+}
+
+.warning-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.warning-content {
+  flex: 1;
+}
+
+.warning-content strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--collection-1-rosa);
+}
+
+.warning-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* BOTONES DE ACCIÓN */
+.form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.cancel-btn,
+.submit-btn {
+  min-width: 150px !important;
+  height: 45px !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .address-form {
+    padding: 20px;
+  }
+  
+  .form-title {
+    font-size: 20px;
+  }
+  
+  .profile-address-option,
+  .custom-address-option {
+    padding: 15px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .cancel-btn,
+  .submit-btn {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .address-form {
+    padding: 15px;
+  }
+  
+  .option-label {
+    font-size: 14px;
+  }
+  
+  .address-tips {
+    padding: 12px;
+  }
+  
+  .address-tips li {
+    font-size: 11px;
+  }
+}

@@ -1,7 +1,6 @@
 // src/services/api.js
 import { authService } from './authService';
-
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_URL
 
 class ApiClient {
   constructor(baseURL = API_BASE_URL) {

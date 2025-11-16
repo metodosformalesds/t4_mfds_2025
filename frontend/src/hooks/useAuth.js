@@ -78,7 +78,7 @@ export const useAuth = () => {
       });
 
       setLoading(false);
-      navigate('/');
+      window.location.href = '/';
       return response;
 
     } catch (error) {
@@ -86,7 +86,7 @@ export const useAuth = () => {
       setError(error.message || 'Error en el login');
       throw error;
     }
-  }, [navigate]);
+  }, []);
 
   /**
    * Maneja el proceso de recuperación de contraseña
@@ -117,8 +117,8 @@ export const useAuth = () => {
     setUser(null);
     setError(null);
 
-    navigate('/');
-  }, [navigate]);
+    window.location.href = '/';
+  }, []);
 
   /**
    * Limpia los errores del estado
