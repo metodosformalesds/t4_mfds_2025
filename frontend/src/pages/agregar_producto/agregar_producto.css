@@ -1,0 +1,777 @@
+/* 
+    Autor: Ian Domínguez
+    Fecha: 16 de noviembre de 2025
+    Descripción: Estilados para el archivo de 
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.agregar-producto-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+/* ========================================
+   CONTENEDOR PRINCIPAL
+   ======================================== */
+.agregar-producto-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  width: 100%;
+  flex: 1;
+}
+
+/* ========================================
+   TÍTULO DE PÁGINA
+   ======================================== */
+.page-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: #450693;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.title-highlight {
+  color: #450693;
+  position: relative;
+}
+
+.page-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 3px;
+  background-color: #ffc400;
+}
+
+/* ========================================
+   FORM WRAPPER
+   ======================================== */
+.form-wrapper {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  min-height: 600px;
+}
+
+/* ========================================
+   STEP LAYOUTS
+   ======================================== */
+.step-layout {
+  width: 100%;
+  min-height: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+}
+
+.step-layout.two-panels {
+  background: linear-gradient(
+    180deg,
+    rgba(69, 6, 147, 0.96) 0%,
+    rgba(140, 0, 255, 0.82) 56.73%,
+    rgba(255, 63, 127, 0.37) 100%
+  );
+}
+
+.step-layout.full-panel {
+  background: linear-gradient(
+    180deg,
+    rgba(69, 6, 147, 0.96) 0%,
+    rgba(140, 0, 255, 0.82) 56.73%,
+    rgba(255, 63, 127, 0.37) 100%
+  );
+}
+
+/* ========================================
+   LEFT PANEL (Pregunta)
+   ======================================== */
+.left-panel {
+  width: 35%;
+  background: rgba(140, 0, 255, 0.9);
+  box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 40px;
+  position: relative;
+}
+
+.panel-question {
+  font-family: "Poppins", sans-serif;
+  font-size: 42px;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: -4px -4px 16px rgba(0, 0, 0, 0.25);
+  line-height: 1.4;
+}
+
+/* ========================================
+   RIGHT PANEL (Input)
+   ======================================== */
+.right-panel {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  gap: 30px;
+}
+
+/* ========================================
+   CONTENT CARD (Panel blanco)
+   ======================================== */
+.content-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================================
+   INPUT CONTAINERS
+   ======================================== */
+.input-container {
+  background-color: #f5f5f5;
+  border-radius: 50px;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  position: relative;
+  border: 2px solid #e0e0e0;
+  transition: border-color 0.3s ease;
+}
+
+.input-container:focus-within {
+  border-color: #8c00ff;
+}
+
+.textarea-container {
+  border-radius: 16px;
+  min-height: 150px;
+  align-items: flex-start;
+  padding: 20px 30px;
+}
+
+.input-icon {
+  color: #333;
+  flex-shrink: 0;
+}
+
+.textarea-icon {
+  margin-top: 5px;
+}
+
+.form-input {
+  border: none;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #333;
+  width: 100%;
+  background: transparent;
+}
+
+.form-input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.form-textarea {
+  border: none;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  color: #333;
+  width: 100%;
+  min-height: 100px;
+  background: transparent;
+  resize: vertical;
+}
+
+.form-textarea::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.form-select {
+  border: none;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #333;
+  width: 100%;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.form-select option[value=""] {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.select-arrow {
+  color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  right: 30px;
+}
+
+/* ========================================
+   BOTONES
+   ======================================== */
+.btn-siguiente-general {
+  margin-top: 10px;
+}
+
+/* ========================================
+   ERROR MESSAGE
+   ======================================== */
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+  border: 1px solid #ef9a9a;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.btn-back {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: transparent;
+  border: 1px solid #ffffff;
+  border-radius: 15px;
+  padding: 15px 20px;
+  color: #ffffff;
+  cursor: pointer;
+  filter: drop-shadow(-4px -4px 32px #450693)
+    drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+  transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================
+   FULL PANEL LAYOUTS
+   ======================================== */
+.summary-panel,
+.upload-panel,
+.success-panel {
+  width: 100%;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+  position: relative;
+}
+
+/* ========================================
+   SUMMARY CARD (Paso 6)
+   ======================================== */
+.summary-card {
+  padding: 50px;
+  max-width: 900px;
+  width: 100%;
+  background: rgba(140, 0, 255, 0.6);
+  box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+}
+
+.summary-content {
+  width: 100%;
+}
+
+.summary-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.summary-item {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.summary-label {
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ========================================
+   UPLOAD CARD (Paso 7)
+   ======================================== */
+.upload-card {
+  background: rgba(140, 0, 255, 0.6);
+  border-radius: 16px;
+  padding: 50px;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.upload-area {
+  background: rgba(140, 0, 255, 0.6);
+  border: 3px dashed #8c00ff;
+  border-radius: 16px;
+  padding: 60px 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.upload-area:hover {
+  background: #ede7f6b4;
+  border-color: #fff;
+}
+
+.upload-area svg {
+  color: #333;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-notice {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.notice-label {
+  color: #fff;
+  font-weight: 700;
+}
+
+.images-preview {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.images-count {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.images-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.image-item {
+  background: #f5f5f5;
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+.remove-image {
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.remove-image:hover {
+  background: #cc0000;
+}
+
+.upload-btn {
+  margin-top: 10px;
+}
+
+/* ========================================
+   SUCCESS CARD (Paso 8)
+   ======================================== */
+.success-card {
+  background: rgba(140, 0, 255, 0.6);
+  border-radius: 16px;
+  padding: 60px;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success-message {
+  font-family: "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 40px;
+}
+
+/* ========================================
+   FLOATING BUTTONS
+   ======================================== */
+.btn-back-floating,
+.btn-next-floating {
+  position: absolute;
+  background: transparent;
+  border-radius: 15px;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-back-floating {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  filter: drop-shadow(-4px -4px 32px #450693)
+    drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.btn-back-floating.left {
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn-back-floating:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-next-floating {
+  background-color: #ffc400;
+  border: none;
+  color: #000;
+}
+
+.btn-next-floating.right {
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn-next-floating.center {
+  position: relative;
+  margin-top: 30px;
+}
+
+.btn-next-floating:hover {
+  background-color: #e6ac00;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.btn-next-floating.center:hover {
+  transform: scale(1.05);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 1024px) {
+  .left-panel {
+    width: 40%;
+    padding: 40px 30px;
+  }
+
+  .right-panel {
+    width: 60%;
+    padding: 40px;
+  }
+
+  .panel-question {
+    font-size: 36px;
+  }
+
+  .content-card {
+    padding: 30px;
+  }
+
+  .summary-card {
+    padding: 40px;
+  }
+
+  .summary-title {
+    font-size: 32px;
+  }
+
+  .summary-item {
+    font-size: 18px;
+  }
+
+  .upload-card {
+    padding: 40px;
+  }
+
+  .upload-title {
+    font-size: 28px;
+  }
+
+  .success-card {
+    padding: 50px;
+  }
+
+  .success-message {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .agregar-producto-container {
+    padding: 30px 15px 60px;
+  }
+
+  .page-title {
+    font-size: 28px;
+  }
+
+  .page-title::after {
+    width: 220px;
+  }
+
+  .step-layout.two-panels {
+    flex-direction: column;
+  }
+
+  .left-panel {
+    width: 100%;
+    min-height: 200px;
+    padding: 30px 20px;
+  }
+
+  .right-panel {
+    width: 100%;
+    padding: 30px 20px;
+  }
+
+  .panel-question {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .btn-back {
+    bottom: 20px;
+  }
+
+  .content-card {
+    padding: 25px;
+  }
+
+  .input-container {
+    padding: 12px 20px;
+  }
+
+  .summary-panel,
+  .upload-panel,
+  .success-panel {
+    padding: 40px 20px;
+    min-height: 500px;
+  }
+
+  .summary-card {
+    padding: 30px;
+  }
+
+  .summary-title {
+    font-size: 28px;
+  }
+
+  .summary-item {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .upload-card {
+    padding: 30px;
+  }
+
+  .upload-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .upload-area {
+    padding: 50px 80px;
+  }
+
+  .upload-notice {
+    font-size: 16px;
+  }
+
+  .success-card {
+    padding: 40px;
+  }
+
+  .success-message {
+    font-size: 24px;
+  }
+
+  .btn-back-floating.left {
+    left: 15px;
+  }
+
+  .btn-next-floating.right {
+    right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 24px;
+  }
+
+  .page-title::after {
+    width: 180px;
+  }
+
+  .panel-question {
+    font-size: 24px;
+  }
+
+  .content-card {
+    padding: 20px;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select {
+    font-size: 14px;
+  }
+
+  .summary-card {
+    padding: 25px;
+  }
+
+  .summary-title {
+    font-size: 24px;
+  }
+
+  .summary-item {
+    font-size: 14px;
+  }
+
+  .upload-card {
+    padding: 25px;
+  }
+
+  .upload-title {
+    font-size: 22px;
+  }
+
+  .upload-area {
+    padding: 40px 60px;
+  }
+
+  .upload-area svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .upload-notice {
+    font-size: 14px;
+  }
+
+  .success-card {
+    padding: 30px;
+  }
+
+  .success-message {
+    font-size: 22px;
+  }
+
+  .btn-back-floating,
+  .btn-next-floating {
+    padding: 12px 16px;
+  }
+}
