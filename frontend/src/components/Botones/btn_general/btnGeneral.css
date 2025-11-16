@@ -1,0 +1,122 @@
+:root {
+  --collection-1-amarillo: rgba(255, 196, 0, 1);
+  --collection-1-morado-claro: rgba(140, 0, 255, 1);
+  --collection-1-morado-oscuro: rgba(69, 6, 147, 1);
+  --collection-1-rosa: rgba(255, 63, 127, 1);
+}
+
+/* ESTILOS BASE DEL BOTÓN */
+.btn-general {
+  align-items: center;
+  border-radius: 15px;
+  display: flex;
+  gap: 10px;
+  height: 70px;
+  justify-content: center;
+  padding: 5px 15px;
+  position: relative;
+  width: 230px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  outline: none;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* VARIANTE DEFAULT - Con fondo */
+.btn-general.default {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* VARIANTE 2 - Con borde */
+.btn-general.variant-2 {
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 4px 4px 4px #00000040;
+}
+
+/* SISTEMA DE COLORES */
+
+/* COLOR MORADO */
+.btn-general.color-morado {
+  --color-primary: var(--collection-1-morado-oscuro);
+  --color-hover: #350572;
+  --color-light: rgba(69, 6, 147, 0.1);
+}
+
+/* COLOR ROSA */
+.btn-general.color-rosa {
+  --color-primary: var(--collection-1-rosa);
+  --color-hover: #e02a6c;
+  --color-light: rgba(255, 63, 127, 0.1);
+}
+
+/* COLOR AMARILLO */
+.btn-general.color-amarillo {
+  --color-primary: var(--collection-1-amarillo);
+  --color-hover: #e6ac00;
+  --color-light: rgba(255, 196, 0, 0.1);
+  color: #333; /* Texto oscuro para mejor contraste */
+}
+
+.btn-general.color-amarillo.variant-2 {
+  color: #333; /* Texto oscuro en variante con borde */
+}
+
+/* COLOR MORADO CLARO */
+.btn-general.color-morado-claro {
+  --color-primary: var(--collection-1-morado-claro);
+  --color-hover: #8a00cc;
+  --color-light: rgba(140, 0, 255, 0.1);
+}
+
+/* ESTADOS INTERACTIVOS */
+.btn-general.default:hover {
+  background-color: var(--color-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-general.variant-2:hover {
+  background-color: var(--color-light);
+  transform: translateY(-2px);
+}
+
+.btn-general:active {
+  transform: translateY(0);
+}
+
+/* ESTADO DESHABILITADO */
+.btn-general:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .btn-general {
+    width: 200px;
+    height: 60px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-general {
+    width: 180px;
+    height: 55px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .btn-general {
+    height: 40px;
+    font-size: 14px;
+  }
+}

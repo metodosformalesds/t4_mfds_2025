@@ -7,7 +7,7 @@ from models.payment import Payment
 from models.order import Order
 from models.user import User
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+#stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class PaymentService:
     def create_payment_intent(self, db: Session, order_id: int, buyer_id: int):

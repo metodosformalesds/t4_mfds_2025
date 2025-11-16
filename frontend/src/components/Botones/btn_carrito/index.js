@@ -1,0 +1,1 @@
+export { BtnCarrito } from './btnCarrito';

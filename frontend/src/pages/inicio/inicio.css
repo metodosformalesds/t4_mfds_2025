@@ -1,0 +1,509 @@
+/* 
+  Autor: Erick Rangel
+  Fecha: 11 de noviembre de 205
+  Descripción: estilos para inicio.jsx
+*/
+
+:root {
+  --collection-1-amarillo: rgba(255, 196, 0, 1);
+  --collection-1-morado-claro: rgba(140, 0, 255, 1);
+  --collection-1-morado-oscuro: rgba(69, 6, 147, 1);
+  --collection-1-rosa: rgba(255, 63, 127, 1);
+  --reborn-texto-font-family: "Poppins", Helvetica;
+  --reborn-titulo-font-family: "Playfair", Helvetica;
+}
+
+/* ========== PÁGINA PRINCIPAL ========== */
+.pagina-inicio {
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+
+/* ========== HERO SECTION ========== */
+/* .hero-inicio {
+  background: linear-gradient(135deg, var(--collection-1-morado-oscuro) 0%, var(--collection-1-morado-claro) 100%);
+  padding: 100px 40px 80px;
+  text-align: center;
+  color: white;
+  margin-top: 0; 
+} */
+
+.contenido-hero {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.titulo-hero {
+  font-family: var(--reborn-titulo-font-family);
+  font-size: 48px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.descripcion-hero {
+  font-family: var(--reborn-texto-font-family);
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.btn-explorar {
+  margin: 0 auto;
+}
+
+/* ========== SECCIONES ========== */
+.seccion-productos,
+.seccion-artistas {
+  padding: 80px 40px;
+  background-color: #f8f9fa;
+}
+
+.contenedor-titulo {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.titulo-seccion {
+  font-family: var(--reborn-titulo-font-family);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--collection-1-morado-oscuro);
+  margin: 0;
+}
+
+/* ========== GRID DE PRODUCTOS ========== */
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ========== GRID DE ARTISTAS ========== */
+.grid-artistas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+
+@media (max-width: 1024px) {
+  .hero-inicio {
+    padding: 90px 30px 70px; 
+  }
+  
+  .titulo-hero {
+    font-size: 36px;
+  }
+  
+  .seccion-productos,
+  .seccion-artistas {
+    padding: 40px 30px;
+  }
+  
+  .grid-productos {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  
+  .grid-artistas {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-inicio {
+    padding: 80px 20px 60px;
+  }
+  
+  .titulo-hero {
+    font-size: 28px;
+  }
+  
+  .descripcion-hero {
+    font-size: 16px;
+  }
+  
+  .seccion-productos,
+  .seccion-artistas {
+    padding: 30px 20px;
+  }
+  
+  .titulo-seccion {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-inicio {
+    padding: 70px 15px 50px; 
+  }
+  
+  .titulo-hero {
+    font-size: 24px;
+  }
+  
+  .descripcion-hero {
+    font-size: 14px;
+  }
+  
+  .seccion-productos,
+  .seccion-artistas {
+    padding: 20px 15px;
+  }
+  
+  .grid-productos {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .grid-artistas {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .titulo-seccion {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-inicio {
+    padding: 65px 12px 45px;
+  }
+  
+  .grid-artistas {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Adición Ian Domínguez, 15 de noviembre de 2025 */
+
+/* Animación de Hero */
+
+.hero-inicio {
+  background: linear-gradient(-45deg, 
+    var(--collection-1-morado-oscuro), 
+    var(--collection-1-morado-claro), 
+    #9b30ff,
+    var(--collection-1-morado-oscuro)
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+  padding: 100px 40px 80px;
+  text-align: center;
+  color: white;
+  margin-top: 0;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ========================================
+   SECCIÓN SOBRE NOSOTROS
+   ======================================== */
+.seccion-nosotros {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decoración de fondo */
+.seccion-nosotros::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: rgba(140, 0, 255, 0.05);
+  border-radius: 50%;
+}
+
+.seccion-nosotros::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: -30px;
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 63, 127, 0.05);
+  border-radius: 50%;
+}
+
+.contenido-nosotros {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.nosotros-logo {
+  flex-shrink: 0;
+}
+
+.logo-nosotros {
+  width: 300px;
+  height: auto;
+  filter: drop-shadow(0 10px 20px rgba(69, 6, 147, 0.15));
+  transition: transform 0.3s ease;
+}
+
+.logo-nosotros:hover {
+  transform: scale(1.05);
+}
+
+.nosotros-textos {
+  flex: 1;
+}
+
+.parrafo-nosotros {
+  font-family: var(--reborn-texto-font-family);
+  font-size: 16px;
+  line-height: 1.9;
+  color: #555;
+  margin-bottom: 20px;
+  position: relative;
+  padding-left: 20px;
+  border-left: 3px solid var(--collection-1-morado-claro);
+}
+
+.parrafo-nosotros:nth-child(2) {
+  border-left-color: var(--collection-1-rosa);
+}
+
+.parrafo-nosotros:nth-child(3) {
+  border-left-color: var(--collection-1-amarillo);
+}
+
+.parrafo-nosotros:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive para Sobre Nosotros */
+@media (max-width: 968px) {
+  .contenido-nosotros {
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .logo-nosotros {
+    width: 250px;
+  }
+
+  .parrafo-nosotros {
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .seccion-nosotros {
+    padding: 60px 20px;
+  }
+
+  .logo-nosotros {
+    width: 220px;
+  }
+
+  .parrafo-nosotros {
+    font-size: 15px;
+    padding-left: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .seccion-nosotros {
+    padding: 50px 15px;
+  }
+
+  .contenido-nosotros {
+    gap: 30px;
+  }
+
+  .logo-nosotros {
+    width: 180px;
+  }
+
+  .parrafo-nosotros {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 15px;
+  }
+}
+/* ========================================
+   CÍRCULOS ANIMADOS DEL HERO
+   ======================================== */
+.hero-inicio {
+  position: relative;
+  overflow: hidden;
+}
+
+.circulo-animado {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Círculos amarillos */
+.circulo-1 {
+  width: 120px;
+  height: 120px;
+  background-color: var(--collection-1-amarillo);
+  top: 10%;
+  left: 5%;
+  animation: flotar 8s ease-in-out infinite;
+}
+
+.circulo-2 {
+  width: 80px;
+  height: 80px;
+  background-color: var(--collection-1-amarillo);
+  bottom: 15%;
+  right: 10%;
+  animation: flotar 10s ease-in-out infinite reverse;
+}
+
+.circulo-3 {
+  width: 60px;
+  height: 60px;
+  background-color: var(--collection-1-amarillo);
+  top: 40%;
+  right: 5%;
+  animation: flotar 12s ease-in-out infinite;
+}
+
+/* Círculos morados */
+.circulo-4 {
+  width: 100px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.2);
+  top: 20%;
+  right: 20%;
+  animation: flotar 9s ease-in-out infinite reverse;
+}
+
+.circulo-5 {
+  width: 140px;
+  height: 140px;
+  background-color: rgba(255, 255, 255, 0.15);
+  bottom: 10%;
+  left: 15%;
+  animation: flotar 11s ease-in-out infinite;
+}
+
+.circulo-6 {
+  width: 50px;
+  height: 50px;
+  background-color: var(--collection-1-amarillo);
+  top: 60%;
+  left: 8%;
+  animation: flotar 7s ease-in-out infinite reverse;
+}
+
+@keyframes flotar {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-15px) scale(0.95);
+  }
+  75% {
+    transform: translateY(-25px) translateX(5px) scale(1.02);
+  }
+}
+
+/* Asegurar que el contenido esté encima de los círculos */
+.contenido-hero {
+  position: relative;
+  z-index: 2;
+}
+
+
+@media (max-width: 768px) {
+  .circulo-3,
+  .circulo-6 {
+    display: none;
+  }
+  
+  .circulo-1 {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .circulo-5 {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .circulo-4,
+  .circulo-5 {
+    display: none;
+  }
+}
+
+/* Responsive para Sobre Nosotros */
+@media (max-width: 768px) {
+  .seccion-nosotros {
+    padding: 40px 20px;
+  }
+
+  .texto-nosotros {
+    padding: 30px 25px;
+  }
+
+  .subtitulo-nosotros {
+    font-size: 24px;
+  }
+
+  .parrafo-nosotros {
+    font-size: 14px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .seccion-nosotros {
+    padding: 30px 15px;
+  }
+
+  .texto-nosotros {
+    padding: 25px 20px;
+  }
+
+  .subtitulo-nosotros {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .parrafo-nosotros {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+}

@@ -1,0 +1,241 @@
+/* 
+    Autor: Ian Domínguez
+    Fecha: 15 de noviembre de 2025
+    Descripción: Estilado para la página de Metodos de pago
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.payment-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+/* ========================================
+   CONTENEDOR PRINCIPAL
+   ======================================== */
+.payment-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 30px 80px;
+  width: 100%;
+  flex: 1;
+}
+
+/* ========================================
+   BREADCRUMB
+   ======================================== */
+.payment-breadcrumb {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #7c00e8;
+  margin-bottom: 25px;
+}
+
+/* ========================================
+   TÍTULOS
+   ======================================== */
+.payment-main-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #450693;
+  margin-bottom: 15px;
+}
+
+.payment-intro {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* ========================================
+   DIVISOR
+   ======================================== */
+.payment-divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 25px 0;
+}
+
+/* ========================================
+   SECCIONES
+   ======================================== */
+.payment-section {
+  margin-bottom: 25px;
+}
+
+.payment-section-intro {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.payment-section-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.payment-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.payment-text:last-child {
+  margin-bottom: 0;
+}
+
+.email-link {
+  color: #8c00ff;
+  font-weight: 600;
+}
+
+.payment-text strong {
+  color: #333;
+}
+
+/* ========================================
+   LISTA DE MÉTODOS DE PAGO
+   ======================================== */
+.payment-list {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.8;
+  margin-left: 25px;
+  margin-bottom: 20px;
+}
+
+.payment-list li {
+  margin-bottom: 6px;
+}
+
+/* ========================================
+   SECCIÓN DE NOTAS
+   ======================================== */
+.payment-note-section {
+  margin-bottom: 25px;
+}
+
+.payment-note-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.payment-note-list {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+  margin-left: 25px;
+}
+
+.payment-note-list li {
+  margin-bottom: 10px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 768px) {
+  .payment-container {
+    padding: 30px 20px 60px;
+  }
+
+  .payment-main-title {
+    font-size: 28px;
+  }
+
+  .payment-intro {
+    font-size: 14px;
+  }
+
+  .payment-section-title {
+    font-size: 18px;
+  }
+
+  .payment-text,
+  .payment-list,
+  .payment-note-list {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-container {
+    padding: 25px 15px 50px;
+  }
+
+  .payment-breadcrumb {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .payment-main-title {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .payment-intro {
+    font-size: 13px;
+  }
+
+  .payment-section-intro {
+    font-size: 14px;
+  }
+
+  .payment-section-title {
+    font-size: 17px;
+  }
+
+  .payment-text,
+  .payment-list,
+  .payment-note-list {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .payment-list,
+  .payment-note-list {
+    margin-left: 20px;
+  }
+
+  .payment-divider {
+    margin: 20px 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .payment-main-title {
+    font-size: 22px;
+  }
+
+  .payment-section-title {
+    font-size: 16px;
+  }
+
+  .payment-text,
+  .payment-list,
+  .payment-note-list {
+    font-size: 12px;
+  }
+}

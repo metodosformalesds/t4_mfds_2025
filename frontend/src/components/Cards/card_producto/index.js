@@ -1,0 +1,1 @@
+export { CardProducto } from './cardProducto';
