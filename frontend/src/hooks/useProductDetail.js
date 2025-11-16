@@ -1,3 +1,16 @@
+/* 
+  Autor: Erick Rangel
+  hook: useProductDetail.js
+  fecha: 14-11-2025
+  descripcion:
+  - Obtener datos completos del producto desde el backend usando su ID
+  - Controlar estados de carga y error
+  - Manejar la imagen seleccionada dentro de la galería del producto
+  - Recargar datos cuando cambia el ID o cuando se solicita manualmente
+  - Proveer utilidades como saber si el producto tiene imágenes, cuántas son
+    y cuál es la imagen actualmente seleccionada
+*/
+
 import { useState, useEffect, useCallback } from 'react';
 import { productService } from '../services/productService';
 

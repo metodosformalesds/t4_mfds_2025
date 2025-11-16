@@ -1,4 +1,5 @@
 // src/services/api.js
+import { authService } from './authService';
 
 const API_BASE_URL = 'http://localhost:8000';
 
@@ -7,23 +8,63 @@ class ApiClient {
     this.baseURL = baseURL;
   }
 
+  /**
+   * Obtener headers con autenticación
+   */
+  getAuthHeaders() {
+    const token = authService.getToken();
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    
+    return headers;
+  }
+
   async request(endpoint, options = {}) {
     const url = `${this.baseURL}${endpoint}`;
     
+    // Combinar headers de autenticación con headers personalizados
+    const authHeaders = this.getAuthHeaders();
     const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers,
-      },
-      ...options,
-    };
+    ...options,
+    headers: {
+      ...authHeaders,
+      ...(options.headers || {}),
+    }
+};
 
     try {
       console.log(`API Request: ${url}`, config);
       const response = await fetch(url, config);
       
+      // Manejar errores de autenticación
+      if (response.status === 401) {
+        // Token inválido o expirado
+        authService.removeToken();
+        throw new Error('Authentication required. Please login again.');
+      }
+      
+      if (response.status === 403) {
+        throw new Error('Access forbidden');
+      }
+      
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // Intentar obtener mensaje de error del backend
+        try {
+          const errorData = await response.json();
+          throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+        } catch {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      }
+
+      // Cuando se elimina un item del carrito
+      if (response.status === 204) {
+        return null;
       }
 
       const data = await response.json();

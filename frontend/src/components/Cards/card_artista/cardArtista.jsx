@@ -1,19 +1,13 @@
+/**
+ Autor: Erick Rangel 
+ Fecha: 12-11-2025
+ Componente: CardArtista 
+ Muestra la información de un artista
+*/
+
 import React from "react";
 import { BtnGeneral } from "../../Botones/btn_general";
 import "./cardArtista.css";
-
-/**
- * Erick Rangel 234591
- * Componente CardArtista 
- * Muestra la información de un artista
- 
- className - Clases CSS adicionales
- artistName - Nombre del artista
- Especialidad del artista
- URL de la imagen del artista
- Función al hacer clic en "Ver perfil"
- Texto del botón (opcional)
-*/
 
 export const CardArtista = ({ 
   className = "",

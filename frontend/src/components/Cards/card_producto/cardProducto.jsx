@@ -1,5 +1,12 @@
+/**
+ Autor: Erick Rangel 
+ Fecha: 12-11-2025
+ Componente: CardProducto
+ Muestra la información de un producto
+*/
+
 import React from "react";
-import { useNavigate } from "react-router-dom"; // NUEVO: Importar useNavigate
+import { useNavigate } from "react-router-dom";
 import { BtnCarrito } from "../../Botones/btn_carrito";
 import { BtnGeneral } from "../../Botones/btn_general";
 import "./cardProducto.css";
@@ -102,6 +109,8 @@ export const CardProducto = ({
           <BtnCarrito 
             className="btn-cart" 
             onClick={onAddToCart}
+            productId={productId} // Pasar el ID del producto
+            showCount={false} // No mostrar contador en las cards
           />
         </div>
       </div>

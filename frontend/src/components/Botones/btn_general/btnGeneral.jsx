@@ -1,3 +1,11 @@
+/*
+  Autor: Erick Rangel
+  Fecha 12-11-2025
+  componente: btngeneral.jsx
+  Descripción:
+  botón multipropósito
+*/
+
 import PropTypes from "prop-types";
 import React from "react";
 import { useReducer } from "react";

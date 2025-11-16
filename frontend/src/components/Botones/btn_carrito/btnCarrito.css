@@ -97,3 +97,47 @@
   width: 60px;
   height: 60px;
 }
+
+.cart-count-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: var(--collection-1-rosa);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  font-family: "Poppins", sans-serif;
+}
+
+/* NUEVO: Posicionamiento relativo para el badge */
+.btn-carrito {
+  position: relative;
+}
+
+/* RESPONSIVE: Ajustes del badge */
+@media (max-width: 768px) {
+  .cart-count-badge {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    top: -4px;
+    right: -4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-count-badge {
+    width: 16px;
+    height: 16px;
+    font-size: 9px;
+    top: -3px;
+    right: -3px;
+  }
+}
