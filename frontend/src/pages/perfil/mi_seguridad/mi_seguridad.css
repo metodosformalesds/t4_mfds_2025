@@ -65,7 +65,7 @@
   display: flex;
   align-items: center;
   gap: 25px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .avatar-imagen {
@@ -103,13 +103,15 @@
    ======================================== */
 .seccion-seguridad {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 40px;
+  gap: 20px;
 }
 
 .seccion-info {
   flex: 1;
+  max-width: 100%;
 }
 
 .seccion-titulo {
@@ -121,18 +123,23 @@
   padding-bottom: 8px;
   border-bottom: 2px solid #ffc400;
   display: inline-block;
+  width: auto;
 }
 
 .seccion-valor {
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   color: #555;
+  margin-top: 8px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .btn-modificar {
   width: 160px !important;
   height: 45px !important;
   font-size: 14px !important;
+  flex-shrink: 0;
 }
 
 /* ========================================
@@ -141,7 +148,7 @@
 .info-card-container {
   display: flex;
   justify-content: flex-end;
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 .info-card {
