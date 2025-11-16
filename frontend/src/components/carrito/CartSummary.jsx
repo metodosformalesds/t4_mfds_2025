@@ -30,10 +30,10 @@ export const CartSummary = ({
     }, 0);
   };
 
-  // Costo de envío (ejemplo: gratis sobre $500)
+  // Costo de envío
   const calculateShipping = () => {
     const subtotal = calculateSubtotal();
-    return subtotal > 500 ? 0 : 50; // Envío gratis sobre $500
+    return subtotal > 999 ? 0 : 99; // Envío gratis sobre $999
   };
 
   // Total final
@@ -77,7 +77,7 @@ export const CartSummary = ({
         
         {shipping === 0 && subtotal > 0 && (
           <div className="shipping-notice">
-            ¡Envío gratis en compras mayores a $500!  
+            ¡Envío gratis en compras mayores a $999!  
           </div>
         )}
         

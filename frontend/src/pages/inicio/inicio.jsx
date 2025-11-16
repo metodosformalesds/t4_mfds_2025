@@ -13,7 +13,7 @@ import { BtnGeneral } from '../../components/Botones/btn_general';
 import { BtnCarrito } from '../../components/Botones/btn_carrito';
 import { CardProducto } from '../../components/Cards/card_producto'; 
 import { CardArtista } from '../../components/Cards/card_artista';
-import { Footer } from '../../components/Footer';
+import { Footer } from '../../components/footer';
 import { Header } from '../../components/Header'; 
 import './inicio.css';
 

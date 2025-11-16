@@ -16,6 +16,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { cartService } from '../services/cartService';
 import { useAuth } from './useAuth';
+import { orderService } from '../services/orderService';
 
 /**
  * Hook personalizado para manejar el estado del carrito
@@ -169,6 +170,8 @@ export const useCart = () => {
     loading,
     error,
     totalItems,
+
+    totals: orderService.calculateTotals(cartItems),
     
     // Acciones 
     addToCart,

@@ -1,7 +1,15 @@
+/*
+ * Autor: Erick Rangel
+ * Fecha: 15-11-2025
+ * Componente: productoDetallado.jsx
+ * Descripción: Página de detalle de producto que muestra información completa, galería de imágenes,
+ *              calificaciones, reseñas y opciones de compra (checkout o agregar al carrito).
+ */
+
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BtnGeneral } from '../../components/Botones/btn_general';
-import { Footer } from '../../components/Footer';
+import { Footer } from '../../components/footer';
 import { Header } from '../../components/Header'; 
 import { useProductDetail } from '../../hooks/useProductDetail';
 import "./productoDetallado.css";
