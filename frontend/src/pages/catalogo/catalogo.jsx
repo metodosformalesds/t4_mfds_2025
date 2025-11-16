@@ -21,7 +21,7 @@ import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 import { CardProducto } from '../../components/Cards/card_producto';
 import { useProducts } from '../../hooks/useProducts';
-import './Catalogo.css';
+import './catalogo.css';
 
 export const Catalogo = () => {
   const [ordenActivo, setOrdenActivo] = useState('nombre');
