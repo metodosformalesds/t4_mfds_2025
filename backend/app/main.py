@@ -5,7 +5,7 @@ from core.database import engine, Base
 from core.config import settings
 
 # Importar todos los routers
-from api.routes import auth, users, products, orders, reviews, favorites, cart, payments#, stripe
+from api.routes import auth, users, products, orders, reviews, favorites, cart, payments, stripe
 
 # Crear tablas
 Base.metadata.create_all(bind=engine)
@@ -19,12 +19,7 @@ app = FastAPI(
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://main.dk8x1ivj443zp.amplifyapp.com/",
-                    "http://localhost:3000", 
-                    "http://localhost:5173",
-                    "http://127.0.0.1:3000",
-                    "http://127.0.0.1:5173",
-                    ],
+    allow_origins=["http://localhost:5173", "https://main.dk8x1ivj443zp.amplifyapp.com/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,7 +34,7 @@ app.include_router(reviews.router, prefix="/api/reviews", tags=["reviews"])
 app.include_router(favorites.router, prefix="/api/favorites", tags=["favorites"])
 app.include_router(cart.router, prefix="/api/cart", tags=["cart"])
 app.include_router(payments.router, prefix="/api/payments", tags=["payments"])
-#app.include_router(stripe.router, prefix="/api/stripe", tags=["stripe"])
+app.include_router(stripe.router, prefix="/api/stripe", tags=["stripe"])
 
 @app.get("/")
 def root():

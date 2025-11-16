@@ -17,13 +17,12 @@ class UserCreate(UserBase):
 
 class UserUpdate(BaseModel):
     username: Optional[str] = None
-    full_name:Optional[str] = None
+    full_name: Optional[str] = None
     bio: Optional[str] = None
     address: Optional[str] = None
     phone: Optional[str] = None
-    profile_picture: Optional[str] = None
     password: Optional[str] = None
-    profile_picture: str
+    profile_picture: Optional[str] = None
 
 class UserResponse(UserBase):
     id: int
