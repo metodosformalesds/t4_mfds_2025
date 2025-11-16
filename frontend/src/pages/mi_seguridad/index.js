@@ -1,0 +1,1 @@
+export {default as Seguridad} from './mi_seguridad';

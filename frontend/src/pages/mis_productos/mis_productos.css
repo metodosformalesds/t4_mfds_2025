@@ -1,0 +1,424 @@
+/* 
+    Autor: Ian Domínguez
+    Fecha: 15 de noviembre de 2025
+    Descripción: Estilados para mis_productos.
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.mis-productos-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+/* ========================================
+   CONTENEDOR PRINCIPAL
+   ======================================== */
+.mis-productos-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px 80px;
+  width: 100%;
+  flex: 1;
+}
+
+/* ========================================
+   BREADCRUMB
+   ======================================== */
+.breadcrumb {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* ========================================
+   PANEL PRINCIPAL
+   ======================================== */
+.productos-panel {
+  background-color: #f0e6ff;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* ========================================
+   PANEL HEADER
+   ======================================== */
+.panel-header {
+  background-color: hsla(267, 77%, 80%, 0.74);
+  padding: 20px 25px;
+}
+
+.panel-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.panel-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+/* ========================================
+   FILTRO (debajo del título)
+   ======================================== */
+.filtro-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filtro-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: white;
+}
+
+.filtro-select {
+  background-color: #a65eff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 30px 8px 15px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+/* ========================================
+   BÚSQUEDA CON ÍCONO SVG
+   ======================================== */
+.busqueda-form {
+  display: flex;
+  align-items: center;
+  height: 36px;
+}
+
+.busqueda-input {
+  background-color: #666;
+  border: none;
+  border-radius: 20px 0 0 20px;
+  padding: 0 15px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: white;
+  width: 180px;
+  height: 100%;
+}
+
+.busqueda-btn {
+  background-color: #888;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  padding: 0 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: background-color 0.3s;
+  height: 100%;
+}
+
+/* ========================================
+   LISTA DE PRODUCTOS (con separación)
+   ======================================== */
+.productos-lista {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.loading {
+  padding: 40px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  color: #666;
+  background-color: white;
+  border-radius: 10px;
+}
+
+/* ========================================
+   PRODUCTO ITEM (con mejor separación)
+   ======================================== */
+.producto-item {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(69, 6, 147, 0.1);
+  overflow: hidden;
+}
+
+.producto-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 25px 10px;
+  border-bottom: 2px solid #450693;
+}
+
+.producto-info-header {
+  flex: 1;
+}
+
+.producto-nombre {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.producto-costo {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #000;
+}
+
+.producto-acciones-header {
+  display: flex;
+  gap: 20px;
+}
+
+.accion-link {
+  background: none;
+  border: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.accion-link:hover {
+  color: #450693;
+  text-decoration: underline;
+}
+
+.accion-eliminar:hover {
+  color: #d32f2f;
+}
+
+/* ========================================
+   CONTENIDO DEL PRODUCTO
+   ======================================== */
+.producto-content {
+  display: flex;
+  align-items: center;
+  padding: 20px 25px;
+  gap: 30px;
+}
+
+.producto-imagen {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.producto-nombre-repetido {
+  flex: 1;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+}
+
+.btn-ver-resenas {
+  width: 160px !important;
+  height: 45px !important;
+  font-size: 14px !important;
+}
+
+/* ========================================
+   PAGINACIÓN
+   ======================================== */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 50px;
+}
+
+.pagina-btn {
+  width: 45px;
+  height: 45px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagina-btn:hover {
+  border-color: #450693;
+  color: #450693;
+}
+
+.pagina-activa {
+  background-color: #450693;
+  border-color: #450693;
+  color: white;
+}
+
+.pagina-activa:hover {
+  background-color: #350572;
+  border-color: #350572;
+  color: white;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .mis-productos-container {
+    padding: 20px 15px 60px;
+  }
+
+  .panel-header {
+    padding: 15px 20px;
+  }
+
+  .panel-header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .panel-title {
+    font-size: 22px;
+  }
+
+  .busqueda-input {
+    width: 100%;
+  }
+
+  .busqueda-form {
+    width: 100%;
+  }
+
+  .productos-lista {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .producto-header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 20px 10px;
+  }
+
+  .producto-acciones-header {
+    gap: 15px;
+  }
+
+  .producto-content {
+    padding: 15px 20px;
+    gap: 20px;
+  }
+
+  .producto-imagen {
+    width: 100px;
+    height: 100px;
+  }
+
+  .producto-nombre-repetido {
+    font-size: 14px;
+  }
+
+  .btn-ver-resenas {
+    width: 140px !important;
+    height: 40px !important;
+    font-size: 13px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .panel-title {
+    font-size: 20px;
+  }
+
+  .filtro-label {
+    font-size: 13px;
+  }
+
+  .filtro-select {
+    font-size: 13px;
+    padding: 6px 25px 6px 12px;
+  }
+
+  .busqueda-input {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .productos-lista {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .producto-nombre {
+    font-size: 16px;
+  }
+
+  .producto-costo {
+    font-size: 13px;
+  }
+
+  .accion-link {
+    font-size: 13px;
+  }
+
+  .producto-content {
+    flex-wrap: wrap;
+  }
+
+  .producto-imagen {
+    width: 80px;
+    height: 80px;
+  }
+
+  .producto-nombre-repetido {
+    font-size: 13px;
+  }
+
+  .btn-ver-resenas {
+    width: 130px !important;
+    height: 38px !important;
+    font-size: 12px !important;
+  }
+
+  .paginacion {
+    gap: 10px;
+    margin-top: 40px;
+  }
+
+  .pagina-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+}

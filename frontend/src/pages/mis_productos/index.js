@@ -1,0 +1,1 @@
+export {default as MisProductos} from './mis_productos';
