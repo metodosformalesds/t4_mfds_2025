@@ -151,6 +151,7 @@
     width: fit-content;
     cursor: pointer;
     transition: color 0.3s;
+    text-decoration: none;
 }
 
 .footer .text-wrapper-2:hover {

@@ -10,6 +10,7 @@
 
 import PropTypes from "prop-types";
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 export const Footer = ({ className, href }) => {
@@ -33,11 +34,11 @@ export const Footer = ({ className, href }) => {
                         <div className="text-wrapper">Ayuda</div>
                     </div>
 
-                    <div className="text-wrapper-2">Preguntas frecuentes</div>
+                    <Link to="/faq" className="text-wrapper-2">Preguntas frecuentes</Link>
 
-                    <div className="text-wrapper-2">Términos y condiciones</div>
+                    <Link to="/terminos-condiciones" className="text-wrapper-2">Términos y condiciones</Link>
 
-                    <div className="text-wrapper-2">Métodos de pago</div>
+                    <Link to="/metodos-pago" className="text-wrapper-2">Métodos de pago</Link>
                 </div>
 
                 <div className="columna-2">
@@ -54,10 +55,6 @@ export const Footer = ({ className, href }) => {
                         >
                             info@reborn.com
                         </a>
-                    </div>
-
-                    <div className="frame">
-                        <div className="text-wrapper-3">Reborn</div>
                     </div>
                 </div>
             </div>

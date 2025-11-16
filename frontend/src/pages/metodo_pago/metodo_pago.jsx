@@ -4,18 +4,22 @@
     Descripción: Muestra una página con los posibles métodos de pago de la plataforma
 */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header'; 
 import "./metodo_pago.css";
 
 export default function PaymentMethods() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="payment-page">
       <Header />
 
       <div className="payment-container">
-        <h1 className="payment-main-title">Métodos de Pago Aceptados</h1>
+        <h1 className="payment-main-title">Métodos de pago aceptados</h1>
 
         <p className="payment-intro">
           Reborn acepta una variedad de opciones de pago, incluyendo tarjetas de
@@ -34,7 +38,6 @@ export default function PaymentMethods() {
             <li>Mastercard</li>
             <li>American Express</li>
             <li>Tarjetas de débito con logo Visa o Mastercard</li>
-            <li>OXXO Pay (pago en efectivo)</li>
           </ul>
 
           <p className="payment-text">
@@ -52,16 +55,8 @@ export default function PaymentMethods() {
               un proveedor certificado PCI DSS Nivel 1.
             </li>
             <li>
-              Los pagos realizados en OXXO tienen una vigencia de 72 horas y se
-              confirman en 1-2 días hábiles.
-            </li>
-            <li>
               Todos los precios están expresados en Pesos Mexicanos (MXN) e
               incluyen IVA.
-            </li>
-            <li>
-              Para solicitar factura fiscal, selecciona la opción "Requiero
-              factura" durante el proceso de pago.
             </li>
           </ul>
         </div>
@@ -85,11 +80,7 @@ export default function PaymentMethods() {
             correctos y que tengas fondos suficientes. Si el problema persiste,
             contacta a tu banco o comunícate con nosotros.
           </p>
-          <p className="payment-text">
-            Para pagos en OXXO no confirmados después de 2 días hábiles,
-            envíanos una foto de tu recibo de pago a{" "}
             <span className="email-link">info@reborn.com</span>.
-          </p>
         </div>
       </div>
 

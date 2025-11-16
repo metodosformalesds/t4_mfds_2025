@@ -4,13 +4,17 @@
     Descripción: Muestra una página para la revisar preguntas 'frecuentes' o posibles de los usuarios.
 */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header'; 
 import "./faq.css";
 
 export default function FAQ() {
   const [openItems, setOpenItems] = useState([]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const toggleItem = (index) => {
     if (openItems.includes(index)) {

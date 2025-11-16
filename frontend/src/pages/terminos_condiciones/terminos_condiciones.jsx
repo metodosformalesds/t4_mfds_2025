@@ -4,12 +4,16 @@
     Descripción: Se muestra una página para términos y condiciones.
 */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header'; 
 import "./terminos_condiciones.css";
 
 export default function TermsAndConditions() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="terms-page">
        <Header />
@@ -179,8 +183,6 @@ export default function TermsAndConditions() {
             </p>
             <p className="terms-contact">
               info@reborn.com
-              <br />
-              Reborn App
             </p>
           </section>
         </div>

@@ -8,6 +8,9 @@ import { CartProvider } from './context/CartContext';
 import { Carrito } from './pages/carrito';
 import { CheckoutPage } from './pages/checkout';
 import { OrderConfirmationPage } from './pages/confirmation';
+import { FAQ } from './pages/faq';
+import { TermsAndConditions } from './pages/terminos_condiciones';
+import { PaymentMethods } from './pages/metodo_pago';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/orden-confirmada" element={<OrderConfirmationPage />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/terminos-condiciones" element={<TermsAndConditions />} />
+          <Route path="/metodos-pago" element={<PaymentMethods />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>
