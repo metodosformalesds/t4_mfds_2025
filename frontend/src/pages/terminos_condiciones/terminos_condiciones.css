@@ -1,0 +1,185 @@
+/* 
+    Autor: Ian Domínguez
+    Fecha: 15 de noviembre de 2025
+    Descripción: Estilados para la página de terminos y condiciones.
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.terms-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+/* ========================================
+   CONTENEDOR PRINCIPAL
+   ======================================== */
+.terms-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 50px 30px 80px;
+  width: 100%;
+  flex: 1;
+}
+
+/* ========================================
+   TÍTULOS
+   ======================================== */
+.terms-main-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: #450693;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.terms-last-update {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 40px;
+  font-style: italic;
+}
+
+/* ========================================
+   CONTENIDO
+   ======================================== */
+.terms-content {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.terms-section {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 30px;
+}
+
+.terms-section:last-child {
+  border-bottom: none;
+}
+
+.terms-section-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.terms-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 12px;
+  text-align: justify;
+}
+
+.terms-text:last-child {
+  margin-bottom: 0;
+}
+
+.terms-list {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #555;
+  margin-left: 25px;
+  margin-top: 10px;
+}
+
+.terms-list li {
+  margin-bottom: 8px;
+}
+
+.terms-contact {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  line-height: 2;
+  color: #8C00FF;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 768px) {
+  .terms-container {
+    padding: 40px 20px 60px;
+  }
+
+  .terms-main-title {
+    font-size: 36px;
+  }
+
+  .terms-section-title {
+    font-size: 20px;
+  }
+
+  .terms-text {
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .terms-list {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .terms-container {
+    padding: 30px 15px 50px;
+  }
+
+  .terms-main-title {
+    font-size: 30px;
+  }
+
+  .terms-last-update {
+    font-size: 13px;
+    margin-bottom: 30px;
+  }
+
+  .terms-section-title {
+    font-size: 18px;
+  }
+
+  .terms-text,
+  .terms-list {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .terms-content {
+    gap: 25px;
+  }
+
+  .terms-section {
+    padding-bottom: 25px;
+  }
+}
+
+@media (max-width: 360px) {
+  .terms-main-title {
+    font-size: 26px;
+  }
+
+  .terms-section-title {
+    font-size: 16px;
+  }
+
+  .terms-text,
+  .terms-list {
+    font-size: 12px;
+  }
+}
