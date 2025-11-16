@@ -1,6 +1,13 @@
+/*
+  Autor: Erick Rangel
+  Fecha 12-11-2025
+  componente: btncarrito.jsx
+  Descripción:
+  añade items al carrito 
+*/
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../../../hooks/useCart";
 import { useAuth } from "../../../hooks/useAuth";
 import { AuthModal } from "../../modales/auth";
 import { useCartContext } from '../../../context/CartContext.jsx';
@@ -15,7 +22,7 @@ export const BtnCarrito = ({
 }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
- const { totalItems, addToCart } = useCartContext();
+  const { totalItems, addToCart } = useCartContext();
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   // Manejar click del botón

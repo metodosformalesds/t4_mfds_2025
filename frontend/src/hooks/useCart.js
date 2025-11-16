@@ -1,3 +1,18 @@
+/* 
+  Autor: Erick Rangel
+  hook: useCart.js
+  fecha: 15-11-2025
+  descripcion:
+  - Cargar el carrito desde el backend cuando el usuario está autenticado
+  - Agregar productos al carrito, actualizar cantidades y eliminar items
+  - Vaciar el carrito completo
+  - Manejar estados de carga y error
+  - Calcular cantidad total de productos y precio total del carrito
+  - Limpiar el carrito automáticamente cuando el usuario no está autenticado
+  - Exponer utilidades como `isEmpty`, `hasError` y `refetch`
+*/
+
+
 import { useState, useEffect, useCallback } from 'react';
 import { cartService } from '../services/cartService';
 import { useAuth } from './useAuth';

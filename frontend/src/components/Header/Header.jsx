@@ -1,8 +1,17 @@
+/*
+  Autor: Erick Rangel
+  Fecha 11-11-2025
+  componente: header.jsx
+  Descripción:
+  componente básico que muestra logo, links de navegación y botones
+  para inicio de sesión, carrito y logout.
+*/
+
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useCart } from '../../hooks/useCart';
-import { useCartContext } from '../../context/CartContext.jsx';
+import { useCartContext } from '../../context/CartContext';
 import './Header.css';
 
 export const Header = () => {
