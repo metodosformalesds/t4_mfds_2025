@@ -1,0 +1,1 @@
+export {default as MiInformacion} from './mi_informacion';

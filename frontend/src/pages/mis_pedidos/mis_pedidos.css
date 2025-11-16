@@ -1,0 +1,466 @@
+/* 
+    Autor: Ian Dominguez
+    Fecha: 15 de noviembre de 2025
+    Descripción: estilado para mis_pedidos.jsx
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.mis-pedidos-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+/* ========================================
+   CONTENEDOR PRINCIPAL
+   ======================================== */
+.mis-pedidos-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px 80px;
+  width: 100%;
+  flex: 1;
+}
+
+/* ========================================
+   BREADCRUMB
+   ======================================== */
+.breadcrumb {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* ========================================
+   PANEL PRINCIPAL
+   ======================================== */
+.pedidos-panel {
+  background-color: #f0e6ff;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* ========================================
+   PANEL HEADER
+   ======================================== */
+.panel-header {
+  background-color: hsla(267, 77%, 80%, 0.74);
+  padding: 20px 25px;
+}
+
+.panel-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.panel-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+/* ========================================
+   FILTRO (debajo del título)
+   ======================================== */
+.filtro-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filtro-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: white;
+}
+
+.filtro-select {
+  background-color: #8c00ff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 30px 8px 15px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23fff' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+/* ========================================
+   BÚSQUEDA CON ÍCONO SVG
+   ======================================== */
+.busqueda-form {
+  display: flex;
+  align-items: center;
+  height: 36px;
+}
+
+.busqueda-input {
+  background-color: #666;
+  border: none;
+  border-radius: 20px 0 0 20px;
+  padding: 0 15px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: white;
+  width: 180px;
+  height: 100%;
+}
+
+.busqueda-input::placeholder {
+  color: #aaa;
+}
+
+.busqueda-input:focus {
+  outline: none;
+  background-color: #555;
+}
+
+.busqueda-btn {
+  background-color: #888;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  padding: 0 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: background-color 0.3s;
+  height: 100%;
+}
+
+.busqueda-btn:hover {
+  background-color: #999;
+}
+
+/* ========================================
+   LISTA DE PEDIDOS (con separación)
+   ======================================== */
+.pedidos-lista {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.loading {
+  padding: 40px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  color: #666;
+  background-color: white;
+  border-radius: 10px;
+}
+
+/* ========================================
+   PEDIDO ITEM (con mejor separación)
+   ======================================== */
+.pedido-item {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(69, 6, 147, 0.1);
+  overflow: hidden;
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 25px 10px;
+  border-bottom: 2px solid #450693;
+}
+
+.pedido-info-header {
+  flex: 1;
+}
+
+.pedido-fecha {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.pedido-total {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+}
+
+.pedido-acciones-header {
+  display: flex;
+  gap: 20px;
+}
+
+.accion-link {
+  background: none;
+  border: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.accion-link:hover {
+  color: #450693;
+  text-decoration: underline;
+}
+
+.accion-eliminar:hover {
+  color: #d32f2f;
+}
+
+/* ========================================
+   CONTENIDO DEL PEDIDO
+   ======================================== */
+.pedido-content {
+  display: flex;
+  align-items: center;
+  padding: 20px 25px;
+  gap: 30px;
+}
+
+.pedido-imagen {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pedido-producto-info {
+  flex: 1;
+}
+
+.pedido-producto-nombre {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.pedido-artista {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #666;
+}
+
+.pedido-botones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-pedido {
+  width: 180px !important;
+  height: 40px !important;
+  font-size: 12px !important;
+}
+
+/* ========================================
+   PAGINACIÓN
+   ======================================== */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 50px;
+}
+
+.pagina-btn {
+  width: 45px;
+  height: 45px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagina-btn:hover {
+  border-color: #450693;
+  color: #450693;
+}
+
+.pagina-activa {
+  background-color: #450693;
+  border-color: #450693;
+  color: white;
+}
+
+.pagina-activa:hover {
+  background-color: #350572;
+  border-color: #350572;
+  color: white;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .mis-pedidos-container {
+    padding: 20px 15px 60px;
+  }
+
+  .panel-header {
+    padding: 15px 20px;
+  }
+
+  .panel-header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .panel-title {
+    font-size: 22px;
+  }
+
+  .busqueda-input {
+    width: 100%;
+  }
+
+  .busqueda-form {
+    width: 100%;
+  }
+
+  .pedidos-lista {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .pedido-header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 20px 10px;
+  }
+
+  .pedido-acciones-header {
+    gap: 15px;
+  }
+
+  .pedido-content {
+    padding: 15px 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .pedido-imagen {
+    width: 100px;
+    height: 100px;
+  }
+
+  .pedido-producto-nombre {
+    font-size: 14px;
+  }
+
+  .pedido-botones {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .btn-pedido {
+    width: 160px !important;
+    height: 38px !important;
+    font-size: 11px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .panel-title {
+    font-size: 20px;
+  }
+
+  .filtro-label {
+    font-size: 13px;
+  }
+
+  .filtro-select {
+    font-size: 13px;
+    padding: 6px 25px 6px 12px;
+  }
+
+  .busqueda-input {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+
+  .pedidos-lista {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .pedido-fecha {
+    font-size: 16px;
+  }
+
+  .pedido-total {
+    font-size: 13px;
+  }
+
+  .accion-link {
+    font-size: 13px;
+  }
+
+  .pedido-imagen {
+    width: 80px;
+    height: 80px;
+  }
+
+  .pedido-producto-nombre {
+    font-size: 13px;
+  }
+
+  .pedido-artista {
+    font-size: 12px;
+  }
+
+  .pedido-botones {
+    flex-direction: column;
+  }
+
+  .btn-pedido {
+    width: 100% !important;
+    max-width: 180px;
+    height: 36px !important;
+    font-size: 10px !important;
+  }
+
+  .paginacion {
+    gap: 10px;
+    margin-top: 40px;
+  }
+
+  .pagina-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+}
