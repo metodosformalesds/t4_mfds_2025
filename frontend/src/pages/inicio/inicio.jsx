@@ -1,5 +1,5 @@
 /* 
-  Autor: Erick Rangel
+  Autor: Erick Rangel - Ian Domínguez
   Fecha: 11 de noviembre de 205
   Descripción: muestra un hero y artículos y artistas relevantes (con mayor reseñas)
 
@@ -116,25 +116,6 @@ export const Inicio = () => {
           ))}
         </div>
       </section>
-
-      {/* ARTISTAS DESTACADOS -> Sobre Nosotros */}
-      <section className="seccion-artistas">
-        <div className="contenedor-titulo">
-          <h2 className="titulo-seccion">Artistas Destacados</h2>
-        </div>
-        <div className="grid-artistas">
-          {artistasDestacados.map((artista) => (
-            <CardArtista
-              key={artista.id}
-              artistName={artista.nombre}
-              specialty={artista.especialidad}
-              imageUrl={artista.imagen}
-              onViewProfile={() => console.log(`Ver perfil: ${artista.nombre}`)}
-              buttonText="Ver perfil"
-            />
-          ))}
-        </div>
-      </section>
       
       {/* SOBRE NOSOTROS - Ian Domínguez, 15 de noviembre de 2025 */}
       <section className="seccion-nosotros">
@@ -164,6 +145,25 @@ export const Inicio = () => {
               único, sino que apoyas directamente a las comunidades artesanales locales.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* ARTISTAS DESTACADOS -> Sobre Nosotros */}
+      <section className="seccion-artistas">
+        <div className="contenedor-titulo">
+          <h2 className="titulo-seccion">Artistas Destacados</h2>
+        </div>
+        <div className="grid-artistas">
+          {artistasDestacados.map((artista) => (
+            <CardArtista
+              key={artista.id}
+              artistName={artista.nombre}
+              specialty={artista.especialidad}
+              imageUrl={artista.imagen}
+              onViewProfile={() => console.log(`Ver perfil: ${artista.nombre}`)}
+              buttonText="Ver perfil"
+            />
+          ))}
         </div>
       </section>
 
