@@ -76,36 +76,33 @@ async def verify_account_status(
 
 # ==================== PAGOS ====================
 
-class CreatePaymentIntentRequest(BaseModel):
+class CreateCheckoutSessionRequest(BaseModel):
     order_id: int
+    success_url: str
+    cancel_url: str
 
-
-@router.post("/create-payment-intent")
-async def create_payment_intent(
-    request: CreatePaymentIntentRequest,
+@router.post("/create-checkout-session")
+async def create_checkout_session(
+    request: CreateCheckoutSessionRequest,
     db: Session = Depends(get_db),
     current_user: UserResponse = Depends(get_current_user),
 ):
     """
-    Crea un PaymentIntent para cobrar al comprador.
-    Automáticamente divide el dinero: comisión para la plataforma y monto al vendedor.
+    Crea una Checkout Session para redirigir al usuario a Stripe Checkout
     """
     try:
-        print(f"DEBUG: Iniciando create_payment_intent con order_id={request.order_id}, buyer_id={current_user.id}")
-        client_secret = stripe_service.create_payment_intent(
-            db, request.order_id, current_user.id
+        checkout_url = stripe_service.create_checkout_session(
+            db=db,
+            order_id=request.order_id,
+            buyer_id=current_user.id,
+            success_url=request.success_url,
+            cancel_url=request.cancel_url
         )
-        print(f"DEBUG: PaymentIntent creado exitosamente: {client_secret}")
-        return {"clientSecret": client_secret}
+        return {"checkoutUrl": checkout_url}
     except ValueError as e:
-        print(f"ValueError en create_payment_intent: {str(e)}")
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        import traceback
-        error_msg = f"{type(e).__name__}: {str(e)}"
-        traceback.print_exc()
-        print(f"Error en create_payment_intent: {error_msg}")
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=error_msg)
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
 
 
 # ==================== WEBHOOKS ====================
