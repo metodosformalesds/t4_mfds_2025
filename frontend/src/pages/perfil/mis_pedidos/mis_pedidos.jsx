@@ -6,9 +6,9 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { BtnGeneral } from '../../components/Botones/btn_general';
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header'; 
+import { BtnGeneral } from '../../../components/Botones/btn_general';
+import { Footer } from '../../../components/Footer';
+import { Header } from '../../../components/Header'; 
 import "./mis_pedidos.css";
 
 export default function MisPedidos() {
@@ -107,7 +107,15 @@ export default function MisPedidos() {
       <Header />
       
       <div className="mis-pedidos-container">
-        <div className="breadcrumb">Mi cuenta {">"} Mis pedidos</div>
+        <div className="breadcrumb">
+          <span 
+            className="breadcrumb-link"
+            onClick={() => navigate("/mi-cuenta")}
+          >
+            Mi cuenta
+          </span>
+          {" > "} Mis pedidos
+        </div>
 
         <div className="pedidos-panel">
           <div className="panel-header">

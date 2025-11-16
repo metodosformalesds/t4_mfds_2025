@@ -74,7 +74,7 @@ export const Header = () => {
               {isAuthenticated ? (
                 // Usuario logueado - móvil
                 <div className="user-menu-mobile">
-                  <Link to="/perfil" className="mobile-login-link" onClick={closeMenu}>
+                  <Link to="/mi-cuenta" className="mobile-login-link" onClick={closeMenu}>
                     <span className="login-icon"></span>
                     Mi Perfil
                   </Link>
@@ -148,7 +148,7 @@ export const Header = () => {
           {isAuthenticated ? (
             // Usuario logueado - desktop
             <div className="user-menu-desktop">
-              <Link to="/perfil" className="desktop-login-link">
+              <Link to="/mi-cuenta" className="desktop-login-link">
                 Mi Perfil
               </Link>
               

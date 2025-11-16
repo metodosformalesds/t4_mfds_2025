@@ -6,8 +6,8 @@
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header'; 
+import { Footer } from '../../../components/Footer';
+import { Header } from '../../../components/Header'; 
 import "./mi_cuenta.css";
 
 export default function MiCuenta() {
@@ -18,39 +18,33 @@ export default function MiCuenta() {
       id: 1,
       title: "Mis pedidos",
       description: "Ver pedidos pendientes, completados, cancelados",
-      route: "/pages/mis_pedidos/mis_pedidos",
+      route: "/mi-cuenta/mis-pedidos",
     },
     {
       id: 2,
       title: "Mis productos",
       description: "Administrar productos que tienes en exposición",
-      route: "/pages/mis_productos/mis_productos",
+      route: "/mi-cuenta/mis-productos",
     },
     {
       id: 3,
-      title: "Mis comisiones",
-      description: "Administrar trabajos pendientes por completar",
-      route: "/pages/mis_productos/mis_productos",
-    },
-    {
-      id: 4,
       title: "Mis favoritos",
       description:
         "Artistas o productos favoritos que hayas marcado anteriormente",
       route: "/mi-cuenta/favoritos",
     },
     {
-      id: 5,
+      id: 4,
       title: "Mi información",
       description:
         "Cambiar nombre, foto de perfil, fecha de nacimiento, número telefónico",
-      route: "/pages/mi_informacion/mi_informacion",
+      route: "/mi-cuenta/informacion",
     },
     {
-      id: 6,
+      id: 5,
       title: "Seguridad",
       description: "Cambiar contraseña, correo electrónico",
-      route: "/pages/mi_seguridad/mi_seguridad",
+      route: "/mi-cuenta/seguridad",
     },
   ];
 

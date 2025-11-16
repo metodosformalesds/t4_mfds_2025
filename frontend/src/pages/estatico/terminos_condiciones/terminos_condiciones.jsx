@@ -5,8 +5,8 @@
 */
 
 import React, { useEffect } from "react";
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header'; 
+import { Footer } from '../../../components/Footer';
+import { Header } from '../../../components/Header'; 
 import "./terminos_condiciones.css";
 
 export default function TermsAndConditions() {

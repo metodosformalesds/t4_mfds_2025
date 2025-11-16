@@ -1,7 +1,7 @@
 /* 
-    Autor: Ian Domínguez
+    Autor: Ian Dominguez
     Fecha: 15 de noviembre de 2025
-    Descripción: Estilados para mis_productos.
+    Descripción: estilado para mis_pedidos.jsx
 */
 
 * {
@@ -10,7 +10,7 @@
   box-sizing: border-box;
 }
 
-.mis-productos-page {
+.mis-pedidos-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@
 /* ========================================
    CONTENEDOR PRINCIPAL
    ======================================== */
-.mis-productos-container {
+.mis-pedidos-container {
   max-width: 900px;
   margin: 0 auto;
   padding: 30px 20px 80px;
@@ -38,10 +38,20 @@
   margin-bottom: 20px;
 }
 
+.breadcrumb-link {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #450693;
+  text-decoration: underline;
+}
+
 /* ========================================
    PANEL PRINCIPAL
    ======================================== */
-.productos-panel {
+.pedidos-panel {
   background-color: #f0e6ff;
   border-radius: 15px;
   overflow: hidden;
@@ -86,17 +96,17 @@
 }
 
 .filtro-select {
-  background-color: #a65eff;
+  background-color: #8c00ff;
   border: none;
   border-radius: 20px;
   padding: 8px 30px 8px 15px;
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-weight: 500;
-  color: #333;
+  color: white;
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23fff' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
 }
@@ -122,6 +132,15 @@
   height: 100%;
 }
 
+.busqueda-input::placeholder {
+  color: #aaa;
+}
+
+.busqueda-input:focus {
+  outline: none;
+  background-color: #555;
+}
+
 .busqueda-btn {
   background-color: #888;
   border: none;
@@ -136,10 +155,14 @@
   height: 100%;
 }
 
+.busqueda-btn:hover {
+  background-color: #999;
+}
+
 /* ========================================
-   LISTA DE PRODUCTOS (con separación)
+   LISTA DE PEDIDOS (con separación)
    ======================================== */
-.productos-lista {
+.pedidos-lista {
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -156,16 +179,16 @@
 }
 
 /* ========================================
-   PRODUCTO ITEM (con mejor separación)
+   PEDIDO ITEM (con mejor separación)
    ======================================== */
-.producto-item {
+.pedido-item {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(69, 6, 147, 0.1);
   overflow: hidden;
 }
 
-.producto-header {
+.pedido-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -173,11 +196,11 @@
   border-bottom: 2px solid #450693;
 }
 
-.producto-info-header {
+.pedido-info-header {
   flex: 1;
 }
 
-.producto-nombre {
+.pedido-fecha {
   font-family: "Poppins", sans-serif;
   font-size: 18px;
   font-weight: 700;
@@ -185,13 +208,14 @@
   margin-bottom: 5px;
 }
 
-.producto-costo {
+.pedido-total {
   font-family: "Poppins", sans-serif;
   font-size: 14px;
+  font-weight: 600;
   color: #000;
 }
 
-.producto-acciones-header {
+.pedido-acciones-header {
   display: flex;
   gap: 20px;
 }
@@ -218,16 +242,16 @@
 }
 
 /* ========================================
-   CONTENIDO DEL PRODUCTO
+   CONTENIDO DEL PEDIDO
    ======================================== */
-.producto-content {
+.pedido-content {
   display: flex;
   align-items: center;
   padding: 20px 25px;
   gap: 30px;
 }
 
-.producto-imagen {
+.pedido-imagen {
   width: 120px;
   height: 120px;
   object-fit: cover;
@@ -235,18 +259,34 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.producto-nombre-repetido {
+.pedido-producto-info {
   flex: 1;
+}
+
+.pedido-producto-nombre {
   font-family: "Poppins", sans-serif;
   font-size: 16px;
   font-weight: 700;
   color: #000;
+  margin-bottom: 5px;
 }
 
-.btn-ver-resenas {
-  width: 160px !important;
-  height: 45px !important;
-  font-size: 14px !important;
+.pedido-artista {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #666;
+}
+
+.pedido-botones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-pedido {
+  width: 180px !important;
+  height: 40px !important;
+  font-size: 12px !important;
 }
 
 /* ========================================
@@ -294,7 +334,7 @@
    RESPONSIVE
    ======================================== */
 @media (max-width: 768px) {
-  .mis-productos-container {
+  .mis-pedidos-container {
     padding: 20px 15px 60px;
   }
 
@@ -320,39 +360,46 @@
     width: 100%;
   }
 
-  .productos-lista {
+  .pedidos-lista {
     padding: 12px;
     gap: 12px;
   }
 
-  .producto-header {
+  .pedido-header {
     flex-direction: column;
     gap: 10px;
     padding: 15px 20px 10px;
   }
 
-  .producto-acciones-header {
+  .pedido-acciones-header {
     gap: 15px;
   }
 
-  .producto-content {
+  .pedido-content {
     padding: 15px 20px;
     gap: 20px;
+    flex-wrap: wrap;
   }
 
-  .producto-imagen {
+  .pedido-imagen {
     width: 100px;
     height: 100px;
   }
 
-  .producto-nombre-repetido {
+  .pedido-producto-nombre {
     font-size: 14px;
   }
 
-  .btn-ver-resenas {
-    width: 140px !important;
-    height: 40px !important;
-    font-size: 13px !important;
+  .pedido-botones {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .btn-pedido {
+    width: 160px !important;
+    height: 38px !important;
+    font-size: 11px !important;
   }
 }
 
@@ -372,19 +419,19 @@
 
   .busqueda-input {
     font-size: 13px;
-    padding: 6px 12px;
+    padding: 0 12px;
   }
 
-  .productos-lista {
+  .pedidos-lista {
     padding: 10px;
     gap: 10px;
   }
 
-  .producto-nombre {
+  .pedido-fecha {
     font-size: 16px;
   }
 
-  .producto-costo {
+  .pedido-total {
     font-size: 13px;
   }
 
@@ -392,23 +439,28 @@
     font-size: 13px;
   }
 
-  .producto-content {
-    flex-wrap: wrap;
-  }
-
-  .producto-imagen {
+  .pedido-imagen {
     width: 80px;
     height: 80px;
   }
 
-  .producto-nombre-repetido {
+  .pedido-producto-nombre {
     font-size: 13px;
   }
 
-  .btn-ver-resenas {
-    width: 130px !important;
-    height: 38px !important;
-    font-size: 12px !important;
+  .pedido-artista {
+    font-size: 12px;
+  }
+
+  .pedido-botones {
+    flex-direction: column;
+  }
+
+  .btn-pedido {
+    width: 100% !important;
+    max-width: 180px;
+    height: 36px !important;
+    font-size: 10px !important;
   }
 
   .paginacion {

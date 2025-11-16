@@ -6,13 +6,13 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { BtnGeneral } from '../../components/Botones/btn_general';
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header'; 
+import { BtnGeneral } from '../../../components/Botones/btn_general';
+import { Footer } from '../../../components/Footer';
+import { Header } from '../../../components/Header'; 
 import "./mi_seguridad.css";
 
 export default function Seguridad() {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const [usuario, setUsuario] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -68,7 +68,15 @@ export default function Seguridad() {
       <Header />
 
       <div className="seguridad-container">
-        <div className="breadcrumb">Mi cuenta {">"} Seguridad</div>
+        <div className="breadcrumb">
+          <span 
+            className="breadcrumb-link"
+            onClick={() => navigate("/mi-cuenta")}
+          >
+            Mi cuenta
+          </span>
+          {" > "} Seguridad
+        </div>
 
         {/* Información del usuario (solo visualización, sin edición) */}
         <div className="perfil-header">

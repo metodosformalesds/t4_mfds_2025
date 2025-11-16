@@ -34,7 +34,7 @@
 .mi-cuenta-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 50px;
 }
 
 /* ========================================
@@ -42,7 +42,7 @@
    ======================================== */
 .mi-cuenta-card {
   background-color: #ffffff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #FFC400;
   border-radius: 8px;
   padding: 25px;
   display: flex;

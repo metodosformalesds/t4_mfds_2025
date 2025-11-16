@@ -48,6 +48,16 @@
   margin-bottom: 30px;
 }
 
+.breadcrumb-link {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #450693;
+  text-decoration: underline;
+}
+
 /* ========================================
    PERFIL HEADER
    ======================================== */
@@ -139,7 +149,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 100px;
 }
 
 .seccion-datos {
@@ -180,7 +190,7 @@
 
 .seguridad-card {
   background-color: #ffffff;
-  border: 2px solid #ffc400;
+  border: 1px solid #ffc400;
   border-radius: 8px;
   padding: 25px;
   display: flex;

@@ -6,9 +6,9 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { BtnGeneral } from '../../components/Botones/btn_general';
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header'; 
+import { BtnGeneral } from '../../../components/Botones/btn_general';
+import { Footer } from '../../../components/Footer';
+import { Header } from '../../../components/Header'; 
 import "./mi_informacion.css";
 
 export default function MiInformacion() {
@@ -95,7 +95,15 @@ export default function MiInformacion() {
       <Header />
 
       <div className="mi-informacion-container">
-        <div className="breadcrumb">Mi cuenta {">"} Mi información</div>
+        <div className="breadcrumb">
+          <span 
+            className="breadcrumb-link"
+            onClick={() => navigate("/mi-cuenta")}
+          >
+            Mi cuenta
+          </span>
+          {" > "} Mi información
+        </div>
 
         {/* Información del usuario */}
         <div className="perfil-header">
