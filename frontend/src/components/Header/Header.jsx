@@ -131,15 +131,6 @@ export const Header = () => {
                 Artistas
               </Link>
             </li>
-            <li>
-              <Link 
-                to="/categorias" 
-                className={`nav-link ${isActive('/categorias') ? 'active' : ''}`}
-                onClick={closeMenu}
-              >
-                Categorías
-              </Link>
-            </li>
           </ul>
         </nav>
 
