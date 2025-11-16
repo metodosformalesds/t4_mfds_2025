@@ -1,0 +1,306 @@
+/* 
+    Autor: Ian Domínguez
+    Fecha: 15 de noviembre de 2025
+    Descripción: Estilado para el archivo de Preguntas Frecuentes
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.faq-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+/* ========================================
+   CONTENEDOR PRINCIPAL
+   ======================================== */
+.faq-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 50px 30px 80px;
+  width: 100%;
+  flex: 1;
+}
+
+/* ========================================
+   TÍTULOS PRINCIPALES
+   ======================================== */
+.faq-main-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: #450693;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.faq-subtitle {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 50px;
+}
+
+/* ========================================
+   CONTENIDO FAQ
+   ======================================== */
+.faq-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.faq-category {
+  margin-bottom: 10px;
+}
+
+.faq-category-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #8C00FF;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #8C00FF;
+}
+
+.faq-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ========================================
+   ITEMS FAQ (ACORDEÓN)
+   ======================================== */
+.faq-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+
+.faq-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.faq-question {
+  width: 100%;
+  background-color: #f9f9f9;
+  border: none;
+  padding: 18px 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.faq-question:hover {
+  background-color: #f0f0f0;
+}
+
+.faq-question-open {
+  background-color: #450693;
+  color: white;
+}
+
+.faq-question-open:hover {
+  background-color: #350572;
+}
+
+.faq-icon {
+  font-size: 24px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-left: 15px;
+}
+
+.faq-answer {
+  background-color: white;
+  padding: 20px;
+  border-top: 1px solid #e0e0e0;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.faq-answer p {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #555;
+}
+
+/* ========================================
+   SECCIÓN DE CONTACTO
+   ======================================== */
+.faq-contact-section {
+  margin-top: 60px;
+  background-color: #f5f5f5;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.faq-contact-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.faq-contact-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.faq-contact-info {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #8C00FF;
+  font-weight: 600;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 768px) {
+  .faq-container {
+    padding: 40px 20px 60px;
+  }
+
+  .faq-main-title {
+    font-size: 36px;
+  }
+
+  .faq-subtitle {
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+
+  .faq-category-title {
+    font-size: 22px;
+  }
+
+  .faq-question {
+    font-size: 15px;
+    padding: 16px 18px;
+  }
+
+  .faq-answer p {
+    font-size: 14px;
+  }
+
+  .faq-contact-section {
+    padding: 25px 20px;
+  }
+
+  .faq-contact-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .faq-container {
+    padding: 30px 15px 50px;
+  }
+
+  .faq-main-title {
+    font-size: 30px;
+  }
+
+  .faq-subtitle {
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+
+  .faq-content {
+    gap: 30px;
+  }
+
+  .faq-category-title {
+    font-size: 20px;
+  }
+
+  .faq-question {
+    font-size: 14px;
+    padding: 14px 15px;
+  }
+
+  .faq-icon {
+    font-size: 20px;
+  }
+
+  .faq-answer {
+    padding: 15px;
+  }
+
+  .faq-answer p {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .faq-contact-section {
+    margin-top: 40px;
+    padding: 20px 15px;
+  }
+
+  .faq-contact-title {
+    font-size: 18px;
+  }
+
+  .faq-contact-text {
+    font-size: 14px;
+  }
+
+  .faq-contact-info {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 360px) {
+  .faq-main-title {
+    font-size: 26px;
+  }
+
+  .faq-category-title {
+    font-size: 18px;
+  }
+
+  .faq-question {
+    font-size: 13px;
+  }
+
+  .faq-answer p {
+    font-size: 12px;
+  }
+
+  .faq-contact-title {
+    font-size: 16px;
+  }
+}
