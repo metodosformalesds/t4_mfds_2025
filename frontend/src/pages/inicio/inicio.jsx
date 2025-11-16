@@ -72,6 +72,12 @@ export const Inicio = () => {
 
       {/* HERO SECTION */}
       <section className="hero-inicio">
+          <div className="circulo-animado circulo-1"></div>
+          <div className="circulo-animado circulo-2"></div>
+          <div className="circulo-animado circulo-3"></div>
+          <div className="circulo-animado circulo-4"></div>
+          <div className="circulo-animado circulo-5"></div>
+          <div className="circulo-animado circulo-6"></div>
         <div className="contenido-hero">
           <h1 className="titulo-hero">
             Descubre la auténtica artesanía de Ciudad Juárez
@@ -111,7 +117,7 @@ export const Inicio = () => {
         </div>
       </section>
 
-      {/* ARTISTAS DESTACADOS */}
+      {/* ARTISTAS DESTACADOS -> Sobre Nosotros */}
       <section className="seccion-artistas">
         <div className="contenedor-titulo">
           <h2 className="titulo-seccion">Artistas Destacados</h2>
@@ -127,6 +133,37 @@ export const Inicio = () => {
               buttonText="Ver perfil"
             />
           ))}
+        </div>
+      </section>
+      
+      {/* SOBRE NOSOTROS - Ian Domínguez, 15 de noviembre de 2025 */}
+      <section className="seccion-nosotros">
+        <div className="contenedor-titulo">
+          <h2 className="titulo-seccion">Sobre Nosotros</h2>
+        </div>
+        <div className="contenido-nosotros">
+          <div className="nosotros-logo">
+            <img 
+              src="../src/assets/logo-reborn.png" 
+              alt="Reborn - Artesanía y Segunda Mano" 
+              className="logo-nosotros"
+            />
+          </div>
+          <div className="nosotros-textos">
+            <p className="parrafo-nosotros">
+              Reborn es una plataforma dedicada a promover y comercializar la artesanía mexicana, 
+              conectando a artesanos talentosos con amantes del arte tradicional.
+            </p>
+            <p className="parrafo-nosotros">
+              Nacimos con la misión de preservar las técnicas ancestrales y dar visibilidad al trabajo 
+              de los artesanos de Ciudad Juárez, creando un puente entre la tradición y el mundo digital.
+            </p>
+            <p className="parrafo-nosotros">
+              Cada pieza que encuentras aquí cuenta una historia, representa horas de dedicación y 
+              lleva consigo el alma de quien la creó. Al comprar en Reborn, no solo adquieres un producto 
+              único, sino que apoyas directamente a las comunidades artesanales locales.
+            </p>
+          </div>
         </div>
       </section>
 
