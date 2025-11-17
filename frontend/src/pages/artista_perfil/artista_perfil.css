@@ -1,0 +1,462 @@
+/* 
+  Autor: Ian Domnguez
+  Fecha: 16 de noviembre de 2025
+  Descripción: Estilos para la vista del perfil del artista
+*/
+
+:root {
+  --collection-1-amarillo: rgba(255, 196, 0, 1);
+  --collection-1-morado-claro: rgba(140, 0, 255, 1);
+  --collection-1-morado-oscuro: rgba(69, 6, 147, 1);
+  --collection-1-rosa: rgba(255, 63, 127, 1);
+}
+
+/* CONTENEDOR PRINCIPAL */
+.artist-profile {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  font-family: "Poppins", sans-serif;
+}
+
+/* HEADER DEL ARTISTA */
+.artist-header {
+  background: linear-gradient(
+    135deg,
+    var(--collection-1-morado-oscuro) 0%,
+    var(--collection-1-morado-claro) 100%
+  );
+  padding: 60px 0;
+}
+
+.artist-header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.artist-header-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 50px;
+}
+
+/* IMAGEN DEL ARTISTA */
+.artist-image-container {
+  flex-shrink: 0;
+}
+
+.artist-image-wrapper {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid white;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.artist-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* INFORMACIÓN DEL ARTISTA */
+.artist-info {
+  flex: 1;
+  color: white;
+}
+
+.artist-name-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.artist-full-name {
+  font-family: "Playfair Display", serif;
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.artist-username {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.artist-bio {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 30px 0;
+  max-width: 800px;
+}
+
+/* TARJETA DE CONTACTO */
+.artist-contact-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px 30px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--collection-1-rosa);
+  flex-shrink: 0;
+}
+
+.contact-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: white;
+}
+
+/* SECCIÓN DE PRODUCTOS */
+.products-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+.products-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.products-title {
+  font-family: "Playfair Display", serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--collection-1-morado-oscuro);
+  margin: 0;
+}
+
+.products-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.filter-select {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 2px solid var(--collection-1-morado-claro);
+  background-color: white;
+  color: var(--collection-1-morado-oscuro);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.filter-select:hover {
+  border-color: var(--collection-1-morado-oscuro);
+  box-shadow: 0 4px 12px rgba(140, 0, 255, 0.2);
+}
+
+.filter-select:focus {
+  border-color: var(--collection-1-morado-oscuro);
+  box-shadow: 0 0 0 3px rgba(140, 0, 255, 0.1);
+}
+
+/* GRID DE PRODUCTOS */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 40px;
+  justify-items: center;
+}
+
+/* SIN PRODUCTOS */
+.no-products {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.no-products-icon {
+  width: 100px;
+  height: 100px;
+  color: var(--collection-1-morado-claro);
+  margin-bottom: 20px;
+}
+
+.no-products-title {
+  font-family: "Playfair Display", serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #666;
+  margin: 0 0 10px 0;
+}
+
+.no-products-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #999;
+  margin: 0;
+}
+
+/* BOTÓN FLOTANTE DE CONTACTO */
+.contact-button-container {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 1000;
+}
+
+.contact-button {
+  box-shadow: 0 8px 30px rgba(255, 63, 127, 0.4);
+}
+
+.contact-button:hover {
+  box-shadow: 0 12px 40px rgba(255, 63, 127, 0.5);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .artist-header-content {
+    padding: 0 30px;
+  }
+
+  .products-section {
+    padding: 50px 30px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+  }
+}
+
+@media (max-width: 992px) {
+  .artist-header {
+    padding: 50px 0;
+  }
+
+  .artist-header-layout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .artist-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .artist-full-name {
+    font-size: 40px;
+  }
+
+  .artist-bio {
+    text-align: center;
+  }
+
+  .products-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .products-title {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .artist-header {
+    padding: 40px 0;
+  }
+
+  .artist-header-content {
+    padding: 0 20px;
+  }
+
+  .artist-image-wrapper {
+    width: 180px;
+    height: 180px;
+  }
+
+  .artist-full-name {
+    font-size: 34px;
+  }
+
+  .artist-username {
+    font-size: 18px;
+  }
+
+  .artist-bio {
+    font-size: 15px;
+  }
+
+  .artist-contact-card {
+    padding: 20px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .contact-text {
+    font-size: 14px;
+  }
+
+  .products-section {
+    padding: 40px 20px;
+  }
+
+  .products-title {
+    font-size: 28px;
+  }
+
+  .products-filters {
+    width: 100%;
+  }
+
+  .filter-select {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+  }
+
+  .contact-button-container {
+    bottom: 30px;
+    right: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .artist-header {
+    padding: 30px 0;
+  }
+
+  .artist-header-content {
+    padding: 0 15px;
+  }
+
+  .artist-image-wrapper {
+    width: 150px;
+    height: 150px;
+    border-width: 4px;
+  }
+
+  .artist-full-name {
+    font-size: 28px;
+  }
+
+  .artist-username {
+    font-size: 16px;
+  }
+
+  .artist-bio {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .artist-contact-card {
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .contact-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .contact-text {
+    font-size: 13px;
+  }
+
+  .products-section {
+    padding: 30px 15px;
+  }
+
+  .products-title {
+    font-size: 24px;
+  }
+
+  .filter-select {
+    font-size: 13px;
+    padding: 10px 15px;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .no-products-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .no-products-title {
+    font-size: 20px;
+  }
+
+  .no-products-text {
+    font-size: 14px;
+  }
+
+  .contact-button-container {
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .artist-image-wrapper {
+    width: 130px;
+    height: 130px;
+  }
+
+  .artist-full-name {
+    font-size: 24px;
+  }
+
+  .artist-username {
+    font-size: 14px;
+  }
+
+  .artist-bio {
+    font-size: 13px;
+  }
+
+  .products-title {
+    font-size: 22px;
+  }
+}

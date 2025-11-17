@@ -1,0 +1,1 @@
+export {ArtistProfile} from './artista_perfil';
