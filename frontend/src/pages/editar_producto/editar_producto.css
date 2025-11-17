@@ -1,0 +1,887 @@
+/* 
+    Autor: GitHub Copilot
+    Fecha: 17 de noviembre de 2025
+    Descripción: Estilos para la página de edición de productos usando variables de diseño
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.editar-producto-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-white);
+}
+
+/* ========================================
+   CONTENEDOR PRINCIPAL
+   ======================================== */
+.editar-producto-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  width: 100%;
+  flex: 1;
+}
+
+.loading-message {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-xl);
+  color: var(--text-gray);
+  text-align: center;
+  padding: 60px 20px;
+}
+
+/* ========================================
+   TÍTULO DE PÁGINA
+   ======================================== */
+.page-title {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-6xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--morado-oscuro);
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.title-highlight {
+  color: var(--morado-oscuro);
+  position: relative;
+}
+
+.page-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 3px;
+  background-color: var(--amarillo);
+}
+
+/* ========================================
+   FORM WRAPPER
+   ======================================== */
+.form-wrapper {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  min-height: 600px;
+}
+
+/* ========================================
+   STEP LAYOUTS
+   ======================================== */
+.step-layout {
+  width: 100%;
+  min-height: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+}
+
+.step-layout.two-panels {
+  background: linear-gradient(
+    180deg,
+    var(--morado-oscuro) 0%,
+    var(--morado-claro) 56.73%,
+    var(--rosa) 100%
+  );
+}
+
+.step-layout.full-panel {
+  background: linear-gradient(
+    180deg,
+    var(--morado-oscuro) 0%,
+    var(--morado-claro) 56.73%,
+    var(--rosa) 100%
+  );
+}
+
+/* ========================================
+   LEFT PANEL (Pregunta)
+   ======================================== */
+.left-panel {
+  width: 35%;
+  background: var(--morado-claro);
+  box-shadow: var(--shadow-lg);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 40px;
+  position: relative;
+}
+
+.panel-question {
+  font-family: var(--font-primary);
+  font-size: 42px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--white);
+  text-shadow: var(--shadow-md);
+  line-height: 1.4;
+}
+
+/* ========================================
+   RIGHT PANEL (Input)
+   ======================================== */
+.right-panel {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  gap: 30px;
+}
+
+/* ========================================
+   CONTENT CARD (Panel blanco)
+   ======================================== */
+.content-card {
+  background-color: var(--bg-white);
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-light);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.content-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========================================
+   INPUT CONTAINERS
+   ======================================== */
+.input-container {
+  background-color: var(--bg-gray-dark);
+  border-radius: 50px;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  position: relative;
+  border: 2px solid var(--border-gray);
+  transition: border-color 0.3s ease;
+}
+
+.input-container:focus-within {
+  border-color: var(--morado-claro);
+  box-shadow: 0 0 0 4px var(--bg-purple-alpha);
+}
+
+.textarea-container {
+  border-radius: 16px;
+  min-height: 150px;
+  align-items: flex-start;
+  padding: 20px 30px;
+}
+
+.input-icon {
+  color: var(--text-gray-dark);
+  flex-shrink: 0;
+}
+
+.textarea-icon {
+  margin-top: 5px;
+}
+
+.form-input {
+  border: none;
+  outline: none;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  color: var(--text-gray-dark);
+  width: 100%;
+  background: transparent;
+}
+
+.form-input::placeholder {
+  color: var(--text-gray-light);
+}
+
+.form-textarea {
+  border: none;
+  outline: none;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  color: var(--text-gray-dark);
+  width: 100%;
+  min-height: 100px;
+  background: transparent;
+  resize: vertical;
+}
+
+.form-textarea::placeholder {
+  color: var(--text-gray-light);
+}
+
+/* ========================================
+   BOTONES
+   ======================================== */
+.btn-siguiente-general {
+  margin-top: 10px;
+}
+
+/* ========================================
+   ERROR MESSAGE
+   ======================================== */
+.error-message {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger-light);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+  border: 1px solid var(--color-danger-bg-light);
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.btn-back {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: transparent;
+  border: 1px solid var(--white);
+  border-radius: 15px;
+  padding: 15px 20px;
+  color: var(--white);
+  cursor: pointer;
+  filter: drop-shadow(-4px -4px 32px var(--morado-oscuro))
+    drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+  transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================
+   FULL PANEL LAYOUTS
+   ======================================== */
+.summary-panel,
+.upload-panel,
+.success-panel {
+  width: 100%;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+  position: relative;
+}
+
+/* ========================================
+   SUMMARY CARD (Paso 6)
+   ======================================== */
+.summary-card {
+  padding: 50px;
+  max-width: 900px;
+  width: 100%;
+  background: var(--morado-claro);
+  box-shadow: var(--shadow-lg);
+  border-radius: 16px;
+}
+
+.summary-content {
+  width: 100%;
+}
+
+.summary-title {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--white);
+  margin-bottom: 30px;
+}
+
+.summary-item {
+  font-family: var(--font-primary);
+  font-size: 20px;
+  font-weight: var(--font-weight-medium);
+  color: var(--white);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.summary-label {
+  font-weight: var(--font-weight-bold);
+  color: var(--white);
+}
+
+/* ========================================
+   UPLOAD CARD (Paso 7)
+   ======================================== */
+.upload-card {
+  background: var(--morado-claro);
+  border-radius: 16px;
+  padding: 50px;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-title {
+  font-family: var(--font-primary);
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  color: var(--white);
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.upload-area {
+  background: var(--bg-white-alpha);
+  border: 3px dashed var(--white);
+  border-radius: 16px;
+  padding: 60px 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.upload-area:hover {
+  background: var(--bg-panel);
+  border-color: var(--amarillo);
+}
+
+.upload-area svg {
+  color: var(--white);
+  stroke: var(--white);
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-notice {
+  font-family: var(--font-primary);
+  font-size: 18px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.notice-label {
+  color: var(--white);
+  font-weight: var(--font-weight-bold);
+}
+
+.images-preview {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.images-count {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-xl);
+  color: var(--white);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 10px;
+}
+
+.images-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.image-item {
+  background: var(--bg-gray-dark);
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-md);
+  color: var(--text-gray-dark);
+}
+
+.remove-image {
+  background: var(--color-danger-light);
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.remove-image:hover {
+  background: var(--color-danger);
+}
+
+.upload-btn {
+  margin-top: 10px;
+}
+
+/* ========================================
+   SUCCESS CARD (Paso 8)
+   ======================================== */
+.success-card {
+  background: var(--morado-claro);
+  border-radius: 16px;
+  padding: 60px;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success-message {
+  font-family: var(--font-primary);
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  color: var(--white);
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 40px;
+}
+
+/* ========================================
+   FLOATING BUTTONS
+   ======================================== */
+.btn-back-floating,
+.btn-next-floating {
+  position: absolute;
+  background: transparent;
+  border-radius: 15px;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-button);
+}
+
+.btn-back-floating {
+  border: 1px solid var(--white);
+  color: var(--white);
+  filter: drop-shadow(-4px -4px 32px var(--morado-oscuro))
+    drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.btn-back-floating.left {
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn-back-floating:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-next-floating {
+  background-color: var(--amarillo);
+  border: none;
+  color: var(--black);
+}
+
+.btn-next-floating.right {
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn-next-floating.center {
+  position: relative;
+  margin-top: 30px;
+}
+
+.btn-next-floating:hover {
+  background-color: var(--amarillo);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.btn-next-floating.center:hover {
+  transform: scale(1.05);
+}
+
+.btn-next-floating:disabled,
+.upload-btn:disabled,
+.btn-siguiente-general:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  filter: saturate(.8) contrast(.9) brightness(.95);
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  color: var(--white);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.loading-overlay::after {
+  content: '';
+  width: 56px;
+  height: 56px;
+  border: 4px solid var(--bg-white-alpha);
+  border-top-color: var(--amarillo);
+  border-right-color: var(--amarillo);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   RADIO CATEGORY GROUP
+   ======================================== */
+.radio-group {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-gray-dark);
+  padding: 14px 24px;
+  border-radius: 50px;
+  border: 2px solid var(--border-gray);
+  cursor: pointer;
+  transition: all .25s ease;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  color: var(--text-gray-dark);
+  user-select: none;
+}
+
+.radio-option input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-gray);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  background: var(--white);
+  transition: border-color .25s ease, background .25s ease, box-shadow .25s ease;
+}
+
+.radio-option input:checked {
+  border-color: var(--morado-claro);
+  background: var(--morado-claro);
+}
+
+.radio-option input:focus-visible {
+  box-shadow: 0 0 0 4px var(--bg-purple-alpha);
+}
+
+.radio-option input:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--white);
+  border-radius: 50%;
+}
+
+.radio-option.selected {
+  border-color: var(--morado-claro);
+  background: var(--bg-panel);
+  box-shadow: var(--shadow-sm);
+}
+
+.radio-option:hover {
+  border-color: var(--morado-claro);
+  box-shadow: var(--shadow-sm);
+}
+
+.radio-label {
+  font-weight: var(--font-weight-medium);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 1024px) {
+  .left-panel {
+    width: 40%;
+    padding: 40px 30px;
+  }
+
+  .right-panel {
+    width: 60%;
+    padding: 40px;
+  }
+
+  .panel-question {
+    font-size: 36px;
+  }
+
+  .content-card {
+    padding: 30px;
+  }
+
+  .summary-card {
+    padding: 40px;
+  }
+
+  .summary-title {
+    font-size: 32px;
+  }
+
+  .summary-item {
+    font-size: 18px;
+  }
+
+  .upload-card {
+    padding: 40px;
+  }
+
+  .upload-title {
+    font-size: 28px;
+  }
+
+  .success-card {
+    padding: 50px;
+  }
+
+  .success-message {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .editar-producto-container {
+    padding: 30px 15px 60px;
+  }
+
+  .page-title {
+    font-size: 28px;
+  }
+
+  .page-title::after {
+    width: 220px;
+  }
+
+  .step-layout.two-panels {
+    flex-direction: column;
+  }
+
+  .left-panel {
+    width: 100%;
+    min-height: 200px;
+    padding: 30px 20px;
+  }
+
+  .right-panel {
+    width: 100%;
+    padding: 30px 20px;
+  }
+
+  .panel-question {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .btn-back {
+    bottom: 20px;
+  }
+
+  .content-card {
+    padding: 25px;
+  }
+
+  .input-container {
+    padding: 12px 20px;
+  }
+
+  .summary-panel,
+  .upload-panel,
+  .success-panel {
+    padding: 40px 20px;
+    min-height: 500px;
+  }
+
+  .summary-card {
+    padding: 30px;
+  }
+
+  .summary-title {
+    font-size: 28px;
+  }
+
+  .summary-item {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .upload-card {
+    padding: 30px;
+  }
+
+  .upload-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .upload-area {
+    padding: 50px 80px;
+  }
+
+  .upload-notice {
+    font-size: 16px;
+  }
+
+  .success-card {
+    padding: 40px;
+  }
+
+  .success-message {
+    font-size: 24px;
+  }
+
+  .btn-back-floating.left {
+    left: 15px;
+  }
+
+  .btn-next-floating.right {
+    right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 24px;
+  }
+
+  .page-title::after {
+    width: 180px;
+  }
+
+  .panel-question {
+    font-size: 24px;
+  }
+
+  .content-card {
+    padding: 20px;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 14px;
+  }
+
+  .summary-card {
+    padding: 25px;
+  }
+
+  .summary-title {
+    font-size: 24px;
+  }
+
+  .summary-item {
+    font-size: 14px;
+  }
+
+  .upload-card {
+    padding: 25px;
+  }
+
+  .upload-title {
+    font-size: 22px;
+  }
+
+  .upload-area {
+    padding: 40px 60px;
+  }
+
+  .upload-area svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .upload-notice {
+    font-size: 14px;
+  }
+
+  .success-card {
+    padding: 30px;
+  }
+
+  .success-message {
+    font-size: 22px;
+  }
+
+  .btn-back-floating,
+  .btn-next-floating {
+    padding: 12px 16px;
+  }
+}

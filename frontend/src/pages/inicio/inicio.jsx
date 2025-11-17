@@ -10,22 +10,28 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BtnGeneral } from '../../components/Botones/btn_general';
-import { BtnCarrito } from '../../components/Botones/btn_carrito';
 import { CardProducto } from '../../components/Cards/card_producto'; 
 import { CardArtista } from '../../components/Cards/card_artista';
-import { Footer } from '../../components/footer';
+import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header'; 
 import favoriteService from '../../services/favoriteService';
+import { productService } from '../../services/productService';
+import artistService from '../../services/artistService';
 import './inicio.css';
 
 export const Inicio = () => {
   const navigate = useNavigate();
   const [favoritos, setFavoritos] = useState([]);
   const [favoritoArtistas, setFavoritoArtistas] = useState([]);
+  const [productosPopulares, setProductosPopulares] = useState([]);
+  const [artistasRecientes, setArtistasRecientes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   // Cargar favoritos al montar
   useEffect(() => {
     cargarFavoritos();
+    cargarHomeData();
   }, []);
 
   const cargarFavoritos = async () => {
@@ -37,6 +43,36 @@ export const Inicio = () => {
       setFavoritoArtistas(favoriteArtists.map(fav => fav.artist.id));
     } catch (error) {
       console.error('Error cargando favoritos:', error);
+    }
+  };
+
+  const cargarHomeData = async () => {
+    try {
+      setLoading(true);
+      // Obtener productos disponibles y artistas
+      const [productos, artistas] = await Promise.all([
+        productService.getProducts({ skip: 0, limit: 100 }),
+        artistService.getArtists(),
+      ]);
+
+      // Top 3 productos por número de reseñas (desc)
+      const top3 = (productos || [])
+        .slice() // copiar
+        .sort((a, b) => (b.review_count || 0) - (a.review_count || 0))
+        .slice(0, 3);
+      setProductosPopulares(top3);
+
+      // 4 artistas más recientes por created_at desc
+      const recientes = (artistas || [])
+        .slice()
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        .slice(0, 4);
+      setArtistasRecientes(recientes);
+    } catch (e) {
+      console.error('Error cargando datos de inicio:', e);
+      setError(e.message || 'No se pudieron cargar los datos.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,51 +92,14 @@ export const Inicio = () => {
     }
   };
 
-  // Datos de ejemplo para productos
-  const productosDestacados = [
-    {
-      id: 1,
-      nombre: "Chamarra de mezclilla bordada",
-      artista: "Eduardo Muñoz",
-      precio: "$799.99 mxn",
-    },
-    {
-      id: 2,
-      nombre: "Vestido tradicional",
-      artista: "Alejandro Hernandez", 
-      precio: "$650.00 mxn",
-    },
-    {
-      id: 3,
-      nombre: "Bolso artesanal",
-      artista: "María González",
-      precio: "$450.00 mxn",
+  const formatPrice = (price) => {
+    if (typeof price !== 'number') return '$0.00 mxn';
+    try {
+      return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(price).replace('MXN', 'mxn');
+    } catch {
+      return `$${price.toFixed(2)} mxn`;
     }
-  ];
-
-  // Datos de ejemplo para artistas
-  const artistasDestacados = [
-    {
-      id: 1,
-      nombre: "Eduardo Muñoz",
-      especialidad: "Madera y bordados",
-    },
-    {
-      id: 2, 
-      nombre: "Alejandro Hernandez",
-      especialidad: "Textiles y cerámica",
-    },
-    {
-      id: 3,
-      nombre: "María González",
-      especialidad: "Arte tradicional",
-    },
-    {
-      id: 4,
-      nombre: "Carlos Rodríguez",
-      especialidad: "Orfebrería",
-    }
-  ];
+  };
 
   return (
     <div className="pagina-inicio">
@@ -137,20 +136,24 @@ export const Inicio = () => {
         <div className="contenedor-titulo">
           <h2 className="titulo-seccion">Productos populares</h2>
         </div>
+        {error && (
+          <p className="mensaje-error" role="alert">{error}</p>
+        )}
         <div className="grid-productos">
-          {productosDestacados.map((producto) => (
+          {productosPopulares.map((p) => (
             <CardProducto
-              key={producto.id}
-              productId={producto.id}
-              productName={producto.nombre}
-              artistName={`${producto.artista}`}
-              price={producto.precio}
-              imageUrl={producto.imagen}
-              onViewDetails={() => console.log(`Ver detalles: ${producto.nombre}`)}
-              onAddToCart={() => console.log(`Agregar al carrito: ${producto.nombre}`)}
+              key={p.id}
+              productId={p.id}
+              productName={p.name}
+              artistName={p.user?.full_name || p.user?.username || 'Artista'}
+              price={formatPrice(p.price)}
+              imageUrl={(Array.isArray(p.images) && p.images[0]) || './IMG.png'}
+              reseñas={p.review_count || 0}
+              calificacion={p.average_rating || 0}
+              isMaterial={p.category === 'material'}
               buttonText="Ver detalles"
-              isFavorite={favoritos.includes(producto.id)}
-              onFavoriteChange={(isFavorite) => handleProductoFavoriteChange(producto.id, isFavorite)}
+              isFavorite={favoritos.includes(p.id)}
+              onFavoriteChange={(isFavorite) => handleProductoFavoriteChange(p.id, isFavorite)}
             />
           ))}
         </div>
@@ -159,7 +162,7 @@ export const Inicio = () => {
       {/* SOBRE NOSOTROS - Ian Domínguez, 15 de noviembre de 2025 */}
       <section className="seccion-nosotros">
         <div className="contenedor-titulo">
-          <h2 className="titulo-seccion">Sobre Nosotros</h2>
+          <h2 className="titulo-seccion">Sobre nosotros</h2>
         </div>
         <div className="contenido-nosotros">
           <div className="nosotros-logo">
@@ -187,23 +190,21 @@ export const Inicio = () => {
         </div>
       </section>
 
-      {/* ARTISTAS DESTACADOS -> Sobre Nosotros */}
+      {/* ARTISTAS DESTACADOS */}
       <section className="seccion-artistas">
         <div className="contenedor-titulo">
-          <h2 className="titulo-seccion">Artistas Destacados</h2>
+          <h2 className="titulo-seccion">Artistas destacados</h2>
         </div>
         <div className="grid-artistas">
-          {artistasDestacados.map((artista) => (
+          {artistasRecientes.map((a) => (
             <CardArtista
-              key={artista.id}
-              artistId={artista.id}
-              artistName={artista.nombre}
-              specialty={artista.especialidad}
-              imageUrl={artista.imagen}
-              onViewProfile={() => console.log(`Ver perfil: ${artista.nombre}`)}
+              key={a.id}
+              artistId={a.id}
+              artistName={a.full_name || a.username}
+              imageUrl={a.profile_picture}
               buttonText="Ver perfil"
-              isFavorite={favoritoArtistas.includes(artista.id)}
-              onFavoriteChange={(isFavorite) => handleArtistFavoriteChange(artista.id, isFavorite)}
+              isFavorite={favoritoArtistas.includes(a.id)}
+              onFavoriteChange={(isFavorite) => handleArtistFavoriteChange(a.id, isFavorite)}
             />
           ))}
         </div>
