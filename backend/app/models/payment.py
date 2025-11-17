@@ -1,3 +1,7 @@
+# Autor: Villedo Martinez Sandoval
+# Fecha: 12/11/2025
+# Descripción: Modelo de base de datos para la entidad Pago, que registra detalles de pagos procesados a través de Stripe incluyendo estados y referencias a órdenes
+
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float, Enum
 from datetime import datetime
 from sqlalchemy.orm import relationship

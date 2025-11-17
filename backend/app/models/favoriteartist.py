@@ -1,3 +1,7 @@
+# Autor: Villedo Martinez Sandoval
+# Fecha: 12/11/2025
+# Descripción: Modelo de base de datos para la entidad FavoriteArtist, que almacena artistas (vendedores) marcados como favoritos por usuarios
+
 from sqlalchemy import Column, Integer, DateTime, ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship

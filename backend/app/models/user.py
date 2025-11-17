@@ -1,3 +1,7 @@
+# Autor: Villedo Martinez Sandoval
+# Fecha: 12/11/2025
+# Descripción: Modelo de base de datos para la entidad Usuario, que gestiona la información de perfiles, autenticación y relaciones con productos, órdenes, reseñas y favoritos
+
 from sqlalchemy import Column, Integer, String, Text, DateTime
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship

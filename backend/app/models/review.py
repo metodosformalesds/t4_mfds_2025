@@ -1,3 +1,7 @@
+# Autor: Villedo Martinez Sandoval
+# Fecha: 12/11/2025
+# Descripción: Modelo de base de datos para la entidad Reseña, que almacena evaluaciones de productos con calificaciones, comentarios y verificación de compra
+
 from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime,ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship

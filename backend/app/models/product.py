@@ -1,3 +1,7 @@
+# Autor: Villedo Martinez Sandoval
+# Fecha: 12/11/2025
+# Descripción: Modelo de base de datos para la entidad Producto, que almacena información de productos y materiales incluidas propiedades, inventario, imágenes y métricas de evaluación
+
 from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime, DECIMAL, ForeignKey, JSON, Float
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship

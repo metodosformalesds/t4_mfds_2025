@@ -1,3 +1,7 @@
+# Autor: Villedo Martinez Sandoval
+# Fecha: 12/11/2025
+# Descripción: Archivo de inicialización que importa y registra todos los modelos de la aplicación (User, Product, Order, etc.)
+
 # Import all models to register them with Base
 from .user import User
 from .product import Product
