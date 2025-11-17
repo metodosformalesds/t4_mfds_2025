@@ -30,9 +30,9 @@ export const Catalogo = () => {
   const [seccionActiva, setSeccionActiva] = useState('producto');
   const [paginaActual, setPaginaActual] = useState(1);
   const [favoritos, setFavoritos] = useState([]);
-  const productosPorPagina = 12;
+  const productosPorPagina = 6;
 
-  // Hook para productos con paginación simple
+  // Hook para productos - cargar todos los productos sin paginación
   const { 
     products: productosBackend, 
     loading, 
@@ -40,8 +40,8 @@ export const Catalogo = () => {
     refetch 
   } = useProducts({
     category: seccionActiva,
-    skip: (paginaActual - 1) * productosPorPagina,
-    limit: productosPorPagina,
+    skip: 0,
+    limit: 1000, // Cargar todos los productos
     autoFetch: true
   });
 
@@ -135,8 +135,13 @@ export const Catalogo = () => {
     }
   }, [favoritos]);
 
-  // Calcular total de páginas (estimado basado en productos cargados)
+  // Calcular total de páginas basado en datos filtrados y ordenados
   const totalPaginas = Math.max(1, Math.ceil(datosOrdenados.length / productosPorPagina));
+  
+  // Paginar los datos en el cliente
+  const startIndex = (paginaActual - 1) * productosPorPagina;
+  const endIndex = startIndex + productosPorPagina;
+  const productosPaginados = datosOrdenados.slice(startIndex, endIndex);
 
   if (error) {
     return (
@@ -223,7 +228,7 @@ export const Catalogo = () => {
 
           {/* GRILLA DE PRODUCTOS */}
           <div className="grid-productos-catalogo">
-            {datosOrdenados.map((producto) => (
+            {productosPaginados.map((producto) => (
               <CardProducto
                 key={producto.id}
                 productId={producto.id}
@@ -247,36 +252,20 @@ export const Catalogo = () => {
           {/* PAGINACIÓN SIMPLE */}
           {totalPaginas > 1 && (
             <div className="paginacion">
-              <button 
-                className="pagina-btn"
-                disabled={paginaActual === 1}
-                onClick={() => cambiarPagina(paginaActual - 1)}
-              >
-                Anterior
-              </button>
-              
               {[...Array(totalPaginas)].map((_, index) => (
                 <button
                   key={index + 1}
-                  className={`pagina-numero ${paginaActual === index + 1 ? 'activa' : ''}`}
+                  className={`pagina-btn ${paginaActual === index + 1 ? 'pagina-activa' : ''}`}
                   onClick={() => cambiarPagina(index + 1)}
                 >
                   {index + 1}
                 </button>
               ))}
-              
-              <button 
-                className="pagina-btn"
-                disabled={paginaActual === totalPaginas}
-                onClick={() => cambiarPagina(paginaActual + 1)}
-              >
-                Siguiente
-              </button>
             </div>
           )}
 
           {/* MENSAJE SIN RESULTADOS */}
-          {datosOrdenados.length === 0 && !loading && (
+          {productosPaginados.length === 0 && !loading && (
             <div className="sin-productos">
               <h3>
                 {`No hay ${seccionActiva === 'producto' ? 'productos' : 'materiales'} disponibles`}

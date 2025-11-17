@@ -282,40 +282,39 @@
 .paginacion {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-top: 40px;
+  gap: 15px;
+  margin-top: 50px;
 }
 
-.pagina-btn, .pagina-numero {
-  background: white;
-  border: 2px solid #e9ecef;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-family: var(--reborn-texto-font-family);
-  font-size: 14px;
+.pagina-btn {
+  width: 45px;
+  height: 45px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
   color: #333;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 44px;
-  text-align: center;
 }
 
-.pagina-btn:hover:not(:disabled),
-.pagina-numero:hover {
-  border-color: var(--collection-1-morado-claro);
-  color: var(--collection-1-morado-claro);
-}
-
-.pagina-numero.activa {
-  background-color: var(--collection-1-morado-oscuro);
-  color: white;
+.pagina-btn:hover {
   border-color: var(--collection-1-morado-oscuro);
+  color: var(--collection-1-morado-oscuro);
 }
 
-.pagina-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.pagina-activa {
+  background-color: var(--collection-1-morado-oscuro);
+  border-color: var(--collection-1-morado-oscuro);
+  color: white;
+}
+
+.pagina-activa:hover {
+  background-color: #350572;
+  border-color: #350572;
+  color: white;
 }
 
 
@@ -410,14 +409,14 @@
   }
   
   .paginacion {
-    flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
+    margin-top: 40px;
   }
   
-  .pagina-btn, .pagina-numero {
-    padding: 8px 12px;
-    font-size: 13px;
-    min-width: 40px;
+  .pagina-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
   }
 }
 

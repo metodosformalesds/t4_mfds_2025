@@ -99,9 +99,7 @@ export default function Artistas() {
                 key={artist.id}
                 artistId={artist.id}
                 artistName={artist.full_name}
-                specialty={artist.specialty}
                 imageUrl={artist.profile_picture}
-                onViewProfile={() => {}}
                 buttonText="Ver perfil"
                 isFavorite={false}
               />

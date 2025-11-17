@@ -18,6 +18,38 @@
   font-family: "Poppins", sans-serif;
 }
 
+/* LOADING Y ERROR CONTAINERS */
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.loading-container p {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  color: var(--collection-1-morado-oscuro);
+}
+
+.error-container h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 32px;
+  color: var(--collection-1-morado-oscuro);
+  margin-bottom: 15px;
+}
+
+.error-container p {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
 /* HEADER DEL ARTISTA */
 .artist-header {
   background: linear-gradient(

@@ -10,6 +10,17 @@ const artistService = {
   async getArtists() {
     return await apiClient.get('/api/users/artists');
   },
+
+  async getArtistById(artistId) {
+    return await apiClient.get(`/api/users/${artistId}`);
+  },
+
+  async getArtistProducts(artistId) {
+    return await apiClient.get('/api/products/', {
+      user_id: artistId,
+      limit: 100
+    });
+  },
 };
 
 export default artistService;
