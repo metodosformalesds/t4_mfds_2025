@@ -1,5 +1,5 @@
 # app/api/routes/products.py
-from fastapi import APIRouter, Depends, HTTPException, status, Query, File, UploadFile, Form
+from fastapi import APIRouter, Depends, HTTPException, status, Query, File, UploadFile, Form, Request
 from sqlalchemy.orm import Session
 from typing import Optional, List
 from core.database import get_db
@@ -147,3 +147,64 @@ async def update_product(
         raise HTTPException(status_code=404, detail="Product not found")
     
     return updated_product
+
+
+@router.patch("/{product_id}", response_model=ProductResponse)
+async def patch_product(
+    product_id: int,
+    request: Request,
+    db: Session = Depends(get_db),
+    current_user: UserResponse = Depends(get_current_user),
+):
+    """
+    Actualización parcial del producto vía JSON (application/json).
+    Para reemplazar/actualizar imágenes mediante archivos, use el endpoint multipart/form-data (PUT /{product_id}).
+    Si en el JSON se incluye `images` como lista de URLs, el sistema reemplazará las imágenes actuales
+    y eliminará en S3 las que queden fuera de la lista nueva.
+    Enviar un array vacío `images: []` eliminará todas las imágenes del producto.
+    """
+    # Verificar propiedad del producto
+    product = product_service.get_product(db, product_id)
+    if not product or product.user_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    try:
+        body = await request.json()
+
+        # Permitir solo campos válidos
+        allowed = {"name", "description", "price", "category", "stock", "address", "is_available", "images"}
+        update_data = {k: v for k, v in body.items() if k in allowed}
+
+        # Manejo especial para imágenes
+        if "images" in update_data:
+            imgs = update_data.get("images") or []
+            if not isinstance(imgs, list):
+                raise HTTPException(status_code=400, detail="El campo 'images' debe ser una lista de URLs")
+
+            if len(imgs) > 5:
+                raise HTTPException(status_code=400, detail="Máximo 5 imágenes por producto")
+
+            # Eliminar imágenes antiguas que no estén en la nueva lista
+            old_imgs = product.images or []
+            for old in old_imgs:
+                if old not in imgs:
+                    try:
+                        s3_service.delete_profile_picture(old)
+                    except Exception:
+                        pass
+
+            # asignar nuevas imágenes (listas de URLs)
+            update_data["images"] = imgs
+
+        # Crear esquema ProductUpdate con los campos recibidos
+        product_update = ProductUpdate(**update_data)
+        updated = product_service.update_product(db, product_id, product_update)
+        if not updated:
+            raise HTTPException(status_code=404, detail="Product not found")
+
+        return updated
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error updating product (patch): {str(e)}")

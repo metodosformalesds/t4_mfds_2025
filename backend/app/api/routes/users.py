@@ -1,5 +1,5 @@
 # app/api/routes/users.py
-from fastapi import APIRouter, Depends, HTTPException, status, File, UploadFile, Form
+from fastapi import APIRouter, Depends, HTTPException, status, File, UploadFile, Form, Request
 from sqlalchemy.orm import Session
 from core.database import get_db
 from api.dependencies import get_current_user
@@ -96,6 +96,45 @@ async def update_user_me(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error al actualizar perfil: {str(e)}"
+        )
+
+
+@router.patch("/me", response_model=UserResponse)
+async def patch_user_me(
+    request: Request,
+    db: Session = Depends(get_db),
+    current_user: UserResponse = Depends(get_current_user),
+):
+    """
+    Actualización parcial del perfil vía JSON (application/json).
+    No acepta subida de archivos; si se necesita reemplazar la imagen, usar el endpoint multipart/form-data (PUT /me).
+    """
+    try:
+        # Esperar JSON
+        body = await request.json()
+
+        # Filtrar solo campos válidos para UserUpdate
+        allowed_fields = {"username", "full_name", "bio", "address", "phone", "password", "profile_picture"}
+        update_data = {k: v for k, v in body.items() if k in allowed_fields}
+
+        if not update_data:
+            raise HTTPException(status_code=400, detail="No se enviaron campos válidos para actualizar")
+
+        # Crear esquema y actualizar
+        user_update = UserUpdate(**update_data)
+        updated_user = user_service.update_user(db, current_user.id, user_update)
+
+        if not updated_user:
+            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+        return updated_user
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error al actualizar perfil (patch): {str(e)}"
         )
 
 @router.get("/{user_id}", response_model=UserResponse)
