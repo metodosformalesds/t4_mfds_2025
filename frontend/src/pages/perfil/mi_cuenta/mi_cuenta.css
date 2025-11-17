@@ -1,5 +1,5 @@
 /* 
-    Autor: Ian Domínguez
+    Autor: Ian Domínguez - Erick Rangel
     Fecha: 15 de noviembre de 2025
     Descripción: Estilado para mi_cuenta
 */
@@ -59,12 +59,32 @@
   border-color: #450693;
 }
 
-.card-indicator {
+.mi-cuenta-card .card-indicator {
   width: 40px;
   height: 40px;
-  background-color: #ff3f7f;
   border-radius: 4px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: transparent !important;
+}
+
+.card-indicator-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.card-indicator-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
 }
 
 .card-content {

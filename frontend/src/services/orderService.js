@@ -34,7 +34,10 @@ class OrderService {
    * @returns {Promise<Array>} Lista de órdenes
    */
   async getMyOrders() {
-    return await apiClient.get('/api/orders/my-orders');
+    // El backend expone GET /api/orders/ (con query param `role` opcional).
+    // Llamar a `/api/orders/` sin segmento adicional para evitar 422 cuando
+    // se intenta resolver una ruta de `/{order_id}` con un string.
+    return await apiClient.get('/api/orders/', { role: 'buyer' });
   }
 
   /**

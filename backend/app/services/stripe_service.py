@@ -1,4 +1,8 @@
-# app/services/stripe_service.py
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Servicio que encapsula interacción con la API de Stripe: creación de cuentas
+# conectadas, manejo de payment intents, sesiones de checkout y verificación/procesamiento de webhooks.
+
 from sqlalchemy.orm import Session
 import stripe
 from core.config import settings

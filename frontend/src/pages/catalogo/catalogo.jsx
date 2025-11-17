@@ -21,6 +21,7 @@ import { Header } from '../../components/Header';
 import { Footer } from '../../components/footer';
 import { CardProducto } from '../../components/Cards/card_producto';
 import { useProducts } from '../../hooks/useProducts';
+import favoriteService from '../../services/favoriteService';
 import './catalogo.css';
 
 export const Catalogo = () => {
@@ -28,6 +29,7 @@ export const Catalogo = () => {
   const [soloEnStock, setSoloEnStock] = useState(false);
   const [seccionActiva, setSeccionActiva] = useState('producto');
   const [paginaActual, setPaginaActual] = useState(1);
+  const [favoritos, setFavoritos] = useState([]);
   const productosPorPagina = 12;
 
   // Hook para productos con paginación simple
@@ -42,6 +44,20 @@ export const Catalogo = () => {
     limit: productosPorPagina,
     autoFetch: true
   });
+
+  // Cargar favoritos al montar el componente
+  useEffect(() => {
+    cargarFavoritos();
+  }, []);
+
+  const cargarFavoritos = async () => {
+    try {
+      const favoriteProducts = await favoriteService.getFavoriteProducts();
+      setFavoritos(favoriteProducts.map(fav => fav.product.id));
+    } catch (error) {
+      console.error('Error cargando favoritos:', error);
+    }
+  };
 
   // Opciones de ordenamiento
   const opcionesOrden = [
@@ -110,6 +126,14 @@ export const Catalogo = () => {
     console.log('Viendo detalles:', producto.nombre);
     window.location.href = `/producto/${producto.id}`;
   }, []);
+
+  const handleFavoriteChange = useCallback((productId, isFavorite) => {
+    if (isFavorite) {
+      setFavoritos([...favoritos, productId]);
+    } else {
+      setFavoritos(favoritos.filter(id => id !== productId));
+    }
+  }, [favoritos]);
 
   // Calcular total de páginas (estimado basado en productos cargados)
   const totalPaginas = Math.max(1, Math.ceil(datosOrdenados.length / productosPorPagina));
@@ -214,6 +238,8 @@ export const Catalogo = () => {
                 reseñas={producto.reseñas}
                 calificacion={producto.calificacion}
                 isMaterial={producto.isMaterial}
+                isFavorite={favoritos.includes(producto.id)}
+                onFavoriteChange={(isFavorite) => handleFavoriteChange(producto.id, isFavorite)}
               />
             ))}
           </div>

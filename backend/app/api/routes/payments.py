@@ -1,3 +1,8 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Placeholder para endpoints centrados en pagos. La integración
+# principal con Stripe se encuentra en `routes/stripe.py`.
+
 # app/api/routes/payments.py
 from fastapi import APIRouter
 

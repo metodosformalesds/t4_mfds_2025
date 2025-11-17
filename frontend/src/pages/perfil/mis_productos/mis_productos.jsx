@@ -1,5 +1,5 @@
 /* 
-    Autor: Ian Domínguez
+    Autor: Ian Domínguez - Erick Rangel
     Fecha: 15 de noviembre de 2025
     Descripción: Muestra una vista de los productos del usuario.
 */
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { BtnGeneral } from '../../../components/Botones/btn_general';
 import { Footer } from '../../../components/Footer';
 import { Header } from '../../../components/Header'; 
+import productService from '../../../services/productService';
 import "./mis_productos.css";
 
 export default function MisProductos() {
@@ -17,8 +18,9 @@ export default function MisProductos() {
   const [filtro, setFiltro] = useState("precio");
   const [busqueda, setBusqueda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(4);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchProductos();
@@ -26,47 +28,41 @@ export default function MisProductos() {
 
   const fetchProductos = async () => {
     setLoading(true);
+    setError(null);
+    try {
+      // Pedir todos los productos del usuario (limit alto) y paginar del lado del cliente
+      const response = await productService.getMyProducts({ skip: 0, limit: 1000 });
 
-    // Aquí harías tu fetch a la API
-    // const response = await fetch(`/api/mis-productos?page=${currentPage}&sort=${filtro}`);
+      if (!response || response.length === 0) {
+        setProductos([]);
+        setTotalPages(1);
+        return;
+      }
 
-    // Datos de ejemplo
-    const mockProductos = [
-      {
-        id: 1,
-        nombre: "Chamarra de mezclilla bordada",
-        costo: 799.99,
-        imagen:
-          "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=150&h=150&fit=crop",
-      },
-      {
-        id: 2,
-        nombre: "Chamarra de mezclilla bordada",
-        costo: 799.99,
-        imagen:
-          "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=150&h=150&fit=crop",
-      },
-      {
-        id: 3,
-        nombre: "Chamarra de mezclilla bordada",
-        costo: 799.99,
-        imagen:
-          "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=150&h=150&fit=crop",
-      },
-    ];
+      // Mapear a la estructura que usa el componente
+      const productosMapeados = response.map(p => ({
+        id: p.id,
+        nombre: p.name,
+        costo: parseFloat(p.price) || 0,
+        imagen: (p.images && p.images.length > 0) ? p.images[0] : null,
+        is_available: p.is_available,
+        stock: p.stock,
+      }));
 
-    setProductos(mockProductos);
-    setLoading(false);
-  };
+      const itemsPerPage = 5;
+      const totalPaginas = Math.ceil(productosMapeados.length / itemsPerPage) || 1;
 
-  const handleModificar = (productoId) => {
-    navigate(`/mi-cuenta/productos/editar/${productoId}`);
-  };
+      setProductos(productosMapeados);
+      setTotalPages(totalPaginas);
+      setCurrentPage(1);
 
-  const handleEliminar = (productoId) => {
-    if (window.confirm("¿Estás seguro de que deseas eliminar este producto?")) {
-      console.log("Eliminar producto:", productoId);
-      // Implementar lógica de eliminación
+    } catch (err) {
+      console.error('Error al obtener productos:', err);
+      setError('No se pudieron cargar los productos. Intenta de nuevo.');
+      setProductos([]);
+      setTotalPages(1);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,15 +70,16 @@ export default function MisProductos() {
     navigate(`/mi-cuenta/productos/${productoId}/resenas`);
   };
 
-  const handleBuscar = (e) => {
-    e.preventDefault();
-    console.log("Buscar:", busqueda);
-    // Implementar búsqueda
-  };
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    window.scrollTo(0,0);
   };
+
+  // paginado cliente
+  const itemsPerPage = 5;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const productosPaginados = productos.slice(startIndex, endIndex);
 
   return (
     <div className="mis-productos-page">
@@ -103,30 +100,6 @@ export default function MisProductos() {
           <div className="panel-header">
             <div className="panel-header-top">
               <h1 className="panel-title">Mis productos</h1>
-              <form className="busqueda-form" onSubmit={handleBuscar}>
-                <input
-                  type="text"
-                  placeholder="Buscar productos..."
-                  value={busqueda}
-                  onChange={(e) => setBusqueda(e.target.value)}
-                  className="busqueda-input"
-                />
-                <button type="submit" className="busqueda-btn">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="11" cy="11" r="8" />
-                    <path d="M21 21l-4.35-4.35" />
-                  </svg>
-                </button>
-              </form>
             </div>
             <div className="filtro-container">
               <span className="filtro-label">Filtrar por</span>
@@ -142,55 +115,65 @@ export default function MisProductos() {
             </div>
           </div>
 
-          <div className="productos-lista">
-            {loading ? (
-              <div className="loading">Cargando productos...</div>
-            ) : (
-              productos.map((producto) => (
-                <div key={producto.id} className="producto-item">
-                  <div className="producto-header">
-                    <div className="producto-info-header">
-                      <h3 className="producto-nombre">{producto.nombre}</h3>
-                      <p className="producto-costo">
-                        Costo: ${producto.costo.toFixed(2)}
-                      </p>
-                    </div>
-                    <div className="producto-acciones-header">
-                      <button
-                        className="accion-link"
-                        onClick={() => handleModificar(producto.id)}
-                      >
-                        Modificar producto
-                      </button>
-                      <button
-                        className="accion-link accion-eliminar"
-                        onClick={() => handleEliminar(producto.id)}
-                      >
-                        Eliminar producto
-                      </button>
-                    </div>
-                  </div>
-                  <div className="producto-content">
-                    <img
-                      src={producto.imagen}
-                      alt={producto.nombre}
-                      className="producto-imagen"
-                    />
-                    <div className="producto-nombre-repetido">
-                      {producto.nombre}
-                    </div>
-                    <BtnGeneral
-                      property1="default"
-                      color="morado"
-                      text="Ver reseñas"
-                      onClick={() => handleVerResenas(producto.id)}
-                      className="btn-ver-resenas"
-                    />
-                  </div>
+            <div className="productos-lista">
+              {loading ? (
+                <div className="loading">Cargando productos...</div>
+              ) : error ? (
+                <div className="error-message">{error}</div>
+              ) : productos.length === 0 ? (
+                <div className="empty-message">
+                  <p>No tienes productos aún</p>
                 </div>
-              ))
-            )}
-          </div>
+              ) : (
+                productosPaginados.map((producto) => (
+                  <div key={producto.id} className="producto-item">
+                    <div className="producto-header">
+                      <div className="producto-info-header">
+                        <h3 className="producto-nombre">{producto.nombre}</h3>
+                        <p className="producto-costo">
+                          Costo: ${producto.costo.toFixed(2)}
+                        </p>
+                      </div>
+                      <div className="producto-acciones-header">
+                        <button
+                          className="accion-link"
+                          onClick={() => handleModificar(producto.id)}
+                        >
+                          Modificar producto
+                        </button>
+                        <button
+                          className="accion-link accion-eliminar"
+                          onClick={() => handleEliminar(producto.id)}
+                        >
+                          Eliminar producto
+                        </button>
+                      </div>
+                    </div>
+                    <div className="producto-content">
+                      {producto.imagen ? (
+                        <img
+                          src={producto.imagen}
+                          alt={producto.nombre}
+                          className="producto-imagen"
+                        />
+                      ) : (
+                        <div className="producto-imagen-placeholder">Sin imagen</div>
+                      )}
+                      <div className="producto-nombre-repetido">
+                        {producto.nombre}
+                      </div>
+                      <BtnGeneral
+                        property1="default"
+                        color="morado"
+                        text="Ver reseñas"
+                        onClick={() => handleVerResenas(producto.id)}
+                        className="btn-ver-resenas"
+                      />
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
         </div>
 
         {/* Paginación */}

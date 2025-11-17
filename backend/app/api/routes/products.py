@@ -1,5 +1,10 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Endpoints para CRUD de productos, subida/gestión de imágenes
+# y operaciones relacionadas con productos (listado, detalle, actualización).
+
 # app/api/routes/products.py
-from fastapi import APIRouter, Depends, HTTPException, status, Query, File, UploadFile, Form
+from fastapi import APIRouter, Depends, HTTPException, status, Query, File, UploadFile, Form, Request
 from sqlalchemy.orm import Session
 from typing import Optional, List
 from core.database import get_db
@@ -20,6 +25,21 @@ def get_products(
     category: Optional[str] = Query(None, description="Filter by category: 'producto' or 'material'"),
     db: Session = Depends(get_db)
 ):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Obtiene una lista paginada de productos, opcionalmente filtrada por categoría.
+
+    Parámetros:
+        skip (int): Offset para paginación.
+        limit (int): Límite de resultados.
+        category (Optional[str]): Filtro de categoría.
+        db (Session): Sesión de la base de datos.
+
+    Retorna:
+        List[ProductWithArtist]: Lista de productos.
+
+    """
     products = product_service.get_products(db, skip=skip, limit=limit, category=category)
     return products
 
@@ -30,11 +50,39 @@ def get_my_products(
     db: Session = Depends(get_db),
     current_user: UserResponse = Depends(get_current_user)
 ):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Obtiene los productos creados por el usuario autenticado.
+
+    Parámetros:
+        skip (int): Offset para paginación.
+        limit (int): Límite de resultados.
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+
+    Retorna:
+        List[ProductResponse]: Lista de productos del usuario.
+
+    """
     products = product_service.get_products(db, skip=skip, limit=limit, user_id=current_user.id)
     return products
 
 @router.get("/{product_id}", response_model=ProductWithArtist)
 def get_product(product_id: int, db: Session = Depends(get_db)):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Obtiene un producto por su ID y aumenta el contador de vistas.
+
+    Parámetros:
+        product_id (int): ID del producto.
+        db (Session): Sesión de la base de datos.
+
+    Retorna:
+        ProductWithArtist: Producto solicitado.
+
+    """
     product = product_service.get_product(db, product_id)
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
@@ -56,7 +104,26 @@ async def create_product(
     address: str = Form(...),
     images: Optional[List[UploadFile]] = File(None),
 ):
-    """Crea un producto. Permite subir hasta 5 imágenes."""
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Crea un producto y permite subir hasta 5 imágenes al bucket S3.
+
+    Parámetros:
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+        name (str): Nombre del producto.
+        description (Optional[str]): Descripción.
+        price (float): Precio.
+        category (str): Categoría.
+        stock (int): Stock.
+        address (str): Dirección del producto.
+        images (Optional[List[UploadFile]]): Lista de archivos de imagen.
+
+    Retorna:
+        ProductResponse: Producto creado.
+
+    """
     # Validar cantidad de imágenes
     image_urls = []
     if images:
@@ -100,6 +167,22 @@ async def update_product(
     is_available: Optional[bool] = Form(None),
     images: Optional[List[UploadFile]] = File(None),
 ):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Actualiza un producto. Acepta multipart/form-data para reemplazar imágenes.
+
+    Parámetros:
+        product_id (int): ID del producto a actualizar.
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+        name, description, price, category, stock, address, is_available: Campos opcionales vía Form.
+        images (Optional[List[UploadFile]]): Lista de imágenes nuevas (si se proporcionan, reemplazan las antiguas).
+
+    Retorna:
+        ProductResponse: Producto actualizado.
+
+    """
     # Verificar que el producto pertenece al usuario
     product = product_service.get_product(db, product_id)
     if not product or product.user_id != current_user.id:
@@ -147,3 +230,73 @@ async def update_product(
         raise HTTPException(status_code=404, detail="Product not found")
     
     return updated_product
+
+
+@router.patch("/{product_id}", response_model=ProductResponse)
+async def patch_product(
+    product_id: int,
+    request: Request,
+    db: Session = Depends(get_db),
+    current_user: UserResponse = Depends(get_current_user),
+):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Actualización parcial del producto vía JSON (application/json). Permite enviar
+    una lista de URLs en `images` para sincronizar imágenes (elimina las que no estén en la lista).
+
+    Parámetros:
+        product_id (int): ID del producto.
+        request (Request): Request con el JSON a aplicar.
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+
+    Retorna:
+        ProductResponse: Producto actualizado.
+
+    """
+    # Verificar propiedad del producto
+    product = product_service.get_product(db, product_id)
+    if not product or product.user_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    try:
+        body = await request.json()
+
+        # Permitir solo campos válidos
+        allowed = {"name", "description", "price", "category", "stock", "address", "is_available", "images"}
+        update_data = {k: v for k, v in body.items() if k in allowed}
+
+        # Manejo especial para imágenes
+        if "images" in update_data:
+            imgs = update_data.get("images") or []
+            if not isinstance(imgs, list):
+                raise HTTPException(status_code=400, detail="El campo 'images' debe ser una lista de URLs")
+
+            if len(imgs) > 5:
+                raise HTTPException(status_code=400, detail="Máximo 5 imágenes por producto")
+
+            # Eliminar imágenes antiguas que no estén en la nueva lista
+            old_imgs = product.images or []
+            for old in old_imgs:
+                if old not in imgs:
+                    try:
+                        s3_service.delete_profile_picture(old)
+                    except Exception:
+                        pass
+
+            # asignar nuevas imágenes (listas de URLs)
+            update_data["images"] = imgs
+
+        # Crear esquema ProductUpdate con los campos recibidos
+        product_update = ProductUpdate(**update_data)
+        updated = product_service.update_product(db, product_id, product_update)
+        if not updated:
+            raise HTTPException(status_code=404, detail="Product not found")
+
+        return updated
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error updating product (patch): {str(e)}")

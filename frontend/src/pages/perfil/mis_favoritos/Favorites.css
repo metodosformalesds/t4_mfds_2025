@@ -1,0 +1,544 @@
+/* 
+    Autor: Equipo 4
+    Fecha: 16 de noviembre de 2025
+    Descripción: CSS para página unificada de Favoritos
+*/
+
+:root {
+  --font-family: 'Poppins', sans-serif;
+  --color-primary: #450693;
+  --color-primary-600: #6200c4;
+  --color-accent: #FFC400;
+  --color-text: #333333;
+  --color-text-light: #666666;
+  --color-muted: #999999;
+  --color-bg-panel: #f5f5f5;
+  --color-danger: #ff3f7f;
+  --color-success: #28a745;
+  --color-warning: #ffc400;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.favorites-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+/* ========================================
+   CONTENEDOR PRINCIPAL
+   ======================================== */
+.favorites-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+  width: 100%;
+  flex: 1;
+}
+
+/* ========================================
+   BREADCRUMB
+   ======================================== */
+.breadcrumb {
+  font-size: 14px;
+  font-family: var(--font-family);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 20px;
+}
+
+.breadcrumb-separator {
+  margin: 0 8px;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* ========================================
+   TABS DE NAVEGACIÓN
+   ======================================== */
+.favorites-tabs {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 15px;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  font-weight: 700;
+  color: #8C00FF;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  transition: color 0.3s;
+  font-family: var(--font-family);
+}
+
+.tab-button:hover {
+  color: var(--color-primary-600);
+}
+
+.tab-active {
+  color: var(--color-primary);
+}
+
+.tab-active::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+}
+
+/* ========================================
+   TAB CONTENT
+   ======================================== */
+.tab-content {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   LISTA DE ITEMS
+   ======================================== */
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: var(--color-text-light);
+  padding: 40px;
+}
+
+.no-favorites {
+  text-align: center;
+  font-size: 18px;
+  color: var(--color-text-light);
+  padding: 60px 20px;
+  background-color: var(--color-bg-panel);
+  border-radius: 10px;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb;
+}
+
+/* ========================================
+   TARJETA DE ITEM (Producto o Artista)
+   ======================================== */
+.item-card {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 20px 0;
+  position: relative;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 30px;
+}
+
+.item-card:last-child {
+  border-bottom: none;
+}
+
+.item-image-container {
+  flex-shrink: 0;
+}
+
+.item-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   INFORMACIÓN DEL ITEM
+   ======================================== */
+.item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item-name {
+  font-size: 28px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 5px;
+}
+
+.item-artist,
+.item-specialty {
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  color: var(--color-text-light);
+  margin-bottom: 5px;
+}
+
+.item-price {
+  font-size: 22px;
+  font-family: var(--font-family);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 15px;
+}
+
+/* ========================================
+   BOTONES DE ACCIÓN DEL ITEM
+   ======================================== */
+.item-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-view-item,
+.btn-add-cart {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  font-family: var(--font-family);
+}
+
+.btn-view-item {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-view-item:hover {
+  background-color: var(--color-primary-600);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(69, 6, 147, 0.2);
+}
+
+.btn-add-cart {
+  background-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.btn-add-cart:hover {
+  background-color: #ffb300;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 196, 0, 0.2);
+}
+
+.btn-view-item:active,
+.btn-add-cart:active {
+  transform: scale(0.98);
+}
+
+/* ========================================
+   BOTÓN DE FAVORITO (CORAZÓN)
+   ======================================== */
+.btn-favorite {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  transition: transform 0.3s;
+  margin-right: 40px;
+}
+
+.btn-favorite:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.btn-favorite:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.heart-icon {
+  width: 50px;
+  height: 50px;
+  color: var(--color-danger);
+  filter: drop-shadow(0 2px 4px rgba(255, 63, 127, 0.3));
+}
+
+/* ========================================
+   PAGINACIÓN
+   ======================================== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 60px;
+  padding: 20px;
+}
+
+.page-number {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  background-color: white;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: var(--font-family);
+}
+
+.page-number:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.page-number.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Tablets */
+@media (max-width: 968px) {
+  .favorites-container {
+    padding: 50px 30px 80px;
+  }
+
+  .item-card {
+    gap: 30px;
+  }
+
+  .item-image {
+    width: 160px;
+    height: 160px;
+  }
+
+  .item-name {
+    font-size: 24px;
+  }
+
+  .heart-icon {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* Tablets pequeñas y móviles grandes */
+@media (max-width: 768px) {
+  .favorites-container {
+    padding: 40px 20px 60px;
+  }
+
+  .favorites-tabs {
+    gap: 25px;
+    margin-bottom: 30px;
+  }
+
+  .tab-button {
+    font-size: 20px;
+  }
+
+  .item-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding-right: 60px;
+  }
+
+  .item-image {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .item-info {
+    width: 100%;
+  }
+
+  .item-name {
+    font-size: 22px;
+  }
+
+  .item-artist,
+  .item-specialty {
+    font-size: 15px;
+  }
+
+  .btn-view-item,
+  .btn-add-cart {
+    font-size: 13px;
+    padding: 10px 16px;
+  }
+
+  .btn-favorite {
+    top: 10px;
+    right: 10px;
+    transform: none;
+  }
+
+  .btn-favorite:hover {
+    transform: scale(1.1);
+  }
+
+  .btn-favorite:active {
+    transform: scale(0.95);
+  }
+
+  .heart-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .page-number {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+  .favorites-container {
+    padding: 30px 15px 50px;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
+
+  .favorites-tabs {
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .tab-button {
+    font-size: 18px;
+  }
+
+  .items-list {
+    gap: 20px;
+  }
+
+  .item-card {
+    padding-bottom: 20px;
+  }
+
+  .item-image {
+    max-width: 180px;
+  }
+
+  .item-name {
+    font-size: 18px;
+  }
+
+  .item-artist,
+  .item-specialty {
+    font-size: 13px;
+  }
+
+  .item-price {
+    font-size: 18px;
+  }
+
+  .item-actions {
+    gap: 10px;
+  }
+
+  .btn-view-item,
+  .btn-add-cart {
+    font-size: 12px;
+    padding: 8px 12px;
+    flex: 1;
+  }
+
+  .heart-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .pagination {
+    gap: 8px;
+    margin-top: 40px;
+  }
+
+  .page-number {
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+  }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 360px) {
+  .tab-button {
+    font-size: 16px;
+  }
+
+  .item-name {
+    font-size: 16px;
+  }
+
+  .item-artist,
+  .item-specialty {
+    font-size: 12px;
+  }
+
+  .btn-view-item,
+  .btn-add-cart {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .heart-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .page-number {
+    width: 30px;
+    height: 30px;
+    font-size: 10px;
+  }
+}

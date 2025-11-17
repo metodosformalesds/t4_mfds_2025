@@ -7,7 +7,7 @@
 */
 
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BtnGeneral } from '../../components/Botones/btn_general';
 import { BtnCarrito } from '../../components/Botones/btn_carrito';
@@ -15,10 +15,46 @@ import { CardProducto } from '../../components/Cards/card_producto';
 import { CardArtista } from '../../components/Cards/card_artista';
 import { Footer } from '../../components/footer';
 import { Header } from '../../components/Header'; 
+import favoriteService from '../../services/favoriteService';
 import './inicio.css';
 
 export const Inicio = () => {
   const navigate = useNavigate();
+  const [favoritos, setFavoritos] = useState([]);
+  const [favoritoArtistas, setFavoritoArtistas] = useState([]);
+
+  // Cargar favoritos al montar
+  useEffect(() => {
+    cargarFavoritos();
+  }, []);
+
+  const cargarFavoritos = async () => {
+    try {
+      const favoriteProducts = await favoriteService.getFavoriteProducts();
+      setFavoritos(favoriteProducts.map(fav => fav.product.id));
+      
+      const favoriteArtists = await favoriteService.getFavoriteArtists();
+      setFavoritoArtistas(favoriteArtists.map(fav => fav.artist.id));
+    } catch (error) {
+      console.error('Error cargando favoritos:', error);
+    }
+  };
+
+  const handleProductoFavoriteChange = (productId, isFavorite) => {
+    if (isFavorite) {
+      setFavoritos([...favoritos, productId]);
+    } else {
+      setFavoritos(favoritos.filter(id => id !== productId));
+    }
+  };
+
+  const handleArtistFavoriteChange = (artistId, isFavorite) => {
+    if (isFavorite) {
+      setFavoritoArtistas([...favoritoArtistas, artistId]);
+    } else {
+      setFavoritoArtistas(favoritoArtistas.filter(id => id !== artistId));
+    }
+  };
 
   // Datos de ejemplo para productos
   const productosDestacados = [
@@ -105,6 +141,7 @@ export const Inicio = () => {
           {productosDestacados.map((producto) => (
             <CardProducto
               key={producto.id}
+              productId={producto.id}
               productName={producto.nombre}
               artistName={`${producto.artista}`}
               price={producto.precio}
@@ -112,6 +149,8 @@ export const Inicio = () => {
               onViewDetails={() => console.log(`Ver detalles: ${producto.nombre}`)}
               onAddToCart={() => console.log(`Agregar al carrito: ${producto.nombre}`)}
               buttonText="Ver detalles"
+              isFavorite={favoritos.includes(producto.id)}
+              onFavoriteChange={(isFavorite) => handleProductoFavoriteChange(producto.id, isFavorite)}
             />
           ))}
         </div>
@@ -157,11 +196,14 @@ export const Inicio = () => {
           {artistasDestacados.map((artista) => (
             <CardArtista
               key={artista.id}
+              artistId={artista.id}
               artistName={artista.nombre}
               specialty={artista.especialidad}
               imageUrl={artista.imagen}
               onViewProfile={() => console.log(`Ver perfil: ${artista.nombre}`)}
               buttonText="Ver perfil"
+              isFavorite={favoritoArtistas.includes(artista.id)}
+              onFavoriteChange={(isFavorite) => handleArtistFavoriteChange(artista.id, isFavorite)}
             />
           ))}
         </div>

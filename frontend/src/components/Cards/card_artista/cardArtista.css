@@ -35,6 +35,53 @@
   background-repeat: no-repeat;
   height: 160px;
   width: 100%;
+  position: relative;
+}
+
+/* ========== BOTÓN DE FAVORITO ========== */
+.card-artista .btn-favorite-card {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-artista .btn-favorite-card:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-artista .btn-favorite-card:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.card-artista .btn-favorite-card .heart-icon {
+  width: 20px;
+  height: 20px;
+  color: #999;
+  transition: all 0.3s ease;
+}
+
+.card-artista .btn-favorite-card.is-favorite .heart-icon {
+  color: var(--collection-1-rosa);
+}
+
+.card-artista .btn-favorite-card:not(.is-favorite):hover .heart-icon {
+  color: #ccc;
 }
 
 /* ========== INFORMACIÓN DEL ARTISTA ========== */

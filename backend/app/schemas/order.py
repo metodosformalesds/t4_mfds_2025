@@ -2,7 +2,7 @@ from pydantic import BaseModel, ConfigDict
 from typing import List, Optional
 from datetime import datetime
 from .user import UserResponse
-from .product import ProductResponse
+from .product import ProductResponse, ProductWithArtistResponse
 
 class OrderItemBase(BaseModel):
     product_id: int
@@ -11,7 +11,7 @@ class OrderItemBase(BaseModel):
 
 class OrderItemResponse(BaseModel):
     id: int
-    product: ProductResponse
+    product: ProductWithArtistResponse
     quantity: int
     unit_price: float
     total_price: float

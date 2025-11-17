@@ -6,17 +6,20 @@
  *              calificaciones, reseñas y opciones de compra (checkout o agregar al carrito).
  */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BtnGeneral } from '../../components/Botones/btn_general';
 import { Footer } from '../../components/footer';
 import { Header } from '../../components/Header'; 
 import { useProductDetail } from '../../hooks/useProductDetail';
+import favoriteService from '../../services/favoriteService';
 import "./productoDetallado.css";
 
 export default function ProductDetail() {
   const navigate = useNavigate();
   const { productId } = useParams();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
   
   // Usar hook personalizado para manejar el estado del producto
   const { 
@@ -27,6 +30,23 @@ export default function ProductDetail() {
     handleImageSelect,
     hasImages 
   } = useProductDetail(productId);
+
+  // Cargar estado de favorito
+  useEffect(() => {
+    if (product) {
+      checkIfFavorite();
+    }
+  }, [product]);
+
+  const checkIfFavorite = async () => {
+    try {
+      const favorites = await favoriteService.getFavoriteProducts();
+      const isFav = favorites.some(fav => fav.product.id === parseInt(productId));
+      setIsFavorite(isFav);
+    } catch (error) {
+      console.error('Error checking favorite status:', error);
+    }
+  };
 
   // Función para renderizar estrellas
   const renderStars = (rating, size = "medium") => {
@@ -58,6 +78,27 @@ export default function ProductDetail() {
     if (!product) return;
     console.log("Agregar al carrito:", product.id);
     // TODO: Implementar lógica de agregar al carrito cuando esté listo
+  };
+
+  // Manejar favorito
+  const handleToggleFavorite = async () => {
+    if (!product) return;
+    setFavoriteLoading(true);
+    try {
+      if (isFavorite) {
+        // Quitar de favoritos
+        await favoriteService.removeFavoriteProduct(product.id);
+        setIsFavorite(false);
+      } else {
+        // Agregar a favoritos
+        await favoriteService.addFavoriteProduct(product.id);
+        setIsFavorite(true);
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    } finally {
+      setFavoriteLoading(false);
+    }
   };
 
   // Ver todas las reseñas
@@ -160,6 +201,14 @@ export default function ProductDetail() {
               color="morado"
               text="Agregar al carrito"
               onClick={handleAddToCart}
+              className="btn-action-product"
+            />
+            <BtnGeneral
+              property1={isFavorite ? "default" : "variant-2"}
+              color="rosa"
+              text={isFavorite ? "Favorito" : "Agregar a favoritos"}
+              onClick={handleToggleFavorite}
+              disabled={favoriteLoading}
               className="btn-action-product"
             />
           </div>

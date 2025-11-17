@@ -39,3 +39,23 @@ class ProductResponse(ProductBase):
 
 class ProductWithArtist(ProductResponse):
     user: UserResponse
+
+class ProductWithArtistResponse(BaseModel):
+    id: int
+    name: str
+    description: Optional[str] = None
+    price: float
+    category: str
+    stock: int
+    address: str
+    images: List[str] = []
+    user_id: int
+    is_available: bool
+    view_count: int
+    average_rating: float
+    review_count: int
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+    user: UserResponse
+    
+    model_config = ConfigDict(from_attributes=True)
