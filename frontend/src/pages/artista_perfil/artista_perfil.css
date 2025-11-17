@@ -14,8 +14,8 @@
 /* CONTENEDOR PRINCIPAL */
 .artist-profile {
   min-height: 100vh;
-  background-color: #f8f9fa;
-  font-family: "Poppins", sans-serif;
+  background-color: var(--bg-light);
+  font-family: var(--font-primary);
 }
 
 /* LOADING Y ERROR CONTAINERS */
@@ -31,22 +31,22 @@
 }
 
 .loading-container p {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 18px;
-  color: var(--collection-1-morado-oscuro);
+  color: var(--morado-oscuro);
 }
 
 .error-container h2 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-title);
   font-size: 32px;
-  color: var(--collection-1-morado-oscuro);
+  color: var(--morado-oscuro);
   margin-bottom: 15px;
 }
 
 .error-container p {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  color: #666;
+  color: var(--text-gray);
   margin-bottom: 30px;
 }
 
@@ -54,8 +54,8 @@
 .artist-header {
   background: linear-gradient(
     135deg,
-    var(--collection-1-morado-oscuro) 0%,
-    var(--collection-1-morado-claro) 100%
+    var(--morado-oscuro) 0%,
+    var(--morado-claro) 100%
   );
   padding: 60px 0;
 }
@@ -83,8 +83,8 @@
   height: 220px;
   border-radius: 50%;
   overflow: hidden;
-  border: 5px solid white;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border: 5px solid var(--white);
+  box-shadow: var(--shadow-xl);
 }
 
 .artist-image {
@@ -96,7 +96,7 @@
 /* INFORMACIÓN DEL ARTISTA */
 .artist-info {
   flex: 1;
-  color: white;
+  color: var(--white);
 }
 
 .artist-name-section {
@@ -107,25 +107,25 @@
 }
 
 .artist-full-name {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-title);
   font-size: 48px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   margin: 0;
-  line-height: 1.1;
+  line-height: var(--line-height-tight);
 }
 
 .artist-username {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 20px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.8);
+  font-weight: var(--font-weight-normal);
+  color: var(--bg-white-alpha);
 }
 
 .artist-bio {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  font-weight: 400;
-  line-height: 1.7;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-loose);
   color: rgba(255, 255, 255, 0.9);
   margin: 0 0 30px 0;
   max-width: 800px;
@@ -133,7 +133,7 @@
 
 /* TARJETA DE CONTACTO */
 .artist-contact-card {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--bg-white-alpha);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 25px 30px;
@@ -154,15 +154,15 @@
 .contact-icon {
   width: 24px;
   height: 24px;
-  color: var(--collection-1-rosa);
+  color: var(--rosa);
   flex-shrink: 0;
 }
 
 .contact-text {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 15px;
-  font-weight: 400;
-  color: white;
+  font-weight: var(--font-weight-normal);
+  color: var(--white);
 }
 
 /* SECCIÓN DE PRODUCTOS */
@@ -182,10 +182,10 @@
 }
 
 .products-title {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-title);
   font-size: 36px;
-  font-weight: 700;
-  color: var(--collection-1-morado-oscuro);
+  font-weight: var(--font-weight-bold);
+  color: var(--morado-oscuro);
   margin: 0;
 }
 
@@ -196,26 +196,26 @@
 }
 
 .filter-select {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   padding: 12px 20px;
   border-radius: 12px;
-  border: 2px solid var(--collection-1-morado-claro);
-  background-color: white;
-  color: var(--collection-1-morado-oscuro);
+  border: 2px solid var(--morado-claro);
+  background-color: var(--white);
+  color: var(--morado-oscuro);
   cursor: pointer;
   transition: all 0.3s ease;
   outline: none;
 }
 
 .filter-select:hover {
-  border-color: var(--collection-1-morado-oscuro);
+  border-color: var(--morado-oscuro);
   box-shadow: 0 4px 12px rgba(140, 0, 255, 0.2);
 }
 
 .filter-select:focus {
-  border-color: var(--collection-1-morado-oscuro);
+  border-color: var(--morado-oscuro);
   box-shadow: 0 0 0 3px rgba(140, 0, 255, 0.1);
 }
 
@@ -236,23 +236,23 @@
 .no-products-icon {
   width: 100px;
   height: 100px;
-  color: var(--collection-1-morado-claro);
+  color: var(--morado-claro);
   margin-bottom: 20px;
 }
 
 .no-products-title {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-title);
   font-size: 24px;
-  font-weight: 600;
-  color: #666;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-gray);
   margin: 0 0 10px 0;
 }
 
 .no-products-text {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  font-weight: 400;
-  color: #999;
+  font-weight: var(--font-weight-normal);
+  color: var(--text-gray-light);
   margin: 0;
 }
 

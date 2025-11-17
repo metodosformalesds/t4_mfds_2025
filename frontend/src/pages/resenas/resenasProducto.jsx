@@ -115,11 +115,11 @@ export default function ProductReviews() {
         {/* Lista de reseñas */}
         {loading ? (
           <div className="reviews-list">
-            <p style={{ textAlign: 'center', color: '#666' }}>Cargando reseñas...</p>
+            <p className="reviews-status">Cargando reseñas...</p>
           </div>
         ) : reviews.length === 0 ? (
           <div className="reviews-list">
-            <p style={{ textAlign: 'center', color: '#666' }}>No hay reseñas aún para este producto</p>
+            <p className="reviews-status">No hay reseñas aún para este producto</p>
           </div>
         ) : (
           <div className="reviews-list">

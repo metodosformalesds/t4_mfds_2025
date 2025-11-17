@@ -1,7 +1,8 @@
 /* 
-    Autor: Ian Domínguez - Erick Rangel
-    Fecha: 15 de noviembre de 2025
-    Descripción: Estilados para mis_productos.
+  Autor: Ian Domínguez - Erick Rangel
+  Fecha: 15 de noviembre de 2025
+  Descripción: Estilados para mis_productos.
+  Refactor: Reemplazo de literales por variables globales de index.css
 */
 
 * {
@@ -10,28 +11,13 @@
   box-sizing: border-box;
 }
 
-/* Shared theme variables */
-:root {
-  --font-family: "Poppins", sans-serif;
-  --color-primary: #450693;
-  --color-primary-600: #8c00ff;
-  --color-accent: #a65eff;
-  --color-text: #333333;
-  --color-muted: #666666;
-  --color-bg-panel: #f0e6ff;
-  --color-danger: #d32f2f;
-  --color-success: #0f5132;
-  --color-warning: #856404;
-  --shadow-sm: 0 2px 8px rgba(69, 6, 147, 0.1);
-}
-
 .mis-productos-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  font-family: var(--font-family);
-  color: var(--color-text);
+  background-color: var(--white);
+  font-family: var(--font-primary);
+  color: var(--text-gray-dark);
 }
 
 /* ========================================
@@ -50,7 +36,7 @@
    ======================================== */
 .breadcrumb {
   font-size: 14px;
-  color: var(--color-muted);
+  color: var(--text-gray);
   margin-bottom: 20px;
 }
 
@@ -60,7 +46,7 @@
 }
 
 .breadcrumb-link:hover {
-  color: var(--color-primary);
+  color: var(--morado-oscuro);
   text-decoration: underline;
 }
 
@@ -68,7 +54,7 @@
    PANEL PRINCIPAL
    ======================================== */
 .productos-panel {
-  background-color: var(--color-bg-panel);
+  background-color: var(--bg-panel);
   border-radius: 15px;
   overflow: hidden;
 }
@@ -77,7 +63,7 @@
    PANEL HEADER
    ======================================== */
 .panel-header {
-  background-color: var(--color-primary-600);
+  background-color: var(--morado-claro);
   padding: 20px 25px;
 }
 
@@ -89,10 +75,10 @@
 }
 
 .panel-title {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 24px;
-  font-weight: 600;
-  color: white;
+  font-weight: var(--font-weight-semibold);
+  color: var(--white);
   margin: 0;
 }
 
@@ -106,19 +92,19 @@
 }
 
 .filtro-label {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  color: white;
+  color: var(--white);
 }
 
 .filtro-select {
-  background-color: #a65eff;
+  background-color: var(--color-accent);
   border: none;
   border-radius: 20px;
   padding: 8px 30px 8px 15px;
   font-size: 14px;
-  font-weight: 500;
-  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-gray-dark);
   cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
@@ -136,18 +122,18 @@
 }
 
 .busqueda-input {
-  background-color: var(--color-muted);
+  background-color: var(--text-gray);
   border: none;
   border-radius: 20px 0 0 20px;
   padding: 0 15px;
   font-size: 14px;
-  color: white;
+  color: var(--white);
   width: 180px;
   height: 100%;
 }
 
 .busqueda-btn {
-  background-color: #888;
+  background-color: var(--color-gray-500);
   border: none;
   border-radius: 0 20px 20px 0;
   padding: 0 15px;
@@ -155,7 +141,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--white);
   transition: background-color 0.3s;
   height: 100%;
 }
@@ -173,8 +159,8 @@
 .loading {
   padding: 40px;
   text-align: center;
-  color: var(--color-muted);
-  background-color: white;
+  color: var(--text-gray);
+  background-color: var(--white);
   border-radius: 10px;
 }
 
@@ -182,7 +168,7 @@
    PRODUCTO ITEM (con mejor separación)
    ======================================== */
 .producto-item {
-  background-color: white;
+  background-color: var(--white);
   border-radius: 10px;
   box-shadow: var(--shadow-sm);
   overflow: hidden;
@@ -193,7 +179,7 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: 20px 25px 10px;
-  border-bottom: 2px solid var(--color-primary);
+  border-bottom: 2px solid var(--morado-oscuro);
 }
 
 .producto-info-header {
@@ -202,14 +188,14 @@
 
 .producto-nombre {
   font-size: 18px;
-  font-weight: 700;
-  color: #000;
+  font-weight: var(--font-weight-bold);
+  color: var(--black);
   margin-bottom: 5px;
 }
 
 .producto-costo {
   font-size: 14px;
-  color: #000;
+  color: var(--black);
 }
 
 .producto-acciones-header {
@@ -221,7 +207,7 @@
   background: none;
   border: none;
   font-size: 14px;
-  color: var(--color-muted);
+  color: var(--text-gray);
   cursor: pointer;
   padding: 0;
   text-decoration: none;
@@ -229,7 +215,7 @@
 }
 
 .accion-link:hover {
-  color: var(--color-primary);
+  color: var(--morado-oscuro);
   text-decoration: underline;
 }
 
@@ -252,15 +238,15 @@
   height: 120px;
   object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
 }
 
 .producto-nombre-repetido {
   flex: 1;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  font-weight: 700;
-  color: #000;
+  font-weight: var(--font-weight-bold);
+  color: var(--black);
 }
 
 .btn-ver-resenas {
@@ -282,32 +268,32 @@
 .pagina-btn {
   width: 45px;
   height: 45px;
-  border: 2px solid #333;
+  border: 2px solid var(--border-dark);
   border-radius: 10px;
-  background-color: white;
-  font-family: "Poppins", sans-serif;
+  background-color: var(--white);
+  font-family: var(--font-primary);
   font-size: 16px;
-  font-weight: 500;
-  color: #333;
+  font-weight: var(--font-weight-medium);
+  color: var(--text-gray-dark);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .pagina-btn:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  border-color: var(--morado-oscuro);
+  color: var(--morado-oscuro);
 }
 
 .pagina-activa {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: white;
+  background-color: var(--morado-oscuro);
+  border-color: var(--morado-oscuro);
+  color: var(--white);
 }
 
 .pagina-activa:hover {
-  background-color: #350572;
-  border-color: #350572;
-  color: white;
+  background-color: var(--color-purple-dark);
+  border-color: var(--color-purple-dark);
+  color: var(--white);
 }
 
 /* ========================================

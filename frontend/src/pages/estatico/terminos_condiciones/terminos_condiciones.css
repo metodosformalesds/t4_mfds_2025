@@ -14,7 +14,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: var(--white);
 }
 
 /* ========================================
@@ -32,19 +32,19 @@
    TÍTULOS
    ======================================== */
 .terms-main-title {
-  font-family: "Oswald", sans-serif;
+  font-family: var(--font-secondary);
   font-size: 42px;
-  font-weight: 700;
-  color: #450693;
+  font-weight: var(--font-weight-bold);
+  color: var(--morado-oscuro);
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .terms-last-update {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  color: #888;
+  color: var(--color-gray-500);
   margin-bottom: 40px;
   font-style: italic;
 }
@@ -59,7 +59,7 @@
 }
 
 .terms-section {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--border-gray);
   padding-bottom: 30px;
 }
 
@@ -68,18 +68,18 @@
 }
 
 .terms-section-title {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--font-tertiary);
   font-size: 22px;
-  font-weight: 700;
-  color: #333;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-gray-dark);
   margin-bottom: 15px;
 }
 
 .terms-text {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 15px;
   line-height: 1.8;
-  color: #555;
+  color: var(--text-muted);
   margin-bottom: 12px;
   text-align: justify;
 }
@@ -89,10 +89,10 @@
 }
 
 .terms-list {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 15px;
   line-height: 1.8;
-  color: #555;
+  color: var(--text-muted);
   margin-left: 25px;
   margin-top: 10px;
 }
@@ -102,11 +102,11 @@
 }
 
 .terms-contact {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 15px;
   line-height: 2;
-  color: #8C00FF;
-  font-weight: 500;
+  color: var(--morado-claro);
+  font-weight: var(--font-weight-medium);
   margin-top: 10px;
 }
 

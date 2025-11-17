@@ -18,9 +18,9 @@
 }
 
 .summary-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 20px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--collection-1-morado-oscuro);
   margin: 0;
 }
@@ -31,7 +31,7 @@
   color: var(--collection-1-morado-claro);
   padding: 8px 16px;
   border-radius: 6px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -44,9 +44,9 @@
 
 /* SECCIONES */
 .section-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--text-dark);
   margin: 0 0 15px 0;
 }
@@ -74,7 +74,7 @@
   gap: 12px;
   align-items: center;
   padding: 12px;
-  background: #f8f9fa;
+  background: var(--bg-light);
   border-radius: 8px;
 }
 
@@ -98,9 +98,9 @@
 }
 
 .product-name {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--text-dark);
   margin: 0 0 4px 0;
   white-space: nowrap;
@@ -109,9 +109,9 @@
 }
 
 .product-seller {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 12px;
-  color: #666;
+  color: var(--text-gray);
   margin: 0 0 6px 0;
 }
 
@@ -122,22 +122,22 @@
 }
 
 .product-price {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--collection-1-morado-oscuro);
 }
 
 .product-quantity {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 12px;
-  color: #666;
+  color: var(--text-gray);
 }
 
 .product-total {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--collection-1-morado-oscuro);
   flex-shrink: 0;
 }
@@ -171,24 +171,24 @@
 }
 
 .unavailable-name {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 13px;
-  color: #333;
-  font-weight: 500;
+  color: var(--text-gray-dark);
+  font-weight: var(--font-weight-medium);
 }
 
 .unavailable-reason {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 11px;
   color: var(--collection-1-rosa);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .unavailable-notice {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 12px;
   color: var(--collection-1-rosa);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-align: center;
   padding: 8px;
   background: rgba(255, 63, 127, 0.1);
@@ -199,7 +199,7 @@
 .pricing-section {
   margin-bottom: 20px;
   padding: 20px;
-  background: #f8f9fa;
+  background: var(--bg-light);
   border-radius: 8px;
 }
 
@@ -208,36 +208,36 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
   color: var(--text-dark);
 }
 
 .pricing-row.total {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--collection-1-morado-oscuro);
   margin-bottom: 0;
 }
 
 .free-shipping {
   color: var(--collection-1-amarillo);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .pricing-divider {
   height: 1px;
-  background: #e0e0e0;
+  background: var(--border-gray);
   margin: 15px 0;
 }
 
 .shipping-notice {
   background: var(--collection-1-amarillo);
-  color: #333;
+  color: var(--text-gray-dark);
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-align: center;
   margin-top: 10px;
 }
@@ -262,10 +262,10 @@
 }
 
 .guarantee-text {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 12px;
-  color: #666;
-  font-weight: 500;
+  color: var(--text-gray);
+  font-weight: var(--font-weight-medium);
 }
 
 /* SCROLLBAR */

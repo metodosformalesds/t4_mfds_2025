@@ -14,7 +14,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: var(--white);
 }
 
 /* ========================================
@@ -32,9 +32,9 @@
    BREADCRUMB
    ======================================== */
 .payment-breadcrumb {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  color: #7c00e8;
+  color: var(--morado-claro);
   margin-bottom: 25px;
 }
 
@@ -42,17 +42,17 @@
    TÍTULOS
    ======================================== */
 .payment-main-title {
-  font-family: "Oswald", sans-serif;
+  font-family: var(--font-secondary);
   font-size: 32px;
-  font-weight: 700;
-  color: #450693;
+  font-weight: var(--font-weight-bold);
+  color: var(--morado-oscuro);
   margin-bottom: 15px;
 }
 
 .payment-intro {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 15px;
-  color: #555;
+  color: var(--text-muted);
   line-height: 1.6;
   margin-bottom: 20px;
 }
@@ -74,25 +74,25 @@
 }
 
 .payment-section-intro {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 15px;
-  color: #333;
-  font-weight: 600;
+  color: var(--text-gray-dark);
+  font-weight: var(--font-weight-semibold);
   margin-bottom: 15px;
 }
 
 .payment-section-title {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--font-tertiary);
   font-size: 20px;
-  font-weight: 700;
-  color: #333;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-gray-dark);
   margin-bottom: 12px;
 }
 
 .payment-text {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  color: #555;
+  color: var(--text-muted);
   line-height: 1.7;
   margin-bottom: 12px;
 }
@@ -102,21 +102,21 @@
 }
 
 .email-link {
-  color: #8c00ff;
-  font-weight: 600;
+  color: var(--morado-claro);
+  font-weight: var(--font-weight-semibold);
 }
 
 .payment-text strong {
-  color: #333;
+  color: var(--text-gray-dark);
 }
 
 /* ========================================
    LISTA DE MÉTODOS DE PAGO
    ======================================== */
 .payment-list {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  color: #333;
+  color: var(--text-gray-dark);
   line-height: 1.8;
   margin-left: 25px;
   margin-bottom: 20px;
@@ -134,17 +134,17 @@
 }
 
 .payment-note-title {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 15px;
-  font-weight: 700;
-  color: #333;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-gray-dark);
   margin-bottom: 10px;
 }
 
 .payment-note-list {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  color: #555;
+  color: var(--text-muted);
   line-height: 1.7;
   margin-left: 25px;
 }

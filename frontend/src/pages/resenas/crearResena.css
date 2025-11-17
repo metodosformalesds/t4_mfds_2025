@@ -10,17 +10,15 @@
 	box-sizing: border-box;
   }
   
-  body {
-	font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-	  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-	  sans-serif;
+body {
+	font-family: var(--font-primary);
   }
   
   .write-review-page {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	background-color: #ffffff;
+	background-color: var(--white);
   }
   
   /* ========================================
@@ -43,8 +41,8 @@
   .review-form-card {
 	width: 100%;
 	max-width: 900px;
-	background-color: #ffffff;
-	border: 2px solid #d0d0d0;
+	background-color: var(--white);
+	border: 2px solid var(--border-gray-dark);
 	border-radius: 20px;
 	padding: 50px 60px;
   }
@@ -54,11 +52,11 @@
 	 ======================================== */
   .form-title {
 	font-size: 28px;
-	font-weight: 700;
-	color: var(--morado-oscuro, #450693);
+	font-weight: var(--font-weight-bold);
+	color: var(--morado-oscuro);
 	margin-bottom: 25px;
 	text-align: left;
-	font-family: "Poppins", sans-serif;
+	font-family: var(--font-primary);
   }
   
   /* ========================================
@@ -68,7 +66,7 @@
 	display: flex;
 	gap: 20px;
 	padding: 20px;
-	background-color: #f8f9fa;
+	background-color: var(--bg-light);
 	border-radius: 12px;
 	margin-bottom: 30px;
   }
@@ -79,7 +77,7 @@
 	height: 120px;
 	border-radius: 8px;
 	overflow: hidden;
-	border: 2px solid #e9ecef;
+	border: 2px solid var(--border-light);
   }
   
   .product-image-review img {
@@ -97,8 +95,8 @@
   
   .product-name-review {
 	font-size: 18px;
-	font-weight: 600;
-	color: var(--morado-oscuro, #450693);
+	font-weight: var(--font-weight-semibold);
+	color: var(--morado-oscuro);
 	margin: 0;
   }
   
@@ -147,13 +145,13 @@
 	transform: scale(0.95);
   }
   
-  .star-active {
-	color: var(--amarillo, #FFC400);
-  }
+	.star-active {
+	color: var(--amarillo);
+	}
   
-  .star-inactive {
-	color: #e0e0e0;
-  }
+	.star-inactive {
+	color: var(--border-gray);
+	}
   
   /* ========================================
 	 FORMULARIO
@@ -165,35 +163,35 @@
   .input-title {
 	width: 100%;
 	padding: 16px 20px;
-	background-color: #ffffff;
-	border: 2px solid #e9ecef;
+	background-color: var(--white);
+	border: 2px solid var(--border-light);
 	border-radius: 8px;
 	font-size: 15px;
-	color: var(--text-dark, #202124);
+	color: var(--text-dark);
 	outline: none;
 	transition: border-color 0.3s, background-color 0.3s;
-	font-weight: 600;
+	font-weight: var(--font-weight-semibold);
 	text-align: center;
   }
   
   .input-title::placeholder {
-	color: var(--text-light, #5f6368);
-	font-weight: 600;
+	color: var(--text-light);
+	font-weight: var(--font-weight-semibold);
   }
   
   .input-title:focus {
-	background-color: #fafafa;
-	border-color: var(--morado-claro, #8C00FF);
+	background-color: var(--bg-gray-light);
+	border-color: var(--morado-claro);
   }
   
   .input-description {
 	width: 100%;
 	padding: 20px;
-	background-color: #ffffff;
-	border: 2px solid #e9ecef;
+	background-color: var(--white);
+	border: 2px solid var(--border-light);
 	border-radius: 8px;
 	font-size: 15px;
-	color: var(--text-dark, #202124);
+	color: var(--text-dark);
 	outline: none;
 	resize: vertical;
 	font-family: inherit;
@@ -201,13 +199,13 @@
 	min-height: 150px;
   }
   
-  .input-description::placeholder {
-	color: var(--text-light, #5f6368);
-  }
+	.input-description::placeholder {
+	color: var(--text-light);
+	}
   
   .input-description:focus {
-	background-color: #fafafa;
-	border-color: var(--morado-claro, #8C00FF);
+	background-color: var(--bg-gray-light);
+	border-color: var(--morado-claro);
   }
   
   /* ========================================

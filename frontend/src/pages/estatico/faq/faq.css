@@ -14,7 +14,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: var(--white);
 }
 
 /* ========================================
@@ -32,19 +32,19 @@
    TÍTULOS PRINCIPALES
    ======================================== */
 .faq-main-title {
-  font-family: "Oswald", sans-serif;
+  font-family: var(--font-secondary);
   font-size: 42px;
-  font-weight: 700;
-  color: #450693;
+  font-weight: var(--font-weight-bold);
+  color: var(--morado-oscuro);
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .faq-subtitle {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  color: #666;
+  color: var(--text-gray);
   margin-bottom: 50px;
 }
 
@@ -62,13 +62,13 @@
 }
 
 .faq-category-title {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--font-tertiary);
   font-size: 24px;
-  font-weight: 700;
-  color: #8C00FF;
+  font-weight: var(--font-weight-bold);
+  color: var(--morado-claro);
   margin-bottom: 20px;
   padding-bottom: 10px;
-  border-bottom: 2px solid #8C00FF;
+  border-bottom: 2px solid var(--morado-claro);
 }
 
 .faq-questions {
@@ -81,7 +81,7 @@
    ITEMS FAQ (ACORDEÓN)
    ======================================== */
 .faq-item {
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-gray);
   border-radius: 10px;
   overflow: hidden;
   transition: box-shadow 0.3s;
@@ -93,13 +93,13 @@
 
 .faq-question {
   width: 100%;
-  background-color: #f9f9f9;
+  background-color: var(--bg-gray-light);
   border: none;
   padding: 18px 20px;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  font-weight: 600;
-  color: #333;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-gray-dark);
   text-align: left;
   cursor: pointer;
   display: flex;
@@ -109,21 +109,21 @@
 }
 
 .faq-question:hover {
-  background-color: #f0f0f0;
+  background-color: var(--bg-gray);
 }
 
 .faq-question-open {
-  background-color: #450693;
+  background-color: var(--morado-oscuro);
   color: white;
 }
 
 .faq-question-open:hover {
-  background-color: #350572;
+  background-color: var(--color-purple-dark);
 }
 
 .faq-icon {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   flex-shrink: 0;
   margin-left: 15px;
 }
@@ -131,7 +131,7 @@
 .faq-answer {
   background-color: white;
   padding: 20px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--border-gray);
   animation: slideDown 0.3s ease-out;
 }
 
@@ -147,10 +147,10 @@
 }
 
 .faq-answer p {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 15px;
   line-height: 1.8;
-  color: #555;
+  color: var(--text-muted);
 }
 
 /* ========================================
@@ -158,32 +158,32 @@
    ======================================== */
 .faq-contact-section {
   margin-top: 60px;
-  background-color: #f5f5f5;
+  background-color: var(--bg-gray-dark);
   padding: 30px;
   border-radius: 15px;
   text-align: center;
 }
 
 .faq-contact-title {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--font-tertiary);
   font-size: 22px;
-  font-weight: 700;
-  color: #333;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-gray-dark);
   margin-bottom: 10px;
 }
 
 .faq-contact-text {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 15px;
-  color: #666;
+  color: var(--text-gray);
   margin-bottom: 15px;
 }
 
 .faq-contact-info {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  color: #8C00FF;
-  font-weight: 600;
+  color: var(--morado-claro);
+  font-weight: var(--font-weight-semibold);
 }
 
 /* ========================================

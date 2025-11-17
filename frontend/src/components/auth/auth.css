@@ -66,7 +66,7 @@
 .auth-welcome-text {
   color: var(--blanco);
   font-size: 2.5rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   line-height: 1.3;
   text-shadow: -4px -4px 16px rgba(0, 0, 0, 0.25);
   max-width: 20rem;
@@ -141,12 +141,12 @@
   font-family: var(--font-texto);
   font-size: 0.938rem;
   color: var(--gris-oscuro);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .auth-input::placeholder {
   color: var(--gris-medio);
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
 }
 
 /* ========== CONTENEDOR DE BOTONES ========== */
@@ -172,7 +172,7 @@
 /* ========== ENLACES ========== */
 .auth-link {
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--negro);
   text-align: center;
   cursor: pointer;
@@ -191,7 +191,7 @@
   font-size: 0.875rem;
   text-align: center;
   margin: 1rem 0;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   padding: 0.5rem 1rem;
   background-color: rgba(255, 63, 127, 0.1);
   border-radius: 8px;
