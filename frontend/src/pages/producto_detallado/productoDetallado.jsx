@@ -13,6 +13,7 @@ import { Footer } from '../../components/footer';
 import { Header } from '../../components/Header'; 
 import { useProductDetail } from '../../hooks/useProductDetail';
 import favoriteService from '../../services/favoriteService';
+import reviewService from '../../services/reviewService';
 import "./productoDetallado.css";
 
 export default function ProductDetail() {
@@ -20,6 +21,8 @@ export default function ProductDetail() {
   const { productId } = useParams();
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
+  const [latestReview, setLatestReview] = useState(null);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
   
   // Usar hook personalizado para manejar el estado del producto
   const { 
@@ -31,10 +34,11 @@ export default function ProductDetail() {
     hasImages 
   } = useProductDetail(productId);
 
-  // Cargar estado de favorito
+  // Cargar estado de favorito y reseñas
   useEffect(() => {
     if (product) {
       checkIfFavorite();
+      fetchReviews();
     }
   }, [product]);
 
@@ -45,6 +49,24 @@ export default function ProductDetail() {
       setIsFavorite(isFav);
     } catch (error) {
       console.error('Error checking favorite status:', error);
+    }
+  };
+
+  const fetchReviews = async () => {
+    try {
+      setReviewsLoading(true);
+      const reviews = await reviewService.getProductReviews(productId);
+      if (reviews && reviews.length > 0) {
+        // Obtener la reseña más reciente (ordenada por fecha)
+        const sortedReviews = reviews.sort((a, b) => 
+          new Date(b.created_at) - new Date(a.created_at)
+        );
+        setLatestReview(sortedReviews[0]);
+      }
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    } finally {
+      setReviewsLoading(false);
     }
   };
 
@@ -104,7 +126,7 @@ export default function ProductDetail() {
   // Ver todas las reseñas
   const handleViewAllReviews = () => {
     if (!product) return;
-    navigate(`/product/${product.id}/reviews`);
+    navigate(`/producto/${product.id}/resenas`);
   };
 
   // Estados de carga y error
@@ -232,10 +254,40 @@ export default function ProductDetail() {
             </button>
           </div>
 
-          {/* TODO: Implementar preview de reseñas  */}
-          <div className="review-preview">
-            <p>proximamente...</p>
-          </div>
+          {/* Preview de reseña más reciente */}
+          {reviewsLoading ? (
+            <div className="review-preview">
+              <p>Cargando reseñas...</p>
+            </div>
+          ) : latestReview ? (
+            <div className="review-preview">
+              <div className="review-preview-header">
+                {latestReview.reviewer?.profile_picture ? (
+                  <img 
+                    src={latestReview.reviewer.profile_picture} 
+                    alt={latestReview.reviewer.full_name}
+                    className="review-user-avatar"
+                  />
+                ) : (
+                  <div className="review-user-avatar">
+                    {latestReview.reviewer?.full_name?.charAt(0) || 'U'}
+                  </div>
+                )}
+                <span className="review-username">
+                  {latestReview.reviewer?.full_name || 'Usuario'}
+                </span>
+              </div>
+              <div className="review-preview-rating">
+                {renderStars(latestReview.rating, "small")}
+              </div>
+              <h3 className="review-preview-title">{latestReview.title}</h3>
+              <p className="review-preview-comment">{latestReview.comment}</p>
+            </div>
+          ) : (
+            <div className="review-preview">
+              <p>Aún no hay reseñas para este producto</p>
+            </div>
+          )}
         </div>
       </div>
 

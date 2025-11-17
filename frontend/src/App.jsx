@@ -19,6 +19,7 @@ import { Seguridad } from './pages/perfil/mi_seguridad';
 import { Favorites } from './pages/perfil/mis_favoritos';
 import Artistas from './pages/artistas/Artistas';
 import WriteReview from './pages/resenas/crearResena';
+import ProductReviews from './pages/resenas/resenasProducto';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/artistas" element={<Artistas />} />
           <Route path="/categorias" element={<Inicio />} />
           <Route path="/producto/:productId" element={<ProductDetail />} />
+          <Route path="/producto/:productId/resenas" element={<ProductReviews />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/checkout" element={<CheckoutPage />} />
