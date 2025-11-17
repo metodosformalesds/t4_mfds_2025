@@ -29,12 +29,19 @@ class ApiClient {
     // Combinar headers de autenticación con headers personalizados
     const authHeaders = this.getAuthHeaders();
     const config = {
-    ...options,
-    headers: {
-      ...authHeaders,
-      ...(options.headers || {}),
+      ...options,
+      headers: {
+        ...authHeaders,
+        ...(options.headers || {}),
+      }
+    };
+
+    // Si el body es FormData, eliminar Content-Type para que el navegador lo asigne correctamente
+    if (config.body instanceof FormData) {
+      if (config.headers['Content-Type']) {
+        delete config.headers['Content-Type'];
+      }
     }
-};
 
     try {
       console.log(`API Request: ${url}`, config);

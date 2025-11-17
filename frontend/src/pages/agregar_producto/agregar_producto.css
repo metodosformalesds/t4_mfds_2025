@@ -14,7 +14,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: var(--bg-white);
 }
 
 /* ========================================
@@ -32,10 +32,10 @@
    TÍTULO DE PÁGINA
    ======================================== */
 .page-title {
-  font-family: "Poppins", sans-serif;
-  font-size: 36px;
-  font-weight: 600;
-  color: #450693;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-6xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--morado-oscuro);
   text-align: center;
   margin-bottom: 30px;
   position: relative;
@@ -44,7 +44,7 @@
 }
 
 .title-highlight {
-  color: #450693;
+  color: var(--morado-oscuro);
   position: relative;
 }
 
@@ -56,7 +56,7 @@
   transform: translateX(-50%);
   width: 280px;
   height: 3px;
-  background-color: #ffc400;
+  background-color: var(--amarillo);
 }
 
 /* ========================================
@@ -83,18 +83,18 @@
 .step-layout.two-panels {
   background: linear-gradient(
     180deg,
-    rgba(69, 6, 147, 0.96) 0%,
-    rgba(140, 0, 255, 0.82) 56.73%,
-    rgba(255, 63, 127, 0.37) 100%
+    var(--morado-oscuro) 0%,
+    var(--morado-claro) 56.73%,
+    var(--rosa) 100%
   );
 }
 
 .step-layout.full-panel {
   background: linear-gradient(
     180deg,
-    rgba(69, 6, 147, 0.96) 0%,
-    rgba(140, 0, 255, 0.82) 56.73%,
-    rgba(255, 63, 127, 0.37) 100%
+    var(--morado-oscuro) 0%,
+    var(--morado-claro) 56.73%,
+    var(--rosa) 100%
   );
 }
 
@@ -103,8 +103,8 @@
    ======================================== */
 .left-panel {
   width: 35%;
-  background: rgba(140, 0, 255, 0.9);
-  box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.25);
+  background: var(--morado-claro);
+  box-shadow: var(--shadow-lg);
   border-radius: 16px;
   display: flex;
   flex-direction: column;
@@ -115,11 +115,11 @@
 }
 
 .panel-question {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 42px;
-  font-weight: 600;
-  color: #ffffff;
-  text-shadow: -4px -4px 16px rgba(0, 0, 0, 0.25);
+  font-weight: var(--font-weight-semibold);
+  color: var(--white);
+  text-shadow: var(--shadow-md);
   line-height: 1.4;
 }
 
@@ -140,7 +140,7 @@
    CONTENT CARD (Panel blanco)
    ======================================== */
 .content-card {
-  background-color: #ffffff;
+  background-color: var(--bg-white);
   border-radius: 16px;
   padding: 40px;
   width: 100%;
@@ -149,14 +149,21 @@
   flex-direction: column;
   align-items: center;
   gap: 30px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-light);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.content-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 /* ========================================
    INPUT CONTAINERS
    ======================================== */
 .input-container {
-  background-color: #f5f5f5;
+  background-color: var(--bg-gray-dark);
   border-radius: 50px;
   padding: 15px 30px;
   display: flex;
@@ -164,12 +171,13 @@
   gap: 15px;
   width: 100%;
   position: relative;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-gray);
   transition: border-color 0.3s ease;
 }
 
 .input-container:focus-within {
-  border-color: #8c00ff;
+  border-color: var(--morado-claro);
+  box-shadow: 0 0 0 4px var(--bg-purple-alpha);
 }
 
 .textarea-container {
@@ -180,7 +188,7 @@
 }
 
 .input-icon {
-  color: #333;
+  color: var(--text-gray-dark);
   flex-shrink: 0;
 }
 
@@ -191,23 +199,23 @@
 .form-input {
   border: none;
   outline: none;
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  color: #333;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  color: var(--text-gray-dark);
   width: 100%;
   background: transparent;
 }
 
 .form-input::placeholder {
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--text-gray-light);
 }
 
 .form-textarea {
   border: none;
   outline: none;
-  font-family: "Poppins", sans-serif;
-  font-size: 15px;
-  color: #333;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  color: var(--text-gray-dark);
   width: 100%;
   min-height: 100px;
   background: transparent;
@@ -215,15 +223,15 @@
 }
 
 .form-textarea::placeholder {
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--text-gray-light);
 }
 
 .form-select {
   border: none;
   outline: none;
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  color: #333;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  color: var(--text-gray-dark);
   width: 100%;
   background: transparent;
   appearance: none;
@@ -251,16 +259,16 @@
    ERROR MESSAGE
    ======================================== */
 .error-message {
-  background-color: #ffebee;
-  color: #c62828;
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger-light);
   padding: 12px 20px;
   border-radius: 8px;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
   font-weight: 500;
   text-align: center;
   width: 100%;
-  border: 1px solid #ef9a9a;
+  border: 1px solid var(--color-danger-bg-light);
   animation: shake 0.5s ease-in-out;
 }
 
@@ -290,12 +298,12 @@
   left: 50%;
   transform: translateX(-50%);
   background: transparent;
-  border: 1px solid #ffffff;
+  border: 1px solid var(--white);
   border-radius: 15px;
   padding: 15px 20px;
-  color: #ffffff;
+  color: var(--white);
   cursor: pointer;
-  filter: drop-shadow(-4px -4px 32px #450693)
+  filter: drop-shadow(-4px -4px 32px var(--morado-oscuro))
     drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
   transition: all 0.3s ease;
 }
@@ -327,8 +335,8 @@
   padding: 50px;
   max-width: 900px;
   width: 100%;
-  background: rgba(140, 0, 255, 0.6);
-  box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.25);
+  background: var(--morado-claro);
+  box-shadow: var(--shadow-lg);
   border-radius: 16px;
 }
 
@@ -337,54 +345,54 @@
 }
 
 .summary-title {
-  font-family: "Poppins", sans-serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: #fff;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--white);
   margin-bottom: 30px;
 }
 
 .summary-item {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 20px;
-  font-weight: 500;
-  color: #fff;
+  font-weight: var(--font-weight-medium);
+  color: var(--white);
   margin-bottom: 20px;
   line-height: 1.5;
 }
 
 .summary-label {
-  font-weight: 700;
-  color: #fff;
+  font-weight: var(--font-weight-bold);
+  color: var(--white);
 }
 
 /* ========================================
    UPLOAD CARD (Paso 7)
    ======================================== */
 .upload-card {
-  background: rgba(140, 0, 255, 0.6);
+  background: var(--morado-claro);
   border-radius: 16px;
   padding: 50px;
   max-width: 700px;
   width: 100%;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-xl);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .upload-title {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 32px;
-  font-weight: 700;
-  color: #fff;
+  font-weight: var(--font-weight-bold);
+  color: var(--white);
   margin-bottom: 40px;
   text-align: center;
 }
 
 .upload-area {
-  background: rgba(140, 0, 255, 0.6);
-  border: 3px dashed #8c00ff;
+  background: var(--bg-white-alpha);
+  border: 3px dashed var(--white);
   border-radius: 16px;
   padding: 60px 100px;
   display: flex;
@@ -396,12 +404,13 @@
 }
 
 .upload-area:hover {
-  background: #ede7f6b4;
-  border-color: #fff;
+  background: var(--bg-panel);
+  border-color: var(--amarillo);
 }
 
 .upload-area svg {
-  color: #333;
+  color: var(--white);
+  stroke: var(--white);
 }
 
 .file-input {
@@ -409,16 +418,16 @@
 }
 
 .upload-notice {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 18px;
-  font-weight: 600;
-  color: #fff;
+  font-weight: var(--font-weight-semibold);
+  color: var(--white);
   margin-bottom: 20px;
 }
 
 .notice-label {
-  color: #fff;
-  font-weight: 700;
+  color: var(--white);
+  font-weight: var(--font-weight-bold);
 }
 
 .images-preview {
@@ -427,10 +436,10 @@
 }
 
 .images-count {
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  color: #fff;
-  font-weight: 600;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-xl);
+  color: var(--white);
+  font-weight: var(--font-weight-semibold);
   margin-bottom: 10px;
 }
 
@@ -441,20 +450,20 @@
 }
 
 .image-item {
-  background: #f5f5f5;
+  background: var(--bg-gray-dark);
   padding: 10px 15px;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  color: #333;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-md);
+  color: var(--text-gray-dark);
 }
 
 .remove-image {
-  background: #ff4444;
-  color: white;
+  background: var(--color-danger-light);
+  color: var(--white);
   border: none;
   border-radius: 50%;
   width: 24px;
@@ -468,7 +477,7 @@
 }
 
 .remove-image:hover {
-  background: #cc0000;
+  background: var(--color-danger);
 }
 
 .upload-btn {
@@ -479,22 +488,22 @@
    SUCCESS CARD (Paso 8)
    ======================================== */
 .success-card {
-  background: rgba(140, 0, 255, 0.6);
+  background: var(--morado-claro);
   border-radius: 16px;
   padding: 60px;
   max-width: 800px;
   width: 100%;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-xl);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .success-message {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-primary);
   font-size: 32px;
-  font-weight: 700;
-  color: #fff;
+  font-weight: var(--font-weight-bold);
+  color: var(--white);
   text-align: center;
   line-height: 1.4;
   margin-bottom: 40px;
@@ -511,12 +520,13 @@
   padding: 15px 20px;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: var(--shadow-button);
 }
 
 .btn-back-floating {
-  border: 1px solid #ffffff;
-  color: #ffffff;
-  filter: drop-shadow(-4px -4px 32px #450693)
+  border: 1px solid var(--white);
+  color: var(--white);
+  filter: drop-shadow(-4px -4px 32px var(--morado-oscuro))
     drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
@@ -531,9 +541,9 @@
 }
 
 .btn-next-floating {
-  background-color: #ffc400;
+  background-color: var(--amarillo);
   border: none;
-  color: #000;
+  color: var(--black);
 }
 
 .btn-next-floating.right {
@@ -548,12 +558,127 @@
 }
 
 .btn-next-floating:hover {
-  background-color: #e6ac00;
+  background-color: var(--amarillo);
   transform: translateY(-50%) scale(1.05);
 }
 
 .btn-next-floating.center:hover {
   transform: scale(1.05);
+}
+
+.btn-next-floating:disabled,
+.upload-btn:disabled,
+.btn-siguiente-general:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  filter: saturate(.8) contrast(.9) brightness(.95);
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  color: var(--white);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.loading-overlay::after {
+  content: '';
+  width: 56px;
+  height: 56px;
+  border: 4px solid var(--bg-white-alpha);
+  border-top-color: var(--amarillo);
+  border-right-color: var(--amarillo);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   RADIO CATEGORY GROUP
+   ======================================== */
+.radio-group {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-gray-dark);
+  padding: 14px 24px;
+  border-radius: 50px;
+  border: 2px solid var(--border-gray);
+  cursor: pointer;
+  transition: all .25s ease;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  color: var(--text-gray-dark);
+  user-select: none;
+}
+
+.radio-option input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-gray);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  background: var(--white);
+  transition: border-color .25s ease, background .25s ease, box-shadow .25s ease;
+}
+
+.radio-option input:checked {
+  border-color: var(--morado-claro);
+  background: var(--morado-claro);
+}
+
+.radio-option input:focus-visible {
+  box-shadow: 0 0 0 4px var(--bg-purple-alpha);
+}
+
+.radio-option input:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--white);
+  border-radius: 50%;
+}
+
+.radio-option.selected {
+  border-color: var(--morado-claro);
+  background: var(--bg-panel);
+  box-shadow: var(--shadow-sm);
+}
+
+.radio-option:hover {
+  border-color: var(--morado-claro);
+  box-shadow: var(--shadow-sm);
+}
+
+.radio-label {
+  font-weight: var(--font-weight-medium);
 }
 
 /* ========================================

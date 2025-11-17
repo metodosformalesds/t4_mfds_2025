@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { BtnGeneral } from '../../components/Botones/btn_general';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header'; 
+import { productService } from '../../services/productService';
 import "./agregar_producto.css";
 
 export default function AgregarProducto() {
@@ -20,20 +21,13 @@ export default function AgregarProducto() {
     precio: "",
     categoria: "",
     stock: "",
+    address: "",
     imagenes: [],
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const categorias = [
-    "Textiles",
-    "Cerámica",
-    "Madera",
-    "Joyería",
-    "Bordados",
-    "Pintura",
-    "Escultura",
-    "Otros",
-  ];
+  // Categoría ahora limitada a valores del sistema: 'producto' | 'material'
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({
@@ -68,6 +62,9 @@ export default function AgregarProducto() {
         if (formData.stock === "" || parseInt(formData.stock) < 0) {
           return "Por favor, ingresa el stock disponible";
         }
+        if (formData.address.trim() === "") {
+          return "Por favor, ingresa la dirección / ubicación";
+        }
         break;
       case 7:
         if (formData.imagenes.length === 0) {
@@ -91,7 +88,7 @@ export default function AgregarProducto() {
       case 4:
         return formData.categoria !== "";
       case 5:
-        return formData.stock !== "" && parseInt(formData.stock) >= 0;
+        return formData.stock !== "" && parseInt(formData.stock) >= 0 && formData.address.trim() !== "";
       case 7:
         return formData.imagenes.length > 0;
       default:
@@ -138,8 +135,18 @@ export default function AgregarProducto() {
     }));
   };
 
-  const handleFinish = () => {
-    navigate("/mi-cuenta/productos");
+  const handleFinish = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    try {
+      await productService.createProduct(formData);
+      navigate("/mi-cuenta/mis-productos");
+    } catch (e) {
+      setErrorMessage(e.message || 'Error al crear producto');
+      setTimeout(()=> setErrorMessage(''), 4000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const renderStepContent = () => {
@@ -318,63 +325,36 @@ export default function AgregarProducto() {
             <div className="left-panel">
               <h2 className="panel-question">Selecciona la categoría</h2>
               <button className="btn-back" onClick={handleBack}>
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M19 12H5M12 19l-7-7 7-7" />
                 </svg>
               </button>
             </div>
             <div className="right-panel">
               <div className="content-card">
-                <div className="input-container">
-                  <svg
-                    className="input-icon"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
-                    <polyline points="2 17 12 22 22 17" />
-                    <polyline points="2 12 12 17 22 12" />
-                  </svg>
-                  <select
-                    value={formData.categoria}
-                    onChange={(e) =>
-                      handleInputChange("categoria", e.target.value)
-                    }
-                    className="form-select"
-                  >
-                    <option value="">Categoría</option>
-                    {categorias.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
-                  </select>
-                  <svg
-                    className="select-arrow"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
+                <div className="radio-group" role="radiogroup" aria-label="Categoría del producto">
+                  <label className={`radio-option ${formData.categoria === 'producto' ? 'selected' : ''}`}>
+                    <input
+                      type="radio"
+                      name="categoria"
+                      value="producto"
+                      checked={formData.categoria === 'producto'}
+                      onChange={(e) => handleInputChange('categoria', e.target.value)}
+                    />
+                    <span className="radio-label">Producto</span>
+                  </label>
+                  <label className={`radio-option ${formData.categoria === 'material' ? 'selected' : ''}`}>
+                    <input
+                      type="radio"
+                      name="categoria"
+                      value="material"
+                      checked={formData.categoria === 'material'}
+                      onChange={(e) => handleInputChange('categoria', e.target.value)}
+                    />
+                    <span className="radio-label">Material</span>
+                  </label>
                 </div>
-                {errorMessage && (
-                  <div className="error-message">{errorMessage}</div>
-                )}
+                {errorMessage && <div className="error-message">{errorMessage}</div>}
                 <BtnGeneral
                   text="Siguiente"
                   color="amarillo"
@@ -391,7 +371,7 @@ export default function AgregarProducto() {
           <div className="step-layout two-panels">
             <div className="left-panel">
               <h2 className="panel-question">
-                Ingresa el stock de tu producto
+                Ingresa el stock y dirección
               </h2>
               <button className="btn-back" onClick={handleBack}>
                 <svg
@@ -429,6 +409,26 @@ export default function AgregarProducto() {
                     onChange={(e) => handleInputChange("stock", e.target.value)}
                     className="form-input"
                     min="0"
+                  />
+                </div>
+                <div className="input-container">
+                  <svg
+                    className="input-icon"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M12 2l7 7-7 13-7-13 7-7z" />
+                  </svg>
+                  <input
+                    type="text"
+                    placeholder="Dirección / ubicación"
+                    value={formData.address}
+                    onChange={(e) => handleInputChange("address", e.target.value)}
+                    className="form-input"
                   />
                 </div>
                 {errorMessage && (
@@ -483,6 +483,10 @@ export default function AgregarProducto() {
                   <p className="summary-item">
                     <span className="summary-label">Stock:</span>{" "}
                     {formData.stock || "123"}
+                  </p>
+                  <p className="summary-item">
+                    <span className="summary-label">Dirección:</span>{" "}
+                    {formData.address || "Ubicación pendiente"}
                   </p>
                 </div>
               </div>
@@ -542,21 +546,18 @@ export default function AgregarProducto() {
                   >
                     <path
                       d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"
-                      stroke="#333333"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                     <path
                       d="M17 8L12 3L7 8"
-                      stroke="#333333"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                     <path
                       d="M12 3V15"
-                      stroke="#333333"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -616,10 +617,11 @@ export default function AgregarProducto() {
                   Ahora podrás verlo dentro de tu perfil.
                 </h2>
                 <BtnGeneral
-                  text="Continuar"
+                  text={isSubmitting ? 'Guardando...' : 'Finalizar'}
                   color="amarillo"
                   onClick={handleFinish}
                   className="btn-siguiente-general"
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -644,6 +646,7 @@ export default function AgregarProducto() {
         <div className="form-wrapper">{renderStepContent()}</div>
       </div>
       <Footer /> 
+      {isSubmitting && <div className="loading-overlay">Guardando producto...</div>}
     </div>
   );
 }

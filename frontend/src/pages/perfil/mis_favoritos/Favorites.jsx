@@ -80,7 +80,7 @@ export default function Favorites() {
 
   // Navegar al perfil del artista
   const viewArtistProfile = (artistId) => {
-    navigate(`/artist/${artistId}`);
+    navigate(`/artista/${artistId}`);
   };
 
   // Paginación de productos

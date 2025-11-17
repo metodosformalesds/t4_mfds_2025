@@ -59,6 +59,34 @@ class ProductService {
   }
 
   /**
+   * Crear un nuevo producto (multipart/form-data)
+   * @param {Object} data - Datos del producto
+   * @param {string} data.nombre - Nombre del producto
+   * @param {string} data.descripcion - Descripción
+   * @param {string|number} data.precio - Precio
+   * @param {string} data.categoria - Categoría
+   * @param {string|number} data.stock - Stock
+   * @param {string} data.address - Dirección / ubicación
+   * @param {File[]} data.imagenes - Archivos de imagen
+   * @returns {Promise<Object>} Producto creado
+   */
+  async createProduct(data) {
+    const form = new FormData();
+    form.append('name', data.nombre);
+    form.append('description', data.descripcion || '');
+    form.append('price', String(data.precio));
+    form.append('category', data.categoria || 'producto');
+    form.append('stock', String(data.stock));
+    form.append('address', data.address || '');
+    if (Array.isArray(data.imagenes)) {
+      data.imagenes.forEach(file => {
+        form.append('images', file);
+      });
+    }
+    return await apiClient.request('/api/products/', { method: 'POST', body: form });
+  }
+
+  /**
    * Incrementar contador de vistas de un producto
    * @param {number} productId - ID del producto
    */
