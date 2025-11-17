@@ -1,4 +1,5 @@
 import { apiClient } from './api';
+import { authService } from './authService';
 
 const favoriteService = {
   // ============ FAVORITE PRODUCTS ============
@@ -7,12 +8,15 @@ const favoriteService = {
    * Get all favorite products for the current user
    */
   getFavoriteProducts: async () => {
+    if (!authService.isAuthenticated()) {
+      return [];
+    }
     try {
       const response = await apiClient.get('/api/favorites/products');
       return response;
     } catch (error) {
       console.error('Error fetching favorite products:', error);
-      throw error;
+      return [];
     }
   },
 
@@ -21,6 +25,9 @@ const favoriteService = {
    * @param {number} productId - Product ID to favorite
    */
   addFavoriteProduct: async (productId) => {
+    if (!authService.isAuthenticated()) {
+      throw new Error('Debes iniciar sesión para agregar favoritos');
+    }
     try {
       const response = await apiClient.post('/api/favorites/products', {
         product_id: productId,
@@ -37,6 +44,9 @@ const favoriteService = {
    * @param {number} productId - Product ID to remove from favorites
    */
   removeFavoriteProduct: async (productId) => {
+    if (!authService.isAuthenticated()) {
+      throw new Error('Debes iniciar sesión para gestionar favoritos');
+    }
     try {
       const response = await apiClient.delete(`/api/favorites/products/${productId}`);
       return response;
@@ -52,12 +62,15 @@ const favoriteService = {
    * Get all favorite artists for the current user
    */
   getFavoriteArtists: async () => {
+    if (!authService.isAuthenticated()) {
+      return [];
+    }
     try {
       const response = await apiClient.get('/api/favorites/artists');
       return response;
     } catch (error) {
       console.error('Error fetching favorite artists:', error);
-      throw error;
+      return [];
     }
   },
 
@@ -66,6 +79,9 @@ const favoriteService = {
    * @param {number} artistId - Artist ID to favorite
    */
   addFavoriteArtist: async (artistId) => {
+    if (!authService.isAuthenticated()) {
+      throw new Error('Debes iniciar sesión para agregar favoritos');
+    }
     try {
       const response = await apiClient.post('/api/favorites/artists', {
         artist_id: artistId,
@@ -82,6 +98,9 @@ const favoriteService = {
    * @param {number} artistId - Artist ID to remove from favorites
    */
   removeFavoriteArtist: async (artistId) => {
+    if (!authService.isAuthenticated()) {
+      throw new Error('Debes iniciar sesión para gestionar favoritos');
+    }
     try {
       const response = await apiClient.delete(`/api/favorites/artists/${artistId}`);
       return response;

@@ -17,6 +17,7 @@ import { Header } from '../../components/Header';
 import favoriteService from '../../services/favoriteService';
 import { productService } from '../../services/productService';
 import artistService from '../../services/artistService';
+import { authService } from '../../services/authService';
 import './inicio.css';
 
 export const Inicio = () => {
@@ -35,6 +36,11 @@ export const Inicio = () => {
   }, []);
 
   const cargarFavoritos = async () => {
+    // Solo cargar favoritos si el usuario está autenticado
+    if (!authService.isAuthenticated()) {
+      return;
+    }
+    
     try {
       const favoriteProducts = await favoriteService.getFavoriteProducts();
       setFavoritos(favoriteProducts.map(fav => fav.product.id));
