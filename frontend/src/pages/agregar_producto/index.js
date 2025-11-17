@@ -1,0 +1,1 @@
+export {default as AgregarProducto} from './agregar_producto';
