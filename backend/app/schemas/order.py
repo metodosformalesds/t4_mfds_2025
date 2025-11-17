@@ -1,8 +1,12 @@
+# Autor: Villedo Martinez Sandoval
+# Fecha: 12/11/2025
+# Descripción: Esquemas Pydantic para validación de datos de Orden, incluyendo items de orden, creación, actualización y respuesta con información de compradores y vendedores
+
 from pydantic import BaseModel, ConfigDict
 from typing import List, Optional
 from datetime import datetime
 from .user import UserResponse
-from .product import ProductResponse, ProductWithArtistResponse
+from .product import ProductWithArtistResponse
 
 class OrderItemBase(BaseModel):
     product_id: int

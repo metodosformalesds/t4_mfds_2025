@@ -1,3 +1,7 @@
+# Autor: Villedo Martinez Sandoval
+# Fecha: 12/11/2025
+# Descripción: Esquemas Pydantic para validación de datos de Favoritos, incluyendo productos favoritos y artistas favoritos con sus respuestas
+
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from .user import UserResponse

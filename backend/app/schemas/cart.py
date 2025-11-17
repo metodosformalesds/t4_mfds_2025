@@ -1,3 +1,7 @@
+# Autor: Villedo Martinez Sandoval
+# Fecha: 12/11/2025
+# Descripción: Esquemas Pydantic para validación de datos de Carrito, incluyendo items del carrito, actualización de cantidad y respuesta con información de productos
+
 from pydantic import BaseModel, ConfigDict
 from typing import Optional
 from datetime import datetime

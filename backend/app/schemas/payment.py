@@ -1,5 +1,8 @@
+# Autor: Villedo Martinez Sandoval
+# Fecha: 12/11/2025
+# Descripción: Esquemas Pydantic para validación de datos de Pago, incluyendo creación de intención de pago y respuesta de pagos Stripe
+
 from pydantic import BaseModel, ConfigDict
-from typing import Optional
 from datetime import datetime
 
 class PaymentIntentCreate(BaseModel):

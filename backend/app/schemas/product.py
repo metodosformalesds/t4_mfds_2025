@@ -1,3 +1,7 @@
+# Autor: Villedo Martinez Sandoval
+# Fecha: 12/11/2025
+# Descripción: Esquemas Pydantic para validación de datos de Producto, incluyendo creación, actualización y respuesta con información de artistas
+
 from pydantic import BaseModel, ConfigDict
 from typing import Optional, List
 from datetime import datetime
