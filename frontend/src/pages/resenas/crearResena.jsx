@@ -6,17 +6,22 @@
 
 
 import React, { useState } from 'react';
-import './CreateReviewStyles.css';
+import './crearResena.css';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
+import { BtnGeneral } from '../../components/Botones/btn_general';
+import reviewService from '../../services/reviewService';
+import { useProductDetail } from '../../hooks/useProductDetail';
 
-// Header y Footer
-import Header from './components/Header/Header'; 
-import Footer from './components/Footer/Footer'; 
-
-export default function WriteReview({ productId, onSubmit, onCancel }) {
+export default function WriteReview() {
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [title, setTitle] = useState('');
   const [comment, setComment] = useState('');
+  const { orderId, productId } = useParams();
+  const navigate = useNavigate();
+  const { product } = useProductDetail(productId);
 
   const handleStarClick = (selectedRating) => {
     setRating(selectedRating);
@@ -30,7 +35,7 @@ export default function WriteReview({ productId, onSubmit, onCancel }) {
     setHoveredRating(0);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Validación
     if (rating === 0) {
       alert('Por favor, selecciona una calificación');
@@ -45,39 +50,29 @@ export default function WriteReview({ productId, onSubmit, onCancel }) {
       return;
     }
 
-    // Datos de la reseña
     const reviewData = {
-      product_id: productId,
-      rating: rating,
+      product_id: Number(productId),
+      order_id: Number(orderId),
+      rating,
       title: title.trim(),
       comment: comment.trim(),
-      date: new Date().toISOString()
     };
 
-    console.log('Enviando reseña:', reviewData);
-    
-    // Llamar a la función onSubmit si existe
-    if (onSubmit) {
-      onSubmit(reviewData);
+    try {
+      await reviewService.createReview(reviewData);
+      alert('¡Reseña enviada!');
+      navigate('/mi-cuenta/mis-pedidos');
+    } catch (err) {
+      alert(err?.message || 'No se pudo enviar la reseña');
+      console.error('Error creating review:', err);
     }
-
-    // Aquí harías tu POST a la API
-    // await fetch('/api/reviews', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(reviewData)
-    // });
   };
 
   const handleCancel = () => {
-    // Limpiar formulario
     setRating(0);
     setTitle('');
     setComment('');
-    
-    if (onCancel) {
-      onCancel();
-    }
+    navigate(-1);
   };
 
   return (
@@ -109,6 +104,25 @@ export default function WriteReview({ productId, onSubmit, onCancel }) {
             ))}
           </div>
 
+          {/* Información del producto */}
+          {product && (
+            <div className="product-info-review">
+              <div className="product-image-review">
+                <img 
+                  src={product.images && product.images.length > 0 ? product.images[0] : '/placeholder.jpg'} 
+                  alt={product.name}
+                />
+              </div>
+              <div className="product-details-review">
+                <h3 className="product-name-review">{product.name}</h3>
+                <p className="product-seller-review">
+                  Vendedor: {product.user?.full_name || 'Artista'}
+                </p>
+                <p className="product-description-review">{product.description}</p>
+              </div>
+            </div>
+          )}
+
           {/* Input de título */}
           <div className="form-group">
             <input
@@ -135,20 +149,18 @@ export default function WriteReview({ productId, onSubmit, onCancel }) {
 
           {/* Botones de acción */}
           <div className="form-actions">
-            <button
-              type="button"
+            <BtnGeneral
+              text="Cancelar"
               onClick={handleCancel}
+              color="morado"
               className="btn-cancel-review"
-            >
-              Cancelar
-            </button>
-            <button
-              type="button"
+            />
+            <BtnGeneral
+              text="Enviar"
               onClick={handleSubmit}
+              color="amarillo"
               className="btn-submit-review"
-            >
-              Enviar
-            </button>
+            />
           </div>
         </div>
       </div>

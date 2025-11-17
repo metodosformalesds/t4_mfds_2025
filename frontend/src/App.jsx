@@ -18,6 +18,7 @@ import { MiInformacion } from './pages/perfil/mi_informacion';
 import { Seguridad } from './pages/perfil/mi_seguridad';
 import { Favorites } from './pages/perfil/mis_favoritos';
 import Artistas from './pages/artistas/Artistas';
+import WriteReview from './pages/resenas/crearResena';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="/mi-cuenta/favoritos" element={<Favorites />} />
           <Route path="/mi-cuenta/informacion" element={<MiInformacion />} />
           <Route path="/mi-cuenta/seguridad" element={<Seguridad />} />
+          <Route path="/mi-cuenta/pedidos/:orderId/resena/:productId" element={<WriteReview />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>

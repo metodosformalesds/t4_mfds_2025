@@ -86,8 +86,8 @@ export default function MisPedidos() {
     }
   };
 
-  const handleEscribirResena = (pedidoId) => {
-    navigate(`/mi-cuenta/pedidos/${pedidoId}/resena`);
+  const handleEscribirResena = (pedidoId, productId) => {
+    navigate(`/mi-cuenta/pedidos/${pedidoId}/resena/${productId}`);
   };
 
   const handlePageChange = (page) => {
@@ -229,13 +229,15 @@ export default function MisPedidos() {
                             </p>
                           </div>
                           <div className="pedido-botones">
-                            <BtnGeneral
-                              property1="default"
-                              color="morado"
-                              text="Escribir reseña"
-                              onClick={() => handleEscribirResena(pedido.id)}
-                              className="btn-pedido"
-                            />
+                            {pedido.estado !== 'confirmed' && (
+                              <BtnGeneral
+                                property1="default"
+                                color="morado"
+                                text="Escribir reseña"
+                                onClick={() => handleEscribirResena(pedido.id, ordenProducto.product?.id)}
+                                className="btn-pedido"
+                              />
+                            )}
                           </div>
                         </div>
                       ))
