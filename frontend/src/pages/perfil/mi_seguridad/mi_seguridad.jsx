@@ -1,5 +1,5 @@
 /* 
-    Autor: Ian Domínguez
+    Autor: Ian Domínguez - Erick Rangel
     Fecha: 15 de noviembre de 2025
     Descripción: Vista para mostrar la info confidencial del usuario
 */
