@@ -20,6 +20,21 @@ def get_products(
     category: Optional[str] = Query(None, description="Filter by category: 'producto' or 'material'"),
     db: Session = Depends(get_db)
 ):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Obtiene una lista paginada de productos, opcionalmente filtrada por categoría.
+
+    Parámetros:
+        skip (int): Offset para paginación.
+        limit (int): Límite de resultados.
+        category (Optional[str]): Filtro de categoría.
+        db (Session): Sesión de la base de datos.
+
+    Retorna:
+        List[ProductWithArtist]: Lista de productos.
+
+    """
     products = product_service.get_products(db, skip=skip, limit=limit, category=category)
     return products
 
@@ -30,11 +45,39 @@ def get_my_products(
     db: Session = Depends(get_db),
     current_user: UserResponse = Depends(get_current_user)
 ):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Obtiene los productos creados por el usuario autenticado.
+
+    Parámetros:
+        skip (int): Offset para paginación.
+        limit (int): Límite de resultados.
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+
+    Retorna:
+        List[ProductResponse]: Lista de productos del usuario.
+
+    """
     products = product_service.get_products(db, skip=skip, limit=limit, user_id=current_user.id)
     return products
 
 @router.get("/{product_id}", response_model=ProductWithArtist)
 def get_product(product_id: int, db: Session = Depends(get_db)):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Obtiene un producto por su ID y aumenta el contador de vistas.
+
+    Parámetros:
+        product_id (int): ID del producto.
+        db (Session): Sesión de la base de datos.
+
+    Retorna:
+        ProductWithArtist: Producto solicitado.
+
+    """
     product = product_service.get_product(db, product_id)
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
@@ -56,7 +99,26 @@ async def create_product(
     address: str = Form(...),
     images: Optional[List[UploadFile]] = File(None),
 ):
-    """Crea un producto. Permite subir hasta 5 imágenes."""
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Crea un producto y permite subir hasta 5 imágenes al bucket S3.
+
+    Parámetros:
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+        name (str): Nombre del producto.
+        description (Optional[str]): Descripción.
+        price (float): Precio.
+        category (str): Categoría.
+        stock (int): Stock.
+        address (str): Dirección del producto.
+        images (Optional[List[UploadFile]]): Lista de archivos de imagen.
+
+    Retorna:
+        ProductResponse: Producto creado.
+
+    """
     # Validar cantidad de imágenes
     image_urls = []
     if images:
@@ -100,6 +162,22 @@ async def update_product(
     is_available: Optional[bool] = Form(None),
     images: Optional[List[UploadFile]] = File(None),
 ):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Actualiza un producto. Acepta multipart/form-data para reemplazar imágenes.
+
+    Parámetros:
+        product_id (int): ID del producto a actualizar.
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+        name, description, price, category, stock, address, is_available: Campos opcionales vía Form.
+        images (Optional[List[UploadFile]]): Lista de imágenes nuevas (si se proporcionan, reemplazan las antiguas).
+
+    Retorna:
+        ProductResponse: Producto actualizado.
+
+    """
     # Verificar que el producto pertenece al usuario
     product = product_service.get_product(db, product_id)
     if not product or product.user_id != current_user.id:
@@ -157,11 +235,20 @@ async def patch_product(
     current_user: UserResponse = Depends(get_current_user),
 ):
     """
-    Actualización parcial del producto vía JSON (application/json).
-    Para reemplazar/actualizar imágenes mediante archivos, use el endpoint multipart/form-data (PUT /{product_id}).
-    Si en el JSON se incluye `images` como lista de URLs, el sistema reemplazará las imágenes actuales
-    y eliminará en S3 las que queden fuera de la lista nueva.
-    Enviar un array vacío `images: []` eliminará todas las imágenes del producto.
+    Autor: Raúl Aniles 222802
+
+    Descripción: Actualización parcial del producto vía JSON (application/json). Permite enviar
+    una lista de URLs en `images` para sincronizar imágenes (elimina las que no estén en la lista).
+
+    Parámetros:
+        product_id (int): ID del producto.
+        request (Request): Request con el JSON a aplicar.
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+
+    Retorna:
+        ProductResponse: Producto actualizado.
+
     """
     # Verificar propiedad del producto
     product = product_service.get_product(db, product_id)

@@ -17,6 +17,20 @@ def create_order(
     db: Session = Depends(get_db),
     current_user: UserResponse = Depends(get_current_user)
 ):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Crea una nueva orden para el usuario autenticado.
+
+    Parámetros:
+        order (OrderCreate): Datos de la orden a crear.
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+
+    Retorna:
+        OrderResponse: Orden creada.
+
+    """
     try:
         return order_service.create_order(db, order, current_user.id)
     except ValueError as e:
@@ -31,6 +45,20 @@ def get_my_orders(
     db: Session = Depends(get_db),
     current_user: UserResponse = Depends(get_current_user)
 ):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Devuelve las órdenes del usuario según el rol (buyer/seller).
+
+    Parámetros:
+        role (str): Rol para filtrar órdenes ('buyer' o 'seller').
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+
+    Retorna:
+        List[OrderResponse]: Lista de órdenes.
+
+    """
     orders = order_service.get_user_orders(db, current_user.id, role)
     return orders
 
@@ -40,6 +68,20 @@ def get_order(
     db: Session = Depends(get_db),
     current_user: UserResponse = Depends(get_current_user)
 ):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Obtiene una orden por ID si el usuario es comprador o vendedor.
+
+    Parámetros:
+        order_id (int): ID de la orden.
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+
+    Retorna:
+        OrderResponse: Orden solicitada.
+
+    """
     order = order_service.get_order(db, order_id)
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
@@ -57,6 +99,21 @@ def update_order_status(
     db: Session = Depends(get_db),
     current_user: UserResponse = Depends(get_current_user)
 ):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Permite al vendedor actualizar el estado de una orden.
+
+    Parámetros:
+        order_id (int): ID de la orden a actualizar.
+        order_update (OrderUpdate): Contiene el nuevo `status`.
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+
+    Retorna:
+        OrderResponse: Orden con el estado actualizado.
+
+    """
     order = order_service.get_order(db, order_id)
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")

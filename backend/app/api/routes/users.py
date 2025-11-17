@@ -14,6 +14,18 @@ s3_service = S3Service()
 
 @router.get("/me", response_model=UserResponse)
 def read_users_me(current_user: UserResponse = Depends(get_current_user)):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Devuelve los datos del usuario autenticado.
+
+    Parámetros:
+        current_user (UserResponse): Usuario autenticado inyectado por Depends.
+
+    Retorna:
+        UserResponse: Datos del usuario autenticado.
+
+    """
     return current_user
 
 @router.put("/me", response_model=UserResponse)
@@ -29,9 +41,20 @@ async def update_user_me(
     profile_picture: Optional[UploadFile] = File(None),
 ):
     """
-    Actualiza el perfil del usuario actual.
-    Permite actualizar campos de texto y subir una nueva foto de perfil a S3.
-    Si sube una nueva foto, elimina la anterior automáticamente.
+    Autor: Raúl Aniles 222802
+
+    Descripción: Actualiza el perfil del usuario actual. Soporta multipart/form-data para subir una nueva foto
+    de perfil a S3 y actualizar campos de texto y contraseña.
+
+    Parámetros:
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+        username, full_name, bio, address, phone, password: Campos opcionales enviados vía Form.
+        profile_picture (UploadFile): Archivo de imagen opcional para la foto de perfil.
+
+    Retorna:
+        UserResponse: Usuario actualizado.
+
     """
     try:
         # Procesar la foto de perfil si se proporciona
@@ -106,8 +129,19 @@ async def patch_user_me(
     current_user: UserResponse = Depends(get_current_user),
 ):
     """
-    Actualización parcial del perfil vía JSON (application/json).
-    No acepta subida de archivos; si se necesita reemplazar la imagen, usar el endpoint multipart/form-data (PUT /me).
+    Autor: Raúl Aniles 222802
+
+    Descripción: Actualización parcial del perfil vía JSON (application/json). No acepta archivos; para
+    cambios en la foto de perfil use el endpoint `PUT /api/users/me` con multipart/form-data.
+
+    Parámetros:
+        request (Request): Request con el JSON que contiene los campos a actualizar.
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+
+    Retorna:
+        UserResponse: Usuario actualizado.
+
     """
     try:
         # Esperar JSON

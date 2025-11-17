@@ -14,6 +14,19 @@ user_service = UserService()
 
 @router.post("/register", response_model=UserResponse)
 def register(user: UserCreate, db: Session = Depends(get_db)):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Registra un nuevo usuario en el sistema.
+
+    Parámetros:
+        user (UserCreate): Datos para crear el usuario (username, email, password, etc.).
+        db (Session): Sesión de la base de datos inyectada por Depends.
+
+    Retorna:
+        UserResponse: Objeto del usuario creado.
+
+    """
     try:
         return user_service.create_user(db, user)
     except ValueError as e:
@@ -24,6 +37,19 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/login", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Autentica a un usuario usando OAuth2 password flow y retorna un token.
+
+    Parámetros:
+        form_data (OAuth2PasswordRequestForm): Credenciales de inicio de sesión (username y password).
+        db (Session): Sesión de la base de datos inyectada por Depends.
+
+    Retorna:
+        Token: Token de acceso y datos del usuario autenticado.
+
+    """
     user = user_service.authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
