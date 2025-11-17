@@ -78,7 +78,11 @@ export const Header = () => {
                     <span className="login-icon"></span>
                     Mi Perfil
                   </Link>
-                  
+                  {user?.rol === 'artist' && (
+                    <Link to="/mi-cuenta/agregar-producto" className="mobile-login-link" onClick={closeMenu}>
+                      Agregar Producto
+                    </Link>
+                  )}
                   {/* CONTADOR CARRITO - MÓVIL */}
                   <button 
                     className="cart-link-mobile"
@@ -86,7 +90,6 @@ export const Header = () => {
                   >
                     Carrito ({totalItems})
                   </button>
-                  
                   <button 
                     className="logout-button-mobile" 
                     onClick={handleLogout}
@@ -142,6 +145,11 @@ export const Header = () => {
               <Link to="/mi-cuenta" className="desktop-login-link">
                 Mi Perfil
               </Link>
+              {user?.rol === 'artist' && (
+                <Link to="/mi-cuenta/agregar-producto" className="desktop-login-link" onClick={closeMenu}>
+                  Agregar Producto
+                </Link>
+              )}
               
               {/* CONTADOR CARRITO - DESKTOP */}
               <button 
@@ -150,7 +158,6 @@ export const Header = () => {
               >
                 Carrito ({totalItems})
               </button>
-              
               <button 
                 className="logout-button-desktop" 
                 onClick={handleLogout}

@@ -1,19 +1,20 @@
 /* 
-    Autor: Ian Domínguez
-    Fecha: 16 de noviembre de 2025
-    Descripción: Muestra una vista para que el usuario pueda ingresar la información necesaria para crear un producto dentro de la plataforma.
+    Autor: GitHub Copilot
+    Fecha: 17 de noviembre de 2025
+    Descripción: Permite editar un producto existente, cargando sus datos desde el backend y enviando actualizaciones.
 */
 
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { BtnGeneral } from '../../components/Botones/btn_general';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header'; 
 import { productService } from '../../services/productService';
-import "./agregar_producto.css";
+import "./editar_producto.css";
 
-export default function AgregarProducto() {
+export default function EditarProducto() {
   const navigate = useNavigate();
+  const { productId } = useParams();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     nombre: "",
@@ -24,10 +25,41 @@ export default function AgregarProducto() {
     address: "",
     imagenes: [],
   });
+  const [existingImages, setExistingImages] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Categoría ahora limitada a valores del sistema: 'producto' | 'material'
+  useEffect(() => {
+    cargarProducto();
+  }, [productId]);
+
+  const cargarProducto = async () => {
+    try {
+      setLoading(true);
+      const producto = await productService.getProductById(productId);
+      if (!producto) {
+        setErrorMessage('Producto no encontrado');
+        return;
+      }
+      // Prellenar formulario
+      setFormData({
+        nombre: producto.name || "",
+        descripcion: producto.description || "",
+        precio: String(producto.price || ""),
+        categoria: producto.category || "",
+        stock: String(producto.stock || ""),
+        address: producto.address || "",
+        imagenes: [],
+      });
+      setExistingImages(producto.images || []);
+    } catch (e) {
+      console.error('Error cargando producto:', e);
+      setErrorMessage(e.message || 'Error al cargar el producto');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({
@@ -67,7 +99,7 @@ export default function AgregarProducto() {
         }
         break;
       case 7:
-        if (formData.imagenes.length === 0) {
+        if (formData.imagenes.length === 0 && existingImages.length === 0) {
           return "Por favor, sube al menos una imagen del producto";
         }
         break;
@@ -90,7 +122,7 @@ export default function AgregarProducto() {
       case 5:
         return formData.stock !== "" && parseInt(formData.stock) >= 0 && formData.address.trim() !== "";
       case 7:
-        return formData.imagenes.length > 0;
+        return formData.imagenes.length > 0 || existingImages.length > 0;
       default:
         return true;
     }
@@ -118,31 +150,36 @@ export default function AgregarProducto() {
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
-    if (files.length + formData.imagenes.length <= 5) {
+    const totalImages = formData.imagenes.length + existingImages.length;
+    if (files.length + totalImages <= 5) {
       setFormData((prev) => ({
         ...prev,
         imagenes: [...prev.imagenes, ...files],
       }));
     } else {
-      alert("Máximo 5 imágenes permitidas");
+      alert("Máximo 5 imágenes permitidas en total");
     }
   };
 
-  const removeImage = (index) => {
+  const removeNewImage = (index) => {
     setFormData((prev) => ({
       ...prev,
       imagenes: prev.imagenes.filter((_, i) => i !== index),
     }));
   };
 
+  const removeExistingImage = (url) => {
+    setExistingImages(existingImages.filter(img => img !== url));
+  };
+
   const handleFinish = async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
     try {
-      await productService.createProduct(formData);
+      await productService.updateProduct(productId, formData, existingImages);
       navigate("/mi-cuenta/mis-productos");
     } catch (e) {
-      setErrorMessage(e.message || 'Error al crear producto');
+      setErrorMessage(e.message || 'Error al actualizar producto');
       setTimeout(()=> setErrorMessage(''), 4000);
     } finally {
       setIsSubmitting(false);
@@ -526,7 +563,7 @@ export default function AgregarProducto() {
 
               <div className="upload-card">
                 <h2 className="upload-title">
-                  Sube las imágenes de tu producto
+                  Actualiza las imágenes de tu producto
                 </h2>
 
                 <label className="upload-area">
@@ -566,13 +603,35 @@ export default function AgregarProducto() {
                 </label>
 
                 <p className="upload-notice">
-                  <span className="notice-label">Aviso:</span> Máximo 5 imágenes
+                  <span className="notice-label">Aviso:</span> Máximo 5 imágenes totales
                 </p>
+
+                {existingImages.length > 0 && (
+                  <div className="images-preview">
+                    <p className="images-count">
+                      {existingImages.length} imagen(es) existente(s)
+                    </p>
+                    <div className="images-list">
+                      {existingImages.map((url, index) => (
+                        <div key={index} className="image-item">
+                          <span>Imagen {index + 1}</span>
+                          <button
+                            type="button"
+                            onClick={() => removeExistingImage(url)}
+                            className="remove-image"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {formData.imagenes.length > 0 && (
                   <div className="images-preview">
                     <p className="images-count">
-                      {formData.imagenes.length} imagen(es) seleccionada(s)
+                      {formData.imagenes.length} imagen(es) nueva(s)
                     </p>
                     <div className="images-list">
                       {formData.imagenes.map((img, index) => (
@@ -580,7 +639,7 @@ export default function AgregarProducto() {
                           <span>{img.name}</span>
                           <button
                             type="button"
-                            onClick={() => removeImage(index)}
+                            onClick={() => removeNewImage(index)}
                             className="remove-image"
                           >
                             ✕
@@ -612,12 +671,12 @@ export default function AgregarProducto() {
             <div className="success-panel">
               <div className="success-card">
                 <h2 className="success-message">
-                  El producto se ha creado correctamente.
+                  El producto se actualizará con los cambios realizados.
                   <br />
-                  Ahora podrás verlo dentro de tu perfil.
+                  Confirma para guardar los cambios.
                 </h2>
                 <BtnGeneral
-                  text={isSubmitting ? 'Guardando...' : 'Finalizar'}
+                  text={isSubmitting ? 'Guardando...' : 'Confirmar cambios'}
                   color="amarillo"
                   onClick={handleFinish}
                   className="btn-siguiente-general"
@@ -633,20 +692,49 @@ export default function AgregarProducto() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="editar-producto-page">
+        <Header />
+        <div className="editar-producto-container">
+          <p className="loading-message">Cargando producto...</p>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (errorMessage && !formData.nombre) {
+    return (
+      <div className="editar-producto-page">
+        <Header />
+        <div className="editar-producto-container">
+          <p className="error-message">{errorMessage}</p>
+          <BtnGeneral
+            text="Volver a mis productos"
+            color="morado"
+            onClick={() => navigate('/mi-cuenta/mis-productos')}
+          />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
-    <div className="agregar-producto-page">
+    <div className="editar-producto-page">
       <Header /> 
-      <div className="agregar-producto-container">
+      <div className="editar-producto-container">
         {currentStep === 1 && (
           <h1 className="page-title">
-            Agrega un <span className="title-highlight">producto</span>
+            Editar <span className="title-highlight">producto</span>
           </h1>
         )}
 
         <div className="form-wrapper">{renderStepContent()}</div>
       </div>
       <Footer /> 
-      {isSubmitting && <div className="loading-overlay">Guardando producto...</div>}
+      {isSubmitting && <div className="loading-overlay">Actualizando producto...</div>}
     </div>
   );
 }

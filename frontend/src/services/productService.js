@@ -59,6 +59,87 @@ class ProductService {
   }
 
   /**
+   * Crear un nuevo producto (multipart/form-data)
+   * @param {Object} data - Datos del producto
+   * @param {string} data.nombre - Nombre del producto
+   * @param {string} data.descripcion - Descripción
+   * @param {string|number} data.precio - Precio
+   * @param {string} data.categoria - Categoría
+   * @param {string|number} data.stock - Stock
+   * @param {string} data.address - Dirección / ubicación
+   * @param {File[]} data.imagenes - Archivos de imagen
+   * @returns {Promise<Object>} Producto creado
+   */
+  async createProduct(data) {
+    const form = new FormData();
+    form.append('name', data.nombre);
+    form.append('description', data.descripcion || '');
+    form.append('price', String(data.precio));
+    form.append('category', data.categoria || 'producto');
+    form.append('stock', String(data.stock));
+    form.append('address', data.address || '');
+    if (Array.isArray(data.imagenes)) {
+      data.imagenes.forEach(file => {
+        form.append('images', file);
+      });
+    }
+    return await apiClient.request('/api/products/', { method: 'POST', body: form });
+  }
+
+  /**
+   * Actualizar un producto existente (PATCH con JSON o multipart)
+   * @param {number} productId - ID del producto a actualizar
+   * @param {Object} data - Datos del producto
+   * @param {string} data.nombre - Nombre del producto
+   * @param {string} data.descripcion - Descripción
+   * @param {string|number} data.precio - Precio
+   * @param {string} data.categoria - Categoría
+   * @param {string|number} data.stock - Stock
+   * @param {string} data.address - Dirección / ubicación
+   * @param {File[]} data.imagenes - Archivos de imagen nuevos
+   * @param {string[]} existingImages - URLs de imágenes existentes a conservar
+   * @returns {Promise<Object>} Producto actualizado
+   */
+  async updateProduct(productId, data, existingImages = []) {
+    // Si hay imágenes nuevas, usar multipart/form-data
+    if (data.imagenes && data.imagenes.length > 0) {
+      const form = new FormData();
+      form.append('name', data.nombre);
+      form.append('description', data.descripcion || '');
+      form.append('price', String(data.precio));
+      form.append('category', data.categoria || 'producto');
+      form.append('stock', String(data.stock));
+      form.append('address', data.address || '');
+      
+      // Agregar imágenes nuevas
+      data.imagenes.forEach(file => {
+        form.append('images', file);
+      });
+      
+      return await apiClient.request(`/api/products/${productId}`, { 
+        method: 'PUT', 
+        body: form 
+      });
+    } else {
+      // Solo actualizar campos de texto vía PATCH JSON
+      const updateData = {
+        name: data.nombre,
+        description: data.descripcion || '',
+        price: parseFloat(data.precio),
+        category: data.categoria,
+        stock: parseInt(data.stock),
+        address: data.address,
+        images: existingImages, // Mantener imágenes existentes
+      };
+      
+      return await apiClient.request(`/api/products/${productId}`, {
+        method: 'PATCH',
+        body: JSON.stringify(updateData),
+      });
+    }
+  }
+
+  /**
    * Incrementar contador de vistas de un producto
    * @param {number} productId - ID del producto
    */

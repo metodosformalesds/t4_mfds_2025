@@ -70,6 +70,16 @@ export default function MisProductos() {
     navigate(`/mi-cuenta/productos/${productoId}/resenas`);
   };
 
+  const handleModificar = (productoId) => {
+    navigate(`/mi-cuenta/productos/${productoId}/editar`);
+  };
+
+  const handleEliminar = (productoId) => {
+    // TODO: Implementar eliminación de producto
+    console.log('Eliminar producto:', productoId);
+    alert('Funcionalidad de eliminación pendiente');
+  };
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
     window.scrollTo(0,0);

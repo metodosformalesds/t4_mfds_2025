@@ -61,7 +61,7 @@ export const CartSummary = ({
 
   return (
     <div className="cart-summary">
-      <h3 className="summary-title">Resumen del Pedido</h3>
+      <h3 className="summary-title2">Resumen del Pedido</h3>
       
       {/* DESGLOSE DE COSTOS */}
       <div className="summary-breakdown">

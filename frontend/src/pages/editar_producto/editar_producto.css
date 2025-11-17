@@ -1,7 +1,7 @@
 /* 
-    Autor: Ian Domínguez
-    Fecha: 16 de noviembre de 2025
-    Descripción: Estilados para el archivo de 
+    Autor: GitHub Copilot
+    Fecha: 17 de noviembre de 2025
+    Descripción: Estilos para la página de edición de productos usando variables de diseño
 */
 
 * {
@@ -10,7 +10,7 @@
   box-sizing: border-box;
 }
 
-.agregar-producto-page {
+.editar-producto-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -20,12 +20,20 @@
 /* ========================================
    CONTENEDOR PRINCIPAL
    ======================================== */
-.agregar-producto-container {
+.editar-producto-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 40px 20px 80px;
   width: 100%;
   flex: 1;
+}
+
+.loading-message {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-xl);
+  color: var(--text-gray);
+  text-align: center;
+  padding: 60px 20px;
 }
 
 /* ========================================
@@ -224,28 +232,6 @@
 
 .form-textarea::placeholder {
   color: var(--text-gray-light);
-}
-
-.form-select {
-  border: none;
-  outline: none;
-  font-family: var(--font-primary);
-  font-size: var(--font-size-lg);
-  color: var(--text-gray-dark);
-  width: 100%;
-  background: transparent;
-  appearance: none;
-  cursor: pointer;
-}
-
-.form-select option[value=""] {
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.select-arrow {
-  color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  right: 30px;
 }
 
 /* ========================================
@@ -733,7 +719,7 @@
 }
 
 @media (max-width: 768px) {
-  .agregar-producto-container {
+  .editar-producto-container {
     padding: 30px 15px 60px;
   }
 
@@ -849,8 +835,7 @@
   }
 
   .form-input,
-  .form-textarea,
-  .form-select {
+  .form-textarea {
     font-size: 14px;
   }
 

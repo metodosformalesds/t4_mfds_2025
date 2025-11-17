@@ -131,7 +131,9 @@ export const CardProducto = ({
             <div className="producto-metricas">
               {calificacion > 0 && (
                 <span className="calificacion">
-                  ⭐ {calificacion.toFixed(1)}
+                  <span>
+                    ★
+                  </span>
                 </span>
               )}
               {reseñas > 0 && (
