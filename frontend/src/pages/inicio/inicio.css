@@ -4,19 +4,11 @@
   Descripción: estilos para inicio.jsx
 */
 
-:root {
-  --collection-1-amarillo: rgba(255, 196, 0, 1);
-  --collection-1-morado-claro: rgba(140, 0, 255, 1);
-  --collection-1-morado-oscuro: rgba(69, 6, 147, 1);
-  --collection-1-rosa: rgba(255, 63, 127, 1);
-  --reborn-texto-font-family: "Poppins", Helvetica;
-  --reborn-titulo-font-family: "Playfair", Helvetica;
-}
 
 /* ========== PÁGINA PRINCIPAL ========== */
 .pagina-inicio {
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--white);
 }
 
 
@@ -35,17 +27,17 @@
 }
 
 .titulo-hero {
-  font-family: var(--reborn-titulo-font-family);
+  font-family: var(--font-title);
   font-size: 48px;
-  font-weight: 900;
+  font-weight: var(--font-weight-bold);
   margin-bottom: 20px;
-  line-height: 1.2;
+  line-height: var(--line-height-snug);
 }
 
 .descripcion-hero {
-  font-family: var(--reborn-texto-font-family);
+  font-family: var(--font-primary);
   font-size: 18px;
-  line-height: 1.6;
+  line-height: var(--line-height-relaxed);
   margin-bottom: 30px;
   opacity: 0.9;
 }
@@ -58,7 +50,7 @@
 .seccion-productos,
 .seccion-artistas {
   padding: 80px 40px;
-  background-color: #f8f9fa;
+  background-color: var(--bg-light);
 }
 
 .contenedor-titulo {
@@ -67,10 +59,10 @@
 }
 
 .titulo-seccion {
-  font-family: var(--reborn-titulo-font-family);
+  font-family: var(--font-title);
   font-size: 36px;
-  font-weight: 700;
-  color: var(--collection-1-morado-oscuro);
+  font-weight: var(--font-weight-bold);
+  color: var(--morado-oscuro);
   margin: 0;
 }
 
@@ -190,16 +182,16 @@
 
 .hero-inicio {
   background: linear-gradient(-45deg, 
-    var(--collection-1-morado-oscuro), 
-    var(--collection-1-morado-claro), 
-    #9b30ff,
-    var(--collection-1-morado-oscuro)
+    var(--morado-oscuro), 
+    var(--morado-claro), 
+    var(--color-purple-light),
+    var(--morado-oscuro)
   );
   background-size: 400% 400%;
   animation: gradientShift 12s ease infinite;
   padding: 100px 40px 80px;
   text-align: center;
-  color: white;
+  color: var(--white);
   margin-top: 0;
 }
 
@@ -220,7 +212,7 @@
    ======================================== */
 .seccion-nosotros {
   padding: 80px 40px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, var(--bg-light) 0%, var(--border-light) 100%);
   position: relative;
   overflow: hidden;
 }
@@ -233,7 +225,7 @@
   right: -50px;
   width: 200px;
   height: 200px;
-  background: rgba(140, 0, 255, 0.05);
+  background: var(--bg-purple-alpha);
   border-radius: 50%;
 }
 
@@ -244,7 +236,7 @@
   left: -30px;
   width: 150px;
   height: 150px;
-  background: rgba(255, 63, 127, 0.05);
+  background: var(--bg-pink-alpha);
   border-radius: 50%;
 }
 
@@ -265,7 +257,7 @@
 .logo-nosotros {
   width: 300px;
   height: auto;
-  filter: drop-shadow(0 10px 20px rgba(69, 6, 147, 0.15));
+  filter: drop-shadow(var(--shadow-lg));
   transition: transform 0.3s ease;
 }
 
@@ -278,22 +270,22 @@
 }
 
 .parrafo-nosotros {
-  font-family: var(--reborn-texto-font-family);
+  font-family: var(--font-primary);
   font-size: 16px;
   line-height: 1.9;
-  color: #555;
+  color: var(--text-muted);
   margin-bottom: 20px;
   position: relative;
   padding-left: 20px;
-  border-left: 3px solid var(--collection-1-morado-claro);
+  border-left: 3px solid var(--morado-claro);
 }
 
 .parrafo-nosotros:nth-child(2) {
-  border-left-color: var(--collection-1-rosa);
+  border-left-color: var(--rosa);
 }
 
 .parrafo-nosotros:nth-child(3) {
-  border-left-color: var(--collection-1-amarillo);
+  border-left-color: var(--amarillo);
 }
 
 .parrafo-nosotros:last-child {
@@ -370,7 +362,7 @@
 .circulo-1 {
   width: 120px;
   height: 120px;
-  background-color: var(--collection-1-amarillo);
+  background-color: var(--amarillo);
   top: 10%;
   left: 5%;
   animation: flotar 8s ease-in-out infinite;
@@ -379,7 +371,7 @@
 .circulo-2 {
   width: 80px;
   height: 80px;
-  background-color: var(--collection-1-amarillo);
+  background-color: var(--amarillo);
   bottom: 15%;
   right: 10%;
   animation: flotar 10s ease-in-out infinite reverse;
@@ -388,7 +380,7 @@
 .circulo-3 {
   width: 60px;
   height: 60px;
-  background-color: var(--collection-1-amarillo);
+  background-color: var(--amarillo);
   top: 40%;
   right: 5%;
   animation: flotar 12s ease-in-out infinite;
@@ -398,7 +390,7 @@
 .circulo-4 {
   width: 100px;
   height: 100px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--bg-white-alpha);
   top: 20%;
   right: 20%;
   animation: flotar 9s ease-in-out infinite reverse;
@@ -416,7 +408,7 @@
 .circulo-6 {
   width: 50px;
   height: 50px;
-  background-color: var(--collection-1-amarillo);
+  background-color: var(--amarillo);
   top: 60%;
   left: 8%;
   animation: flotar 7s ease-in-out infinite reverse;

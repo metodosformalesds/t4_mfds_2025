@@ -1,6 +1,6 @@
 /* ========== RESUMEN DEL CARRITO ========== */
 .cart-summary {
-  background: #f8f9fa;
+  background: var(--bg-light);
   border-radius: 12px;
   padding: 25px;
   border: 1px solid var(--border-color);
@@ -9,10 +9,10 @@
 }
 
 .summary-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 20px;
-  font-weight: 700;
-  color: var(--collection-1-morado-oscuro);
+  font-weight: var(--font-weight-bold);
+  color: var(--morado-oscuro);
   margin: 0 0 20px 0;
   text-align: center;
 }
@@ -29,15 +29,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
   color: var(--text-dark);
 }
 
 .summary-row.total {
   font-size: 18px;
-  font-weight: 700;
-  color: var(--collection-1-morado-oscuro);
+  font-weight: var(--font-weight-bold);
+  color: var(--morado-oscuro);
 }
 
 .summary-divider {
@@ -48,32 +48,32 @@
 
 /* NOTIFICACIONES */
 .shipping-notice {
-  background: var(--collection-1-amarillo);
-  color: #333;
+  background: var(--amarillo);
+  color: var(--text-gray-dark);
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-align: center;
   margin: 10px 0;
 }
 
 .unavailable-warning {
-  background: #fff0f0;
-  color: var(--collection-1-rosa);
+  background: var(--color-danger-bg);
+  color: var(--rosa);
   padding: 10px;
   border-radius: 6px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   text-align: center;
   margin: 15px 0;
-  border-left: 4px solid var(--collection-1-rosa);
+  border-left: 4px solid var(--rosa);
 }
 
 .security-notice {
   text-align: center;
   font-size: 14px;
-  color: #666;
+  color: var(--text-gray);
   margin-top: 15px;
   padding-top: 15px;
   border-top: 1px solid var(--border-color);

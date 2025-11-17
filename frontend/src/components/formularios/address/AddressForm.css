@@ -7,9 +7,9 @@
 }
 
 .form-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--collection-1-morado-oscuro);
   margin: 0 0 25px 0;
   text-align: center;
@@ -20,7 +20,7 @@
 .custom-address-option {
   margin-bottom: 25px;
   padding: 20px;
-  border: 2px solid #f0f0f0;
+  border: 2px solid var(--bg-gray);
   border-radius: 8px;
   transition: all 0.3s ease;
 }
@@ -35,9 +35,9 @@
   align-items: flex-start;
   gap: 12px;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--text-dark);
 }
 
@@ -54,7 +54,7 @@
 .profile-address-preview {
   margin-top: 15px;
   padding: 15px;
-  background: #f8f9fa;
+  background: var(--bg-light);
   border-radius: 6px;
   border-left: 4px solid var(--collection-1-morado-claro);
 }
@@ -67,9 +67,9 @@
 
 .address-value {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  color: #666;
+  color: var(--text-gray);
   line-height: 1.4;
 }
 
@@ -80,9 +80,9 @@
 
 .input-label {
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--text-dark);
   margin-bottom: 8px;
 }
@@ -90,9 +90,9 @@
 .address-textarea {
   width: 100%;
   padding: 12px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-gray);
   border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
   resize: vertical;
   transition: border-color 0.3s ease;
@@ -108,7 +108,7 @@
 }
 
 .address-textarea:disabled {
-  background-color: #f5f5f5;
+  background-color: var(--bg-gray-dark);
   cursor: not-allowed;
 }
 
@@ -117,7 +117,7 @@
   color: var(--collection-1-rosa);
   font-size: 12px;
   margin-top: 5px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 /* TIPS DE DIRECCIÓN */
@@ -132,7 +132,7 @@
 .address-tips strong {
   display: block;
   margin-bottom: 8px;
-  color: #333;
+  color: var(--text-gray-dark);
 }
 
 .address-tips ul {
@@ -142,7 +142,7 @@
 
 .address-tips li {
   font-size: 12px;
-  color: #666;
+  color: var(--text-gray);
   margin-bottom: 4px;
   line-height: 1.4;
 }
@@ -152,7 +152,7 @@
   display: flex;
   gap: 12px;
   padding: 15px;
-  background: #fff0f0;
+  background: var(--color-danger-bg);
   border-radius: 8px;
   border-left: 4px solid var(--collection-1-rosa);
   margin-bottom: 20px;
@@ -176,7 +176,7 @@
 .warning-content p {
   margin: 0;
   font-size: 14px;
-  color: #666;
+  color: var(--text-gray);
   line-height: 1.4;
 }
 
@@ -187,7 +187,7 @@
   justify-content: flex-end;
   margin-top: 25px;
   padding-top: 20px;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--bg-gray);
 }
 
 .cancel-btn,

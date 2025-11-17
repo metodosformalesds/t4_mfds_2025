@@ -24,7 +24,7 @@
   justify-content: center;
   cursor: pointer;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   transition: all 0.2s ease;
 }
 
@@ -43,7 +43,7 @@
   border: none;
   text-align: center;
   font-size: 16px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   background: white;
   appearance: textfield;
   -moz-appearance: textfield;

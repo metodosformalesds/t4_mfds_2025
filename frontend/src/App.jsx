@@ -17,6 +17,10 @@ import { MisPedidos } from './pages/perfil/mis_pedidos';
 import { MiInformacion } from './pages/perfil/mi_informacion';
 import { Seguridad } from './pages/perfil/mi_seguridad';
 import { Favorites } from './pages/perfil/mis_favoritos';
+import Artistas from './pages/artistas/Artistas';
+import WriteReview from './pages/resenas/crearResena';
+import ProductReviews from './pages/resenas/resenasProducto';
+import { ArtistProfile } from './pages/artista_perfil';
 
 function App() {
   return (
@@ -25,9 +29,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/catalogo" element={<Catalogo />} />
-          <Route path="/artistas" element={<Inicio />} />
+          <Route path="/artistas" element={<Artistas />} />
+          <Route path="/artista/:artistId" element={<ArtistProfile />} />
           <Route path="/categorias" element={<Inicio />} />
           <Route path="/producto/:productId" element={<ProductDetail />} />
+          <Route path="/producto/:productId/resenas" element={<ProductReviews />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/checkout" element={<CheckoutPage />} />
@@ -43,6 +49,7 @@ function App() {
           <Route path="/mi-cuenta/favoritos" element={<Favorites />} />
           <Route path="/mi-cuenta/informacion" element={<MiInformacion />} />
           <Route path="/mi-cuenta/seguridad" element={<Seguridad />} />
+          <Route path="/mi-cuenta/pedidos/:orderId/resena/:productId" element={<WriteReview />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>

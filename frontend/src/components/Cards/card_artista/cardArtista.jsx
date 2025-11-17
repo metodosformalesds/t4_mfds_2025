@@ -6,6 +6,7 @@
 */
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BtnGeneral } from "../../Botones/btn_general";
 import favoriteService from "../../../services/favoriteService";
 import "./cardArtista.css";
@@ -13,7 +14,6 @@ import "./cardArtista.css";
 export const CardArtista = ({ 
   className = "",
   artistName = "Eduardo Muñoz",
-  specialty = "Madera y bordados",
   imageUrl = "https://placehold.co/600x400",
   onViewProfile,
   buttonText = "Ver perfil",
@@ -21,6 +21,7 @@ export const CardArtista = ({
   isFavorite = false,
   onFavoriteChange,
 }) => {
+  const navigate = useNavigate();
   const [favorite, setFavorite] = useState(isFavorite);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
 
@@ -45,6 +46,14 @@ export const CardArtista = ({
       console.error('Error toggling favorite:', error);
     } finally {
       setFavoriteLoading(false);
+    }
+  };
+
+  const handleViewProfile = () => {
+    if (onViewProfile) {
+      onViewProfile();
+    } else if (artistId) {
+      navigate(`/artista/${artistId}`);
     }
   };
 
@@ -76,7 +85,6 @@ export const CardArtista = ({
       <div className="artist-info">
         <div className="artist-details">
           <h3 className="artist-name">{artistName}</h3>
-          <p className="artist-specialty">Especialista en: {specialty}</p>
         </div>
         
         {/* Botones */}
@@ -85,7 +93,7 @@ export const CardArtista = ({
             className="view-profile-btn"
             property1="variant-2"
             text={buttonText}
-            onClick={onViewProfile}
+            onClick={handleViewProfile}
             color="morado"
           />
         </div>

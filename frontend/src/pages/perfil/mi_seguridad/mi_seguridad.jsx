@@ -23,6 +23,8 @@ export default function Seguridad() {
     field: null,
     value: "",
   });
+  const [showArtistModal, setShowArtistModal] = useState(false);
+  const [convertingToArtist, setConvertingToArtist] = useState(false);
 
   useEffect(() => {
     fetchUserData();
@@ -36,6 +38,7 @@ export default function Seguridad() {
         nombre: userData.full_name || "",
         username: userData.username || "",
         email: userData.email || "",
+        rol: userData.rol || "customer",
         avatar: userData.profile_picture || 
                 userData.profile_picture_url ||
                 "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
@@ -49,6 +52,7 @@ export default function Seguridad() {
           nombre: savedUser.full_name || "",
           username: savedUser.username || "",
           email: savedUser.email || "",
+          rol: savedUser.rol || "customer",
           avatar: savedUser.profile_picture || 
                   savedUser.profile_picture_url ||
                   "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
@@ -123,6 +127,59 @@ export default function Seguridad() {
     navigate("/mi-cuenta/informacion");
   };
 
+  const handleConvertirArtista = () => {
+    setShowArtistModal(true);
+  };
+
+  const handleConfirmarConversion = async () => {
+    try {
+      setConvertingToArtist(true);
+      const token = authService.getToken();
+      const base = apiClient.baseURL ? apiClient.baseURL.replace(/\/$/, '') : '';
+      const url = `${base}/api/users/me`;
+
+      const resp = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': token ? `Bearer ${token}` : undefined,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ rol: 'artist' }),
+      });
+
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err.detail || resp.statusText || 'Error al actualizar rol');
+      }
+
+      const data = await resp.json();
+      
+      // Actualizar usuario localmente
+      setUsuario((prev) => ({
+        ...prev,
+        rol: 'artist',
+      }));
+
+      // Actualizar en authService si es necesario
+      const currentUser = authService.getUser();
+      if (currentUser) {
+        authService.setUser({ ...currentUser, rol: 'artist' });
+      }
+
+      setShowArtistModal(false);
+      alert('¡Ahora eres un artista! Puedes comenzar a publicar tus productos.');
+    } catch (error) {
+      console.error('Error al convertir a artista:', error);
+      alert(error.message || 'Error al cambiar el rol');
+    } finally {
+      setConvertingToArtist(false);
+    }
+  };
+
+  const handleCancelarConversion = () => {
+    setShowArtistModal(false);
+  };
+
   if (loading) {
     return (
       <div className="seguridad-page">
@@ -144,7 +201,7 @@ export default function Seguridad() {
           >
             Mi cuenta
           </span>
-          {" > "} Mi información
+          {" > "} Mi seguridad
         </div>
 
         {/* Información del usuario (solo visualización, sin edición) */}
@@ -193,6 +250,24 @@ export default function Seguridad() {
           />
         </div>
 
+        {/* Sección de Convertirse en Artista (solo si el rol es customer) */}
+        {usuario.rol === 'customer' && (
+          <div className="seccion-seguridad">
+            <div className="seccion-info">
+              <h3 className="seccion-titulo">Cambiar rol a artista</h3>
+              <p className="seccion-valor">
+              </p>
+            </div>
+            <BtnGeneral
+              property1="default"
+              color="rosa"
+              text="Ser Artista"
+              onClick={handleConvertirArtista}
+              className="btn-modificar"
+            />
+          </div>
+        )}
+
         {/* Card de Mi información */}
         <div className="info-card-container">
           <div className="info-card" onClick={handleNavigateToInfo}>
@@ -235,6 +310,42 @@ export default function Seguridad() {
                 color="morado"
                 property1="default"
                 onClick={handleGuardarCambio}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de confirmación para convertirse en artista */}
+      {showArtistModal && (
+        <div className="modal-overlay" onClick={handleCancelarConversion}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2 className="modal-title">¿Convertirse en artista?</h2>
+            
+            <p className="modal-warning">
+              <strong>Esta acción es irreversible.</strong>
+            </p>
+            <p className="modal-description">
+              Al convertirte en artista, podrás publicar y vender tus productos en la plataforma.
+              Una vez realizado el cambio, no podrás volver al rol de cliente.
+            </p>
+            <p className="modal-description">
+              ¿Estás seguro de que deseas continuar?
+            </p>
+
+            <div className="modal-botones">
+              <BtnGeneral
+                text="Cancelar"
+                color="amarillo"
+                onClick={handleCancelarConversion}
+                disabled={convertingToArtist}
+              />
+              <BtnGeneral
+                text={convertingToArtist ? "Procesando..." : "Confirmar"}
+                color="rosa"
+                property1="default"
+                onClick={handleConfirmarConversion}
+                disabled={convertingToArtist}
               />
             </div>
           </div>

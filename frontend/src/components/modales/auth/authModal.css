@@ -37,17 +37,17 @@
 }
 
 .auth-modal-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 24px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--collection-1-morado-oscuro);
   margin: 0;
 }
 
 .auth-modal-message {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  color: #666;
+  color: var(--text-gray);
   line-height: 1.5;
   margin: 0;
 }

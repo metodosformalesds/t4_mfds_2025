@@ -1,0 +1,295 @@
+:root {
+  --collection-1-amarillo: rgba(255, 196, 0, 1);
+  --collection-1-morado-claro: rgba(140, 0, 255, 1);
+  --collection-1-morado-oscuro: rgba(69, 6, 147, 1);
+  --collection-1-rosa: rgba(255, 63, 127, 1);
+  --reborn-texto-font-family: var(--font-primary);
+  --reborn-titulo-font-family: var(--font-title);
+}
+
+.artistas-page {
+  min-height: 100vh;
+  background-color: var(--bg-light);
+}
+
+/* ========== CONTENIDO PRINCIPAL ========== */
+.contenido-artistas {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 30px;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 30px;
+  min-height: calc(100vh - 140px);
+}
+
+/* ========== FILTROS ========== */
+.filtros-artistas {
+  background: var(--white);
+  padding: 25px 20px;
+  border-radius: 15px;
+  box-shadow: var(--shadow-product);
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+/* ========== ORDENAMIENTO ========== */
+.ordenamiento {
+  margin-bottom: 20px;
+}
+
+.titulo-ordenamiento {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--morado-oscuro);
+  margin-bottom: 12px;
+}
+
+.lista-ordenamiento {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.orden-item {
+  background: none;
+  border: 1px solid var(--border-light);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: var(--font-primary);
+  font-size: 12px;
+  color: var(--text-gray);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.orden-item:hover {
+  border-color: var(--morado-claro);
+  color: var(--morado-claro);
+}
+
+.orden-item.activo {
+  background-color: var(--rosa);
+  color: var(--white);
+  border-color: var(--rosa);
+}
+
+/* ========== ARTISTAS SECTION ========== */
+.artistas-section {
+  flex: 1;
+}
+
+.encabezado-artistas {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+  padding: 0 10px;
+}
+
+.titulo-contador {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titulo-artistas {
+  font-family: var(--font-title);
+  font-size: 32px;
+  color: var(--morado-oscuro);
+  margin: 0;
+}
+
+.contador-artistas {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  color: var(--text-gray);
+  background: var(--white);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border-light);
+}
+
+/* ========== GRILLA DE ARTISTAS ========== */
+.grid-artistas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+/* ========== ESTADOS ========== */
+.cargando {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  font-family: var(--font-primary);
+  padding: 60px 20px;
+}
+
+.cargando .spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--bg-gray-dark);
+  border-top: 4px solid var(--morado-oscuro);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+.estado-error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  font-family: var(--font-primary);
+  padding: 60px 20px;
+  color: var(--color-danger);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ========== PAGINACIÓN ========== */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.pagina-btn, .pagina-numero {
+  background: var(--white);
+  border: 2px solid var(--border-light);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  color: var(--text-gray-dark);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 44px;
+  text-align: center;
+}
+
+.pagina-btn:hover:not(:disabled),
+.pagina-numero:hover {
+  border-color: var(--morado-claro);
+  color: var(--morado-claro);
+}
+
+.pagina-numero.activa {
+  background-color: var(--morado-oscuro);
+  color: var(--white);
+  border-color: var(--morado-oscuro);
+}
+
+.pagina-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .contenido-artistas {
+    grid-template-columns: 260px 1fr;
+    gap: 20px;
+    padding: 20px 15px;
+  }
+  
+  .filtros-artistas {
+    padding: 20px 15px;
+  }
+  
+  .grid-artistas {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contenido-artistas {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .filtros-artistas {
+    position: static;
+    order: 2;
+  }
+  
+  .artistas-section {
+    order: 1;
+  }
+  
+  .titulo-contador {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .grid-artistas {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenido-artistas {
+    padding: 15px 10px;
+    gap: 15px;
+  }
+  
+  .filtros-artistas {
+    padding: 15px 12px;
+  }
+  
+  .titulo-artistas {
+    font-size: 24px;
+  }
+  
+  .grid-artistas {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .paginacion {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .pagina-btn, .pagina-numero {
+    padding: 8px 12px;
+    font-size: 13px;
+    min-width: 40px;
+  }
+}
+
+@media (max-width: 360px) {
+  .contenido-artistas {
+    padding: 10px 8px;
+  }
+  
+  .filtros-artistas {
+    padding: 12px 10px;
+  }
+  
+  .encabezado-artistas {
+    padding: 0 5px;
+  }
+  
+  .grid-artistas {
+    gap: 12px;
+  }
+}

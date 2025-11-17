@@ -3,7 +3,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f8f9fa;
+  background-color: var(--bg-light);
 }
 
 .confirmation-main {
@@ -21,7 +21,7 @@
 .loading-confirmation {
   text-align: center;
   padding: 60px 20px;
-  background: white;
+  background: var(--white);
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -37,17 +37,17 @@
 }
 
 .loading-confirmation h2 {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--collection-1-morado-oscuro);
   margin: 0 0 10px 0;
 }
 
 .loading-confirmation p {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  color: #666;
+  color: var(--text-gray);
   margin: 0;
 }
 
@@ -55,7 +55,7 @@
 .error-confirmation {
   text-align: center;
   padding: 60px 20px;
-  background: white;
+  background: var(--white);
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -66,17 +66,17 @@
 }
 
 .error-confirmation h2 {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--collection-1-rosa);
   margin: 0 0 15px 0;
 }
 
 .error-confirmation p {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  color: #666;
+  color: var(--text-gray);
   margin: 0 0 30px 0;
   line-height: 1.5;
 }
@@ -91,7 +91,7 @@
 .confirmation-header {
   text-align: center;
   padding: 40px 20px;
-  background: white;
+  background: var(--white);
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
@@ -103,17 +103,17 @@
 }
 
 .confirmation-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-title);
   font-size: 36px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--collection-1-morado-oscuro);
   margin: 0 0 15px 0;
 }
 
 .confirmation-subtitle {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 18px;
-  color: #666;
+  color: var(--text-gray);
   line-height: 1.5;
   margin: 0;
   max-width: 500px;
@@ -138,13 +138,13 @@
 }
 
 .details-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 18px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--collection-1-morado-oscuro);
   margin: 0 0 20px 0;
   padding-bottom: 10px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid var(--bg-gray);
 }
 
 .details-grid {
@@ -160,17 +160,17 @@
 }
 
 .detail-label {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  color: #666;
-  font-weight: 500;
+  color: var(--text-gray);
+  font-weight: var(--font-weight-medium);
 }
 
 .detail-value {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
   color: var(--text-dark);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .total-amount {
@@ -180,16 +180,16 @@
 
 .status-badge {
   background: var(--collection-1-amarillo);
-  color: #333;
+  color: var(--text-gray-dark);
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 /* INFORMACIÓN DE ENVÍO */
 .shipping-address {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
   color: var(--text-dark);
   line-height: 1.5;
@@ -201,7 +201,7 @@
   align-items: center;
   gap: 10px;
   padding: 10px;
-  background: #f0f7ff;
+  background: var(--color-info-bg);
   border-radius: 6px;
   border-left: 4px solid var(--collection-1-morado-claro);
 }
@@ -212,15 +212,15 @@
 }
 
 .estimate-text {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 13px;
   color: var(--collection-1-morado-oscuro);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 /* INFORMACIÓN DE CONTACTO */
 .contact-details p {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
   color: var(--text-dark);
   margin: 0 0 8px 0;
@@ -240,13 +240,13 @@
 }
 
 .summary-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 18px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--collection-1-morado-oscuro);
   margin: 0 0 20px 0;
   padding-bottom: 10px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid var(--bg-gray);
 }
 
 .products-list {
@@ -260,13 +260,13 @@
   gap: 15px;
   align-items: center;
   padding: 15px;
-  background: #f8f9fa;
+  background: var(--bg-light);
   border-radius: 8px;
   transition: background 0.3s ease;
 }
 
 .product-card:hover {
-  background: #f0f0f0;
+  background: var(--bg-gray);
 }
 
 .product-image {
@@ -289,9 +289,9 @@
 }
 
 .product-name {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--text-dark);
   margin: 0 0 4px 0;
   white-space: nowrap;
@@ -300,9 +300,9 @@
 }
 
 .product-seller {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 12px;
-  color: #666;
+  color: var(--text-gray);
   margin: 0 0 6px 0;
 }
 
@@ -314,15 +314,15 @@
 
 .product-quantity,
 .product-price {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 12px;
-  color: #666;
+  color: var(--text-gray);
 }
 
 .product-total {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--collection-1-morado-oscuro);
   flex-shrink: 0;
 }
@@ -334,7 +334,7 @@
   justify-content: center;
   margin-bottom: 30px;
   padding: 25px;
-  background: white;
+  background: var(--white);
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -352,16 +352,16 @@
 }
 
 .info-card {
-  background: white;
+  background: var(--white);
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .info-card h4 {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--collection-1-morado-oscuro);
   margin: 0 0 15px 0;
 }
@@ -373,17 +373,17 @@
 }
 
 .info-card li {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  color: #666;
+  color: var(--text-gray);
   margin-bottom: 8px;
   padding-left: 0;
 }
 
 .info-card p {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   font-size: 14px;
-  color: #666;
+  color: var(--text-gray);
   line-height: 1.5;
   margin: 0;
 }
@@ -391,7 +391,7 @@
 .info-card a {
   color: var(--collection-1-morado-claro);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .info-card a:hover {
@@ -481,21 +481,21 @@
 
 /* Estados de pago */
 .status-paid {
-  color: #00a650;
-  background-color: #e6f7ef;
+  color: var(--color-success);
+  background-color: var(--color-success-bg);
   padding: 4px 8px;
   border-radius: 4px;
 }
 
 .status-processing {
-  color: #ff9800;
-  background-color: #fff3e0;
+  color: var(--amarillo);
+  background-color: var(--color-warning-bg);
   padding: 4px 8px;
   border-radius: 4px;
 }
 
 .processing-notice {
-  background-color: #e3f2fd;
+  background-color: var(--color-info-bg);
   border-left: 4px solid #2196f3;
   padding: 12px;
   margin-top: 16px;

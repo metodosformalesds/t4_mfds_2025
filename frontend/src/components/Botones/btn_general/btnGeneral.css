@@ -20,9 +20,9 @@
   transition: all 0.3s ease;
   border: none;
   outline: none;
-  font-family: "Poppins-SemiBold", Helvetica;
+  font-family: var(--font-primary);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 /* VARIANTE DEFAULT - Con fondo */
@@ -60,11 +60,11 @@
   --color-primary: var(--collection-1-amarillo);
   --color-hover: #e6ac00;
   --color-light: rgba(255, 196, 0, 0.1);
-  color: #333; /* Texto oscuro para mejor contraste */
+  color: var(--text-gray-dark); /* Texto oscuro para mejor contraste */
 }
 
 .btn-general.color-amarillo.variant-2 {
-  color: #333; /* Texto oscuro en variante con borde */
+  color: var(--text-gray-dark); /* Texto oscuro en variante con borde */
 }
 
 /* COLOR MORADO CLARO */

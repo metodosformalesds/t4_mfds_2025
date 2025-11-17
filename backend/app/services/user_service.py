@@ -13,6 +13,7 @@ from models.user import User
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class UserService:
+    model = User
     def get_user_by_id(self, db: Session, user_id: int):
         return db.query(User).filter(User.id == user_id).first()
 
@@ -83,7 +84,7 @@ class UserService:
             return None
 
         # Campos permitidos para patch
-        allowed_fields = {"username", "full_name", "bio", "address", "phone", "password", "profile_picture", "email"}
+        allowed_fields = {"username", "full_name", "bio", "address", "phone", "password", "profile_picture", "email", "rol"}
         update_data = {k: v for k, v in data.items() if k in allowed_fields}
 
         if not update_data:

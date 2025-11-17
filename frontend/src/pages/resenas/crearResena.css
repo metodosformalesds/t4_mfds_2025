@@ -1,0 +1,391 @@
+/* 
+  Autor: Ian Luis Domínguez Ramírez 222611
+  Fecha: 12 de noviembre de 2025
+  Descripción: Este archivo es el encargado de decorar los atributos necesarios para el archivo CreateReview de React
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+  }
+  
+body {
+	font-family: var(--font-primary);
+  }
+  
+  .write-review-page {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background-color: var(--white);
+  }
+  
+  /* ========================================
+	 CONTENEDOR PRINCIPAL
+	 ======================================== */
+  .write-review-container {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 60px 20px;
+	width: 100%;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+  
+  /* ========================================
+	 TARJETA DEL FORMULARIO
+	 ======================================== */
+  .review-form-card {
+	width: 100%;
+	max-width: 900px;
+	background-color: var(--white);
+	border: 2px solid var(--border-gray-dark);
+	border-radius: 20px;
+	padding: 50px 60px;
+  }
+  
+  /* ========================================
+	 TÍTULO DEL FORMULARIO
+	 ======================================== */
+  .form-title {
+	font-size: 28px;
+	font-weight: var(--font-weight-bold);
+	color: var(--morado-oscuro);
+	margin-bottom: 25px;
+	text-align: left;
+	font-family: var(--font-primary);
+  }
+  
+  /* ========================================
+	 INFORMACIÓN DEL PRODUCTO
+	 ======================================== */
+  .product-info-review {
+	display: flex;
+	gap: 20px;
+	padding: 20px;
+	background-color: var(--bg-light);
+	border-radius: 12px;
+	margin-bottom: 30px;
+  }
+  
+  .product-image-review {
+	flex-shrink: 0;
+	width: 120px;
+	height: 120px;
+	border-radius: 8px;
+	overflow: hidden;
+	border: 2px solid var(--border-light);
+  }
+  
+  .product-image-review img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+  }
+  
+  .product-details-review {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+  }
+  
+  .product-name-review {
+	font-size: 18px;
+	font-weight: var(--font-weight-semibold);
+	color: var(--morado-oscuro);
+	margin: 0;
+  }
+  
+  .product-seller-review {
+	font-size: 14px;
+	color: var(--text-light, #5f6368);
+	margin: 0;
+  }
+  
+  .product-description-review {
+	font-size: 14px;
+	color: var(--text-dark, #202124);
+	margin: 0;
+	line-height: 1.5;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+  }
+  
+  /* ========================================
+	 SISTEMA DE ESTRELLAS INTERACTIVO
+	 ======================================== */
+  .stars-container {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 30px;
+  }
+  
+  .star-button {
+	background: none;
+	border: none;
+	font-size: 36px;
+	cursor: pointer;
+	padding: 0;
+	transition: all 0.2s ease;
+	outline: none;
+  }
+  
+  .star-button:hover {
+	transform: scale(1.1);
+  }
+  
+  .star-button:active {
+	transform: scale(0.95);
+  }
+  
+	.star-active {
+	color: var(--amarillo);
+	}
+  
+	.star-inactive {
+	color: var(--border-gray);
+	}
+  
+  /* ========================================
+	 FORMULARIO
+	 ======================================== */
+  .form-group {
+	margin-bottom: 20px;
+  }
+  
+  .input-title {
+	width: 100%;
+	padding: 16px 20px;
+	background-color: var(--white);
+	border: 2px solid var(--border-light);
+	border-radius: 8px;
+	font-size: 15px;
+	color: var(--text-dark);
+	outline: none;
+	transition: border-color 0.3s, background-color 0.3s;
+	font-weight: var(--font-weight-semibold);
+	text-align: center;
+  }
+  
+  .input-title::placeholder {
+	color: var(--text-light);
+	font-weight: var(--font-weight-semibold);
+  }
+  
+  .input-title:focus {
+	background-color: var(--bg-gray-light);
+	border-color: var(--morado-claro);
+  }
+  
+  .input-description {
+	width: 100%;
+	padding: 20px;
+	background-color: var(--white);
+	border: 2px solid var(--border-light);
+	border-radius: 8px;
+	font-size: 15px;
+	color: var(--text-dark);
+	outline: none;
+	resize: vertical;
+	font-family: inherit;
+	transition: border-color 0.3s, background-color 0.3s;
+	min-height: 150px;
+  }
+  
+	.input-description::placeholder {
+	color: var(--text-light);
+	}
+  
+  .input-description:focus {
+	background-color: var(--bg-gray-light);
+	border-color: var(--morado-claro);
+  }
+  
+  /* ========================================
+	 BOTONES DE ACCIÓN
+	 ======================================== */
+  .form-actions {
+	display: flex;
+	gap: 16px;
+	margin-top: 35px;
+  }
+  
+  .form-actions .btn-general {
+	flex: 1;
+  }
+  
+  /* ========================================
+	 RESPONSIVE DESIGN
+	 ======================================== */
+  
+  /* Tablets */
+  @media (max-width: 768px) {
+	.write-review-container {
+	  padding: 40px 15px;
+	}
+  
+	.review-form-card {
+	  padding: 40px 35px;
+	}
+  
+	.form-title {
+	  font-size: 24px;
+	  margin-bottom: 20px;
+	}
+  
+	.star-button {
+	  font-size: 32px;
+	}
+  
+	.input-title {
+	  padding: 14px 18px;
+	  font-size: 14px;
+	}
+  
+	.input-description {
+	  padding: 18px;
+	  font-size: 14px;
+	  min-height: 130px;
+	}
+  
+	.form-actions {
+	  margin-top: 30px;
+	}
+  }
+  
+  /* Móviles */
+  @media (max-width: 480px) {
+	.write-review-container {
+	  padding: 30px 10px;
+	}
+  
+	.review-form-card {
+	  padding: 30px 25px;
+	  border-radius: 15px;
+	}
+  
+	.form-title {
+	  font-size: 22px;
+	  margin-bottom: 20px;
+	  text-align: center;
+	}
+  
+	.product-info-review {
+	  flex-direction: column;
+	  align-items: center;
+	  text-align: center;
+	  gap: 15px;
+	}
+  
+	.product-image-review {
+	  width: 100px;
+	  height: 100px;
+	}
+  
+	.product-name-review {
+	  font-size: 16px;
+	}
+  
+	.product-seller-review,
+	.product-description-review {
+	  font-size: 13px;
+	}
+  
+	.stars-container {
+	  justify-content: center;
+	  gap: 8px;
+	  margin-bottom: 25px;
+	}
+  
+	.star-button {
+	  font-size: 28px;
+	}
+  
+	.input-title {
+	  padding: 13px 16px;
+	  font-size: 14px;
+	}
+  
+	.input-description {
+	  padding: 16px;
+	  font-size: 14px;
+	  min-height: 120px;
+	}
+  
+	.form-actions {
+	  flex-direction: column;
+	  gap: 12px;
+	  margin-top: 25px;
+	}
+  
+	.btn-cancel-review,
+	.btn-submit-review {
+	  width: 100%;
+	  padding: 13px 24px;
+	  font-size: 15px;
+	}
+  }
+  
+  /* Móviles muy pequeños */
+  @media (max-width: 360px) {
+	.review-form-card {
+	  padding: 25px 20px;
+	}
+  
+	.form-title {
+	  font-size: 20px;
+	}
+  
+	.star-button {
+	  font-size: 26px;
+	}
+  
+	.input-title,
+	.input-description {
+	  font-size: 13px;
+	}
+  
+	.btn-cancel-review,
+	.btn-submit-review {
+	  font-size: 14px;
+	}
+  }
+  
+  /* Landscape mobile */
+  @media (max-width: 768px) and (max-height: 500px) {
+	.write-review-container {
+	  padding: 20px 15px;
+	}
+  
+	.review-form-card {
+	  padding: 25px 30px;
+	}
+  
+	.form-title {
+	  font-size: 20px;
+	  margin-bottom: 15px;
+	}
+  
+	.stars-container {
+	  margin-bottom: 20px;
+	}
+  
+	.star-button {
+	  font-size: 28px;
+	}
+  
+	.input-description {
+	  min-height: 100px;
+	}
+  
+	.form-actions {
+	  margin-top: 20px;
+	}
+  }

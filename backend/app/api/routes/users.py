@@ -17,6 +17,13 @@ router = APIRouter()
 user_service = UserService()
 s3_service = S3Service()
 
+@router.get("/artists", response_model=list[UserResponse])
+def get_artists(db: Session = Depends(get_db)):
+    """
+    Devuelve todos los usuarios con rol 'artist'.
+    """
+    artists = db.query(user_service.model).filter(user_service.model.rol == "artist").all()
+    return artists
 @router.get("/me", response_model=UserResponse)
 def read_users_me(current_user: UserResponse = Depends(get_current_user)):
     """
@@ -153,7 +160,7 @@ async def patch_user_me(
         body = await request.json()
 
         # Filtrar solo campos válidos para UserUpdate
-        allowed_fields = {"username", "full_name", "bio", "address", "phone", "password", "profile_picture", "email"}
+        allowed_fields = {"username", "full_name", "bio", "address", "phone", "password", "profile_picture", "email", "rol"}
         update_data = {k: v for k, v in body.items() if k in allowed_fields}
 
         if not update_data:

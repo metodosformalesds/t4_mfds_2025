@@ -23,24 +23,26 @@ def get_products(
     skip: int = 0,
     limit: int = 20,
     category: Optional[str] = Query(None, description="Filter by category: 'producto' or 'material'"),
+    user_id: Optional[int] = Query(None, description="Filter by artist/user ID"),
     db: Session = Depends(get_db)
 ):
     """
     Autor: Raúl Aniles 222802
 
-    Descripción: Obtiene una lista paginada de productos, opcionalmente filtrada por categoría.
+    Descripción: Obtiene una lista paginada de productos, opcionalmente filtrada por categoría y/o artista.
 
     Parámetros:
         skip (int): Offset para paginación.
         limit (int): Límite de resultados.
         category (Optional[str]): Filtro de categoría.
+        user_id (Optional[int]): Filtro por ID de artista/usuario.
         db (Session): Sesión de la base de datos.
 
     Retorna:
         List[ProductWithArtist]: Lista de productos.
 
     """
-    products = product_service.get_products(db, skip=skip, limit=limit, category=category)
+    products = product_service.get_products(db, skip=skip, limit=limit, category=category, user_id=user_id)
     return products
 
 @router.get("/my-products", response_model=List[ProductResponse])

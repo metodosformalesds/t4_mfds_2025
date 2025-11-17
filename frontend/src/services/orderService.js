@@ -41,6 +41,15 @@ class OrderService {
   }
 
   /**
+   * Confirmar (marcar como entregada) una orden del comprador
+   * @param {number} orderId - ID de la orden
+   * @returns {Promise<Object>} Orden actualizada
+   */
+  async confirmOrder(orderId) {
+    return await apiClient.post(`/api/orders/${orderId}/confirm`);
+  }
+
+  /**
    * Validar stock de productos antes de crear orden
    * @param {Array} cartItems - Items del carrito
    * @returns {Promise<boolean>} True si todo el stock es válido
