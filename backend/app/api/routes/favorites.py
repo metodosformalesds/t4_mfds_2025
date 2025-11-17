@@ -1,3 +1,7 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Rutas para administrar favoritos de usuarios (productos y artistas).
+
 # app/api/routes/favorites.py
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session

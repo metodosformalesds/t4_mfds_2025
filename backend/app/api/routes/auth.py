@@ -1,3 +1,8 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Maneja los endpoints de autenticación (registro y login). Contiene
+# rutas que permiten crear usuarios y obtener tokens de acceso mediante OAuth2.
+
 # app/api/routes/auth.py
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm

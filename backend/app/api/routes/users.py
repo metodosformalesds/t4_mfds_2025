@@ -1,3 +1,8 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Endpoints para obtener y modificar datos de usuario (perfil,
+# actualización parcial y subida de foto de perfil a S3).
+
 # app/api/routes/users.py
 from fastapi import APIRouter, Depends, HTTPException, status, File, UploadFile, Form, Request
 from sqlalchemy.orm import Session

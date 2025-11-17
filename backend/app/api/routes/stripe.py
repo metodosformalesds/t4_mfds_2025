@@ -1,3 +1,8 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Endpoints relacionados con Stripe (onboarding de vendedores,
+# creación de sesiones de pago y webhook de eventos).
+
 # app/api/routes/stripe.py
 from fastapi import APIRouter, Depends, HTTPException, status, Header, Request
 from sqlalchemy.orm import Session

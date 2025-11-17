@@ -1,3 +1,8 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Endpoints para gestión del carrito de compras: obtener carrito,
+# agregar, actualizar cantidades y eliminar items.
+
 # app/api/routes/cart.py
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session

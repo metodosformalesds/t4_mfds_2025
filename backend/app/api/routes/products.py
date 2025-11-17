@@ -1,3 +1,8 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Endpoints para CRUD de productos, subida/gestión de imágenes
+# y operaciones relacionadas con productos (listado, detalle, actualización).
+
 # app/api/routes/products.py
 from fastapi import APIRouter, Depends, HTTPException, status, Query, File, UploadFile, Form, Request
 from sqlalchemy.orm import Session

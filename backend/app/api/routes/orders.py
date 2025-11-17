@@ -1,3 +1,8 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Endpoints para crear, listar y actualizar órdenes. Incluye
+# validaciones de permisos entre comprador y vendedor.
+
 # app/api/routes/orders.py
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session

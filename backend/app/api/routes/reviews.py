@@ -1,3 +1,7 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Endpoints para gestionar reseñas de productos: creación y obtención.
+
 # app/api/routes/reviews.py
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
