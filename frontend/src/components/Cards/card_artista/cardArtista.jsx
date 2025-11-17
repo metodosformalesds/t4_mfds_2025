@@ -13,7 +13,6 @@ import "./cardArtista.css";
 export const CardArtista = ({ 
   className = "",
   artistName = "Eduardo Muñoz",
-  specialty = "Madera y bordados",
   imageUrl = "https://placehold.co/600x400",
   onViewProfile,
   buttonText = "Ver perfil",
@@ -76,7 +75,6 @@ export const CardArtista = ({
       <div className="artist-info">
         <div className="artist-details">
           <h3 className="artist-name">{artistName}</h3>
-          <p className="artist-specialty">Especialista en: {specialty}</p>
         </div>
         
         {/* Botones */}

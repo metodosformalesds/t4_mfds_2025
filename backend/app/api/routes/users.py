@@ -160,7 +160,7 @@ async def patch_user_me(
         body = await request.json()
 
         # Filtrar solo campos válidos para UserUpdate
-        allowed_fields = {"username", "full_name", "bio", "address", "phone", "password", "profile_picture", "email"}
+        allowed_fields = {"username", "full_name", "bio", "address", "phone", "password", "profile_picture", "email", "rol"}
         update_data = {k: v for k, v in body.items() if k in allowed_fields}
 
         if not update_data:
