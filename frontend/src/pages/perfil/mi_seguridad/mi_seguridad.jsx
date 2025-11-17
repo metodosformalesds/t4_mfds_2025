@@ -6,9 +6,9 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { BtnGeneral } from '../../components/Botones/btn_general';
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header'; 
+import { BtnGeneral } from '../../../components/Botones/btn_general';
+import { Footer } from '../../../components/Footer';
+import { Header } from '../../../components/Header'; 
 import "./mi_seguridad.css";
 
 export default function Seguridad() {
@@ -65,7 +65,15 @@ export default function Seguridad() {
     <div className="seguridad-page">
       <Header />
       <div className="seguridad-container">
-        <div className="breadcrumb">Mi cuenta {">"} Seguridad</div>
+        <div className="breadcrumb">
+          <span 
+            className="breadcrumb-link"
+            onClick={() => navigate("/mi-cuenta")}
+          >
+            Mi cuenta
+          </span>
+          {" > "} Mi información
+        </div>
 
         {/* Información del usuario (solo visualización, sin edición) */}
         <div className="perfil-header">
