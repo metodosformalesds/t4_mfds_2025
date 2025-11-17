@@ -21,10 +21,12 @@ export default function MisPedidos() {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [confirmLoadingId, setConfirmLoadingId] = useState(null);
+  const [filtroEstado, setFiltroEstado] = useState('all');
 
   useEffect(() => {
     fetchPedidos();
-  }, [filtroMeses]);
+  }, [filtroMeses, filtroEstado]);
 
   const fetchPedidos = async () => {
     setLoading(true);
@@ -60,11 +62,17 @@ export default function MisPedidos() {
         direccion: order.address
       }));
 
+      // Filtro por estado (pending/confirmed) si aplica
+      const pedidosPorEstado =
+        filtroEstado === 'all'
+          ? pedidosFiltrados
+          : pedidosFiltrados.filter(p => (p.estado || '').toLowerCase() === filtroEstado);
+
       // Calcular total de páginas (5 items por página)
       const itemsPerPage = 5;
-      const totalPaginasCalculadas = Math.ceil(pedidosFiltrados.length / itemsPerPage);
+      const totalPaginasCalculadas = Math.ceil(pedidosPorEstado.length / itemsPerPage);
       
-      setPedidos(pedidosFiltrados);
+      setPedidos(pedidosPorEstado);
       setTotalPages(totalPaginasCalculadas > 0 ? totalPaginasCalculadas : 1);
       setCurrentPage(1);
 
@@ -85,6 +93,19 @@ export default function MisPedidos() {
   const handlePageChange = (page) => {
     setCurrentPage(page);
     window.scrollTo(0, 0);
+  };
+
+  const handleConfirmarPedido = async (orderId) => {
+    try {
+      setConfirmLoadingId(orderId);
+      await orderService.confirmOrder(orderId);
+      await fetchPedidos();
+    } catch (e) {
+      console.error('Error confirmando pedido:', e);
+      // Opcional: mostrar notificación/toast aquí
+    } finally {
+      setConfirmLoadingId(null);
+    }
   };
 
   // Obtener pedidos paginados
@@ -127,6 +148,18 @@ export default function MisPedidos() {
                 <option value="12">12 meses</option>
               </select>
             </div>
+            <div className="filtro-container" style={{ marginTop: 10 }}>
+              <span className="filtro-label">Estado</span>
+              <select
+                className="filtro-select"
+                value={filtroEstado}
+                onChange={(e) => setFiltroEstado(e.target.value)}
+              >
+                <option value="all">Todos</option>
+                <option value="pending">Pendientes</option>
+                <option value="confirmed">Confirmados</option>
+              </select>
+            </div>
           </div>
 
           <div className="pedidos-lista">
@@ -153,6 +186,18 @@ export default function MisPedidos() {
                         <p className="pedido-estado">
                           Estado: <span className={`estado-${pedido.estado.toLowerCase()}`}>{pedido.estado}</span>
                         </p>
+                      )}
+                    </div>
+                    <div className="pedido-acciones-header">
+                      {pedido.estado?.toLowerCase() !== 'confirmed' && (
+                        <BtnGeneral
+                          property1="variant-2"
+                          color="amarillo"
+                          text={confirmLoadingId === pedido.id ? 'Confirmando...' : 'Marcar como entregada'}
+                          onClick={() => handleConfirmarPedido(pedido.id)}
+                          className="btn-pedido"
+                          disabled={confirmLoadingId === pedido.id}
+                        />
                       )}
                     </div>
                   </div>
@@ -200,6 +245,7 @@ export default function MisPedidos() {
                       </div>
                     )}
                   </div>
+                  
                 </div>
               ))
             )}

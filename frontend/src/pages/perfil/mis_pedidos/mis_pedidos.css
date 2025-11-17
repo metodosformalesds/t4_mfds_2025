@@ -111,7 +111,7 @@
 }
 
 .filtro-select {
-  background-color: var(--color-primary-600);
+  background-color: #a65eff;
   border: none;
   border-radius: 20px;
   padding: 8px 30px 8px 15px;
@@ -271,8 +271,8 @@
   color: #084298;
 }
 
-.estado-completed, .estado-completado {
-  background-color: #d1e7dd;
+.estado-confirmed, .estado-completado {
+  background-color: #d1f0e2;
   color: var(--color-success);
 }
 

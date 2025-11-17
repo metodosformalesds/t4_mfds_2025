@@ -11,6 +11,7 @@ from models.order import Order
 from models.orderproduct import OrderProduct as OrderItem
 from models.product import Product
 from schemas.order import OrderCreate
+from sqlalchemy.sql import func
 
 class OrderService:
     def generate_order_number(self):
@@ -95,6 +96,25 @@ class OrderService:
             return None
         
         db_order.status = status
+        db.commit()
+        db.refresh(db_order)
+        return db_order
+
+    def confirm_order_by_buyer(self, db: Session, order_id: int, buyer_id: int):
+        """
+        Permite al comprador confirmar la recepción del pedido.
+        Cambia el status a 'confirmed' y setea el timestamp 'entregado'.
+        """
+        db_order = self.get_order(db, order_id)
+        if not db_order:
+            return None
+        if db_order.buyer_id != buyer_id:
+            return False  # No autorizado
+        if db_order.status == 'confirmed':
+            return db_order  # Ya confirmado, idempotente
+
+        db_order.status = 'confirmed'
+        db_order.entregado = func.now()
         db.commit()
         db.refresh(db_order)
         return db_order

@@ -132,3 +132,32 @@ def update_order_status(
         raise HTTPException(status_code=404, detail="Order not found")
     
     return updated_order
+
+@router.post("/{order_id}/confirm", response_model=OrderResponse)
+def confirm_order(
+    order_id: int,
+    db: Session = Depends(get_db),
+    current_user: UserResponse = Depends(get_current_user)
+):
+    """
+    Autor: Equipo
+
+    Descripción: Permite al comprador marcar su orden como confirmada (entregada).
+
+    Reglas:
+    - Solo el comprador (buyer_id) de la orden puede confirmar.
+    - Si ya está confirmada, retorna la orden (idempotente).
+    """
+    order = order_service.get_order(db, order_id)
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+
+    if order.buyer_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized to confirm this order")
+
+    updated = order_service.confirm_order_by_buyer(db, order_id, current_user.id)
+    if updated is None:
+        raise HTTPException(status_code=404, detail="Order not found")
+    if updated is False:
+        raise HTTPException(status_code=403, detail="Not authorized to confirm this order")
+    return updated
