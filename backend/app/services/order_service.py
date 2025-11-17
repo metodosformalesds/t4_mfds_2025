@@ -1,4 +1,7 @@
-# app/services/order_service.py
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Lógica para crear y gestionar órdenes, actualizar estados y recuperar órdenes por usuario.
+
 from sqlalchemy.orm import Session
 from typing import List
 from sqlalchemy import and_

@@ -1,4 +1,8 @@
-# app/services/cart_service.py
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Lógica de negocio para gestionar el carrito de compras:
+# añadir, actualizar cantidades, eliminar items y limpiar el carrito.
+
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
 from models.cartitem import CartItem

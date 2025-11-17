@@ -1,4 +1,7 @@
-# app/services/product_service.py
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Servicio para operaciones sobre productos: creación, actualización, consulta y manejo de imágenes.
+
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from models.product import Product

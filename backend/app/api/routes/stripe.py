@@ -1,3 +1,8 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Endpoints relacionados con Stripe (onboarding de vendedores,
+# creación de sesiones de pago y webhook de eventos).
+
 # app/api/routes/stripe.py
 from fastapi import APIRouter, Depends, HTTPException, status, Header, Request
 from sqlalchemy.orm import Session
@@ -25,8 +30,19 @@ async def create_connected_account(
     current_user: UserResponse = Depends(get_current_user),
 ):
     """
-    Crea una cuenta conectada de Stripe (Express) para el vendedor.
+    Autor: Raúl Aniles 222802
+
+    Descripción: Crea una cuenta conectada de Stripe (Express) para el vendedor.
     El vendedor debe estar autenticado.
+
+    Parámetros:
+        request (CreateConnectedAccountRequest): Payload con parámetros (ej. country).
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+
+    Retorna:
+        dict: Contiene el `account_id` creado en Stripe.
+
     """
     try:
         account_id = stripe_service.create_connected_account(
@@ -45,7 +61,17 @@ async def create_account_link(
     current_user: UserResponse = Depends(get_current_user),
 ):
     """
-    Crea el enlace de onboarding para que el vendedor complete su información.
+    Autor: Raúl Aniles 222802
+
+    Descripción: Crea el enlace de onboarding (Account Link) de Stripe para que el vendedor complete su información.
+
+    Parámetros:
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+
+    Retorna:
+        dict: Contiene `url` del account link.
+
     """
     try:
         url = stripe_service.create_account_link(db, current_user.id)
@@ -62,8 +88,17 @@ async def verify_account_status(
     current_user: UserResponse = Depends(get_current_user),
 ):
     """
-    Verifica el estado actual de la cuenta conectada en Stripe.
-    Actualiza automáticamente el stripe_status del usuario basado en el estado en Stripe.
+    Autor: Raúl Aniles 222802
+
+    Descripción: Verifica el estado actual de la cuenta conectada en Stripe y actualiza el `stripe_status` del usuario en la base de datos.
+
+    Parámetros:
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado.
+
+    Retorna:
+        dict: Información del estado verificado.
+
     """
     try:
         status_info = stripe_service.verify_and_update_stripe_status(db, current_user.id)
@@ -88,7 +123,18 @@ async def create_checkout_session(
     current_user: UserResponse = Depends(get_current_user),
 ):
     """
-    Crea una Checkout Session para redirigir al usuario a Stripe Checkout
+    Autor: Raúl Aniles 222802
+
+    Descripción: Crea una Checkout Session de Stripe para procesar el pago de una orden.
+
+    Parámetros:
+        request (CreateCheckoutSessionRequest): Contiene `order_id`, `success_url` y `cancel_url`.
+        db (Session): Sesión de la base de datos.
+        current_user (UserResponse): Usuario autenticado (buyer).
+
+    Retorna:
+        dict: Contiene `checkoutUrl` a la cual redirigir al cliente.
+
     """
     try:
         checkout_url = stripe_service.create_checkout_session(
@@ -114,8 +160,19 @@ async def stripe_webhook(
     db: Session = Depends(get_db),
 ):
     """
-    Recibe notificaciones de Stripe.
-    Se ejecuta cuando un pago es exitoso, fallido, etc.
+    Autor: Raúl Aniles 222802
+
+    Descripción: Endpoint receptor de webhooks de Stripe. Valida la firma y delega el manejo de eventos
+    al servicio de Stripe (por ejemplo, payment_intent.succeeded, payment_intent.payment_failed).
+
+    Parámetros:
+        request (Request): Objeto Request con el payload crudo de Stripe.
+        stripe_signature (str): Cabecera `stripe-signature` usada para validar el evento.
+        db (Session): Sesión de la base de datos.
+
+    Retorna:
+        dict: Estado de procesamiento del webhook.
+
     """
     payload = await request.body()
     

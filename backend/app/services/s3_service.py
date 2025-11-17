@@ -1,3 +1,8 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Servicio para subir/eliminar y gestionar archivos en AWS S3,
+# encapsula lógica de validación de extensiones, generación de nombres únicos y URLs.
+
 import boto3
 from botocore.exceptions import ClientError
 from core.config import settings

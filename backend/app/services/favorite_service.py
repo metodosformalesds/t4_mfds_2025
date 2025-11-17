@@ -1,4 +1,7 @@
-# app/services/favorite_service.py
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Servicio para administrar favoritos de usuarios (productos y artistas).
+
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
 from models.favoriteproduct import FavoriteProduct
