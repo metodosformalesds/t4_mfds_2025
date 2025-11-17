@@ -21,6 +21,7 @@ class UserUpdate(BaseModel):
     bio: Optional[str] = None
     address: Optional[str] = None
     phone: Optional[str] = None
+    email: Optional[EmailStr] = None
     password: Optional[str] = None
     profile_picture: Optional[str] = None
 

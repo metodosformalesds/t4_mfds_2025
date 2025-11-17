@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from fastapi import HTTPException, status
 from passlib.context import CryptContext
 from schemas.user import UserCreate, UserUpdate
@@ -11,7 +12,10 @@ class UserService:
         return db.query(User).filter(User.id == user_id).first()
 
     def get_user_by_email(self, db: Session, email: str):
-        return db.query(User).filter(User.email == email).first()
+        # Comparación case-insensitive para evitar colisiones por mayúsculas/minúsculas
+        if not email:
+            return None
+        return db.query(User).filter(func.lower(User.email) == email.lower()).first()
 
     def get_user_by_username(self, db: Session, username: str):
         return db.query(User).filter(User.username == username).first()
@@ -45,6 +49,13 @@ class UserService:
             return None
         
         update_data = user_update.model_dump(exclude_unset=True)
+        # Validar correo único si se intenta cambiar
+        if 'email' in update_data:
+            new_email = update_data.get('email')
+            if new_email and new_email.lower() != (db_user.email or '').lower():
+                existing = self.get_user_by_email(db, new_email)
+                if existing and existing.id != db_user.id:
+                    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="El correo ya está en uso")
         
         # Si se actualiza la contraseña, hashearla
         if 'password' in update_data:
@@ -53,6 +64,50 @@ class UserService:
         for field, value in update_data.items():
             setattr(db_user, field, value)
         
+        db.commit()
+        db.refresh(db_user)
+        return db_user
+
+    def patch_user(self, db: Session, user_id: int, data: dict):
+        """
+        Aplica una actualización parcial usando un diccionario de campos.
+        Realiza las validaciones necesarias (ej. email único) y aplica hashing de contraseña.
+        """
+        db_user = self.get_user_by_id(db, user_id)
+        if not db_user:
+            return None
+
+        # Campos permitidos para patch
+        allowed_fields = {"username", "full_name", "bio", "address", "phone", "password", "profile_picture", "email"}
+        update_data = {k: v for k, v in data.items() if k in allowed_fields}
+
+        if not update_data:
+            return db_user
+
+        # Validar correo único si se intenta cambiar
+        if 'email' in update_data:
+            new_email = update_data.get('email')
+            if new_email and new_email.lower() != (db_user.email or '').lower():
+                existing = self.get_user_by_email(db, new_email)
+                if existing and existing.id != db_user.id:
+                    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="El correo ya está en uso")
+
+        # Validar username único si se intenta cambiar
+        if 'username' in update_data:
+            new_username = update_data.get('username')
+            if new_username and new_username != db_user.username:
+                existing_u = self.get_user_by_username(db, new_username)
+                if existing_u:
+                    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="El nombre de usuario ya está en uso")
+
+        # Si se actualiza la contraseña, hashearla
+        if 'password' in update_data:
+            update_data['hashed_password'] = pwd_context.hash(update_data.pop('password'))
+
+        # Aplicar cambios
+        for field, value in update_data.items():
+            setattr(db_user, field, value)
+
         db.commit()
         db.refresh(db_user)
         return db_user
