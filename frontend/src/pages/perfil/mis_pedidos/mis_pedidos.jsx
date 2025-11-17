@@ -1,5 +1,5 @@
 /* 
-    Autor: Ian Domínguez
+    Autor: Ian Domínguez - Erick Rangel
     Fecha: 15 de noviembre de 2025
     Descripción: Vista para mostrar pedidos del usuario
 */
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { BtnGeneral } from '../../../components/Botones/btn_general';
 import { Footer } from '../../../components/Footer';
 import { Header } from '../../../components/Header'; 
+import orderService from '../../../services/orderService';
 import "./mis_pedidos.css";
 
 export default function MisPedidos() {
@@ -17,90 +18,80 @@ export default function MisPedidos() {
   const [filtroMeses, setFiltroMeses] = useState("2");
   const [busqueda, setBusqueda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(4);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchPedidos();
-  }, [currentPage, filtroMeses]);
+  }, [filtroMeses]);
 
   const fetchPedidos = async () => {
     setLoading(true);
+    setError(null);
+    try {
+      // Obtener órdenes del usuario desde el backend
+      const response = await orderService.getMyOrders();
+      
+      if (!response || response.length === 0) {
+        setPedidos([]);
+        setTotalPages(1);
+        return;
+      }
 
-    // Aquí harías tu fetch a la API
-    // const response = await fetch(`/api/mis-pedidos?page=${currentPage}&meses=${filtroMeses}`);
+      // Filtrar órdenes por fecha según los meses seleccionados
+      const mesesNum = parseInt(filtroMeses);
+      const ahora = new Date();
+      const fechaLimite = new Date(ahora.getTime() - mesesNum * 30 * 24 * 60 * 60 * 1000);
 
-    // Datos de ejemplo
-    const mockPedidos = [
-      {
-        id: 1,
-        fecha: "14 de febrero del 2025",
-        total: 1229.97,
-        producto: {
-          nombre: "Chamarra de mezclilla bordada",
-          artista: "Eduardo Muñós",
-          imagen:
-            "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=150&h=150&fit=crop",
-        },
-      },
-      {
-        id: 2,
-        fecha: "14 de febrero del 2025",
-        total: 1229.97,
-        producto: {
-          nombre: "Chamarra de mezclilla bordada",
-          artista: "Eduardo Muñós",
-          imagen:
-            "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=150&h=150&fit=crop",
-        },
-      },
-      {
-        id: 3,
-        fecha: "14 de febrero del 2025",
-        total: 1229.97,
-        producto: {
-          nombre: "Chamarra de mezclilla bordada",
-          artista: "Eduardo Muñós",
-          imagen:
-            "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=150&h=150&fit=crop",
-        },
-      },
-    ];
+      const pedidosFiltrados = response.filter(order => {
+        const fechaPedido = new Date(order.created_at);
+        return fechaPedido >= fechaLimite;
+      }).map(order => ({
+        id: order.id,
+        fecha: new Date(order.created_at).toLocaleDateString('es-ES', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        }),
+        total: order.total_amount || 0,
+        estado: order.status,
+        productos: order.items || [],
+        direccion: order.address
+      }));
 
-    setPedidos(mockPedidos);
-    setLoading(false);
-  };
+      // Calcular total de páginas (5 items por página)
+      const itemsPerPage = 5;
+      const totalPaginasCalculadas = Math.ceil(pedidosFiltrados.length / itemsPerPage);
+      
+      setPedidos(pedidosFiltrados);
+      setTotalPages(totalPaginasCalculadas > 0 ? totalPaginasCalculadas : 1);
+      setCurrentPage(1);
 
-  const handleModificarPedido = (pedidoId) => {
-    console.log("Modificar pedido:", pedidoId);
-    // Implementar lógica de modificación
-  };
-
-  const handleEliminarPedido = (pedidoId) => {
-    if (window.confirm("¿Estás seguro de que deseas eliminar este pedido?")) {
-      console.log("Eliminar pedido:", pedidoId);
-      // Implementar lógica de eliminación
+    } catch (err) {
+      console.error('Error al obtener pedidos:', err);
+      setError('No se pudieron cargar los pedidos. Por favor, intenta de nuevo.');
+      setPedidos([]);
+      setTotalPages(1);
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const handleEnviarMensaje = (pedidoId) => {
-    console.log("Enviar mensaje al artista del pedido:", pedidoId);
-    // Implementar lógica de mensaje
   };
 
   const handleEscribirResena = (pedidoId) => {
     navigate(`/mi-cuenta/pedidos/${pedidoId}/resena`);
   };
 
-  const handleBuscar = (e) => {
-    e.preventDefault();
-    console.log("Buscar:", busqueda);
-    // Implementar búsqueda
-  };
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    window.scrollTo(0, 0);
   };
+
+  // Obtener pedidos paginados
+  const itemsPerPage = 5;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const pedidosPaginados = pedidos.slice(startIndex, endIndex);
 
   return (
     <div className="mis-pedidos-page">
@@ -121,30 +112,6 @@ export default function MisPedidos() {
           <div className="panel-header">
             <div className="panel-header-top">
               <h1 className="panel-title">Mis pedidos</h1>
-              <form className="busqueda-form" onSubmit={handleBuscar}>
-                <input
-                  type="text"
-                  placeholder="Buscar pedidos..."
-                  value={busqueda}
-                  onChange={(e) => setBusqueda(e.target.value)}
-                  className="busqueda-input"
-                />
-                <button type="submit" className="busqueda-btn">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="11" cy="11" r="8" />
-                    <path d="M21 21l-4.35-4.35" />
-                  </svg>
-                </button>
-              </form>
             </div>
             <div className="filtro-container">
               <span className="filtro-label">Pedidos en los últimos</span>
@@ -165,8 +132,14 @@ export default function MisPedidos() {
           <div className="pedidos-lista">
             {loading ? (
               <div className="loading">Cargando pedidos...</div>
+            ) : error ? (
+              <div className="error-message">{error}</div>
+            ) : pedidos.length === 0 ? (
+              <div className="empty-message">
+                <p>No hay pedidos en los últimos {filtroMeses} meses</p>
+              </div>
             ) : (
-              pedidos.map((pedido) => (
+              pedidosPaginados.map((pedido) => (
                 <div key={pedido.id} className="pedido-item">
                   <div className="pedido-header">
                     <div className="pedido-info-header">
@@ -176,52 +149,56 @@ export default function MisPedidos() {
                       <p className="pedido-total">
                         Total: ${pedido.total.toFixed(2)}
                       </p>
-                    </div>
-                    <div className="pedido-acciones-header">
-                      <button
-                        className="accion-link"
-                        onClick={() => handleModificarPedido(pedido.id)}
-                      >
-                        Modificar pedido
-                      </button>
-                      <button
-                        className="accion-link accion-eliminar"
-                        onClick={() => handleEliminarPedido(pedido.id)}
-                      >
-                        Eliminar pedido
-                      </button>
+                      {pedido.estado && (
+                        <p className="pedido-estado">
+                          Estado: <span className={`estado-${pedido.estado.toLowerCase()}`}>{pedido.estado}</span>
+                        </p>
+                      )}
                     </div>
                   </div>
-                  <div className="pedido-content">
-                    <img
-                      src={pedido.producto.imagen}
-                      alt={pedido.producto.nombre}
-                      className="pedido-imagen"
-                    />
-                    <div className="pedido-producto-info">
-                      <h4 className="pedido-producto-nombre">
-                        {pedido.producto.nombre}
-                      </h4>
-                      <p className="pedido-artista">
-                        Artista: {pedido.producto.artista}
-                      </p>
-                    </div>
-                    <div className="pedido-botones">
-                      <BtnGeneral
-                        property1="default"
-                        color="amarillo"
-                        text="Enviar mensaje al artista"
-                        onClick={() => handleEnviarMensaje(pedido.id)}
-                        className="btn-pedido"
-                      />
-                      <BtnGeneral
-                        property1="default"
-                        color="morado"
-                        text="Escribir reseña"
-                        onClick={() => handleEscribirResena(pedido.id)}
-                        className="btn-pedido"
-                      />
-                    </div>
+                  
+                  {/* Mostrar todos los productos del pedido */}
+                  <div className="pedido-productos">
+                    {pedido.productos && pedido.productos.length > 0 ? (
+                      pedido.productos.map((ordenProducto, index) => (
+                        <div key={index} className="pedido-content">
+                          {ordenProducto.product?.images && ordenProducto.product.images.length > 0 && (
+                            <img
+                              src={ordenProducto.product.images[0]}
+                              alt={ordenProducto.product?.name || 'Producto'}
+                              className="pedido-imagen"
+                            />
+                          )}
+                          <div className="pedido-producto-info">
+                            <h4 className="pedido-producto-nombre">
+                              {ordenProducto.product?.name || 'Producto sin nombre'}
+                            </h4>
+                            <p className="pedido-artista">
+                              Artista: {ordenProducto.product?.user?.full_name || 'Artista desconocido'}
+                            </p>
+                            <p className="pedido-cantidad">
+                              Cantidad: {ordenProducto.quantity}
+                            </p>
+                            <p className="pedido-precio">
+                              Precio unitario: ${parseFloat(ordenProducto.unit_price).toFixed(2)}
+                            </p>
+                          </div>
+                          <div className="pedido-botones">
+                            <BtnGeneral
+                              property1="default"
+                              color="morado"
+                              text="Escribir reseña"
+                              onClick={() => handleEscribirResena(pedido.id)}
+                              className="btn-pedido"
+                            />
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="pedido-content">
+                        <p className="sin-productos">No hay productos en este pedido</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))
@@ -230,19 +207,21 @@ export default function MisPedidos() {
         </div>
 
         {/* Paginación */}
-        <div className="paginacion">
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index + 1}
-              className={`pagina-btn ${
-                currentPage === index + 1 ? "pagina-activa" : ""
-              }`}
-              onClick={() => handlePageChange(index + 1)}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
+        {totalPages > 1 && (
+          <div className="paginacion">
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index + 1}
+                className={`pagina-btn ${
+                  currentPage === index + 1 ? "pagina-activa" : ""
+                }`}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <Footer />

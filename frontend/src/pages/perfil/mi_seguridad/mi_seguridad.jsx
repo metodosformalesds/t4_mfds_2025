@@ -1,14 +1,14 @@
 /* 
-    Autor: Ian Domínguez
+    Autor: Ian Domínguez - Erick Rangel
     Fecha: 15 de noviembre de 2025
     Descripción: Vista para mostrar la info confidencial del usuario
 */
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { BtnGeneral } from '../../components/Botones/btn_general';
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header'; 
+import { BtnGeneral } from '../../../components/Botones/btn_general';
+import { Footer } from '../../../components/Footer';
+import { Header } from '../../../components/Header'; 
 import "./mi_seguridad.css";
 
 export default function Seguridad() {
