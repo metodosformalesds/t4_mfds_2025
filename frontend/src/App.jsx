@@ -17,6 +17,7 @@ import { MisPedidos } from './pages/perfil/mis_pedidos';
 import { MiInformacion } from './pages/perfil/mi_informacion';
 import { Seguridad } from './pages/perfil/mi_seguridad';
 import { Favorites } from './pages/perfil/mis_favoritos';
+import Artistas from './pages/artistas/Artistas';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/catalogo" element={<Catalogo />} />
-          <Route path="/artistas" element={<Inicio />} />
+          <Route path="/artistas" element={<Artistas />} />
           <Route path="/categorias" element={<Inicio />} />
           <Route path="/producto/:productId" element={<ProductDetail />} />
           <Route path="/auth" element={<Auth />} />
