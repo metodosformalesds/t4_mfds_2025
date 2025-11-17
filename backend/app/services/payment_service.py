@@ -1,4 +1,7 @@
-# app/services/payment_service.py
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Servicio para manejar la lógica de pagos (integración con gateways, registro de pagos, validaciones).
+
 import stripe
 from sqlalchemy.orm import Session
 from sqlalchemy import func

@@ -1,3 +1,8 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Servicio para gestión de usuarios: creación, autenticación,
+# actualización y utilidades relacionadas con el modelo User.
+
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from fastapi import HTTPException, status

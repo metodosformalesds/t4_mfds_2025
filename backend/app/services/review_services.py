@@ -1,4 +1,7 @@
-# app/services/review_service.py
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Servicio para gestionar reseñas: creación, listado por producto y por usuario.
+
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
 from models.review import Review
