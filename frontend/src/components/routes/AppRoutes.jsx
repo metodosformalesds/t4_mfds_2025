@@ -21,6 +21,8 @@ import WriteReview from '../../pages/resenas/crearResena';
 import ProductReviews from '../../pages/resenas/resenasProducto';
 import { ArtistProfile } from '../../pages/artista_perfil';
 import Protected from './Protected';
+import AgregarProducto from '../../pages/agregar_producto/agregar_producto';
+import EditarProducto from '../../pages/editar_producto/editar_producto';
 
 /**
  * AppRoutes centraliza las rutas de la aplicación.
@@ -54,6 +56,8 @@ const AppRoutes = () => {
         <Route path="/mi-cuenta/informacion" element={<MiInformacion />} />
         <Route path="/mi-cuenta/seguridad" element={<Seguridad />} />
         <Route path="/mi-cuenta/pedidos/:orderId/resena/:productId" element={<WriteReview />} />
+        <Route path="/mi-cuenta/agregar-producto" element={<AgregarProducto />} />
+        <Route path="/mi-cuenta/productos/:productId/editar" element={<EditarProducto />} />
       </Route>
     </Routes>
   );
