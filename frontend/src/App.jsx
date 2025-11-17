@@ -16,6 +16,7 @@ import { MisProductos } from './pages/perfil/mis_productos';
 import { MisPedidos } from './pages/perfil/mis_pedidos';
 import { MiInformacion } from './pages/perfil/mi_informacion';
 import { Seguridad } from './pages/perfil/mi_seguridad';
+import { Favorites } from './pages/perfil/mis_favoritos';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/mi-cuenta" element={<MiCuenta />} />
           <Route path="/mi-cuenta/mis-productos" element={<MisProductos />} />
           <Route path="/mi-cuenta/mis-pedidos" element={<MisPedidos />} />
+          <Route path="/mi-cuenta/favoritos" element={<Favorites />} />
           <Route path="/mi-cuenta/informacion" element={<MiInformacion />} />
           <Route path="/mi-cuenta/seguridad" element={<Seguridad />} />
         </Routes>
