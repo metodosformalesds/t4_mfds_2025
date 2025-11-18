@@ -125,3 +125,11 @@ class UserService:
         if not pwd_context.verify(password, user.hashed_password):
             return False
         return user
+
+    def get_password_hash(self, password: str) -> str:
+        """Genera y devuelve el hash seguro para una contraseña.
+
+        Se usa en flujos donde la contraseña se actualiza fuera de create_user,
+        por ejemplo en reset de contraseña.
+        """
+        return pwd_context.hash(password)
