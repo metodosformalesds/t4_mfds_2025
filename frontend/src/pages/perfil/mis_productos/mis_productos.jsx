@@ -10,8 +10,17 @@ import { BtnGeneral } from '../../../components/Botones/btn_general';
 import { Footer } from '../../../components/Footer';
 import { Header } from '../../../components/Header'; 
 import productService from '../../../services/productService';
-import "./mis_productos.css";
+import './mis_productos.css';
 
+/*
+  Autor: Erick Rangel
+
+  Descripción: Componente que muestra la lista de productos del artista con opciones de filtrado, paginación y acciones (ver reseñas, modificar, eliminar).
+
+  Parámetros: Ninguno
+
+  Retorna: JSX.Element - Página con la lista de productos del artista
+*/
 export default function MisProductos() {
   const navigate = useNavigate();
   const [productos, setProductos] = useState([]);
@@ -26,11 +35,19 @@ export default function MisProductos() {
     fetchProductos();
   }, [currentPage, filtro]);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Obtiene la lista de productos del artista desde el servidor y los prepara para mostrar con paginación.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const fetchProductos = async () => {
     setLoading(true);
     setError(null);
     try {
-      // Pedir todos los productos del usuario (limit alto) y paginar del lado del cliente
       const response = await productService.getMyProducts({ skip: 0, limit: 1000 });
 
       if (!response || response.length === 0) {
@@ -39,7 +56,6 @@ export default function MisProductos() {
         return;
       }
 
-      // Mapear a la estructura que usa el componente
       const productosMapeados = response.map(p => ({
         id: p.id,
         nombre: p.name,
@@ -57,8 +73,7 @@ export default function MisProductos() {
       setCurrentPage(1);
 
     } catch (err) {
-      console.error('Error al obtener productos:', err);
-      setError('No se pudieron cargar los productos. Intenta de nuevo.');
+            setError('No se pudieron cargar los productos. Intenta de nuevo.');
       setProductos([]);
       setTotalPages(1);
     } finally {
@@ -66,26 +81,63 @@ export default function MisProductos() {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Navega a la página de reseñas del producto especificado.
+
+    Parámetros:
+    - productoId (number): ID del producto
+
+    Retorna: void
+  */
   const handleVerResenas = (productoId) => {
     navigate(`/mi-cuenta/productos/${productoId}/resenas`);
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Navega a la página de edición del producto especificado.
+
+    Parámetros:
+    - productoId (number): ID del producto
+
+    Retorna: void
+  */
   const handleModificar = (productoId) => {
     navigate(`/mi-cuenta/productos/${productoId}/editar`);
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Maneja la eliminación de un producto (funcionalidad pendiente).
+
+    Parámetros:
+    - productoId (number): ID del producto
+
+    Retorna: void
+  */
   const handleEliminar = (productoId) => {
-    // TODO: Implementar eliminación de producto
-    console.log('Eliminar producto:', productoId);
-    alert('Funcionalidad de eliminación pendiente');
+        alert('Funcionalidad de eliminación pendiente');
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Cambia la página actual de productos y desplaza la vista al inicio.
+
+    Parámetros:
+    - page (number): Número de página a mostrar
+
+    Retorna: void
+  */
   const handlePageChange = (page) => {
     setCurrentPage(page);
     window.scrollTo(0,0);
   };
 
-  // paginado cliente
   const itemsPerPage = 5;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;

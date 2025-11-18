@@ -14,10 +14,6 @@ import { BtnGeneral } from '../../components/Botones/btn_general';
 import { orderService } from '../../services/orderService';
 import './confirmation.css';
 
-/**
- * Página de confirmación de orden después del pago exitoso
- * Muestra los detalles de la orden completada
- */
 export const OrderConfirmationPage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -30,8 +26,19 @@ export const OrderConfirmationPage = () => {
   const paymentIntentId = searchParams.get('payment_intent');
   const redirectStatus = searchParams.get('redirect_status');
 
-  // Cargar datos de la orden al montar el componente
   useEffect(() => {
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Carga los datos de la orden desde el backend usando el ID de la orden de los parámetros.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    Promise<void>
+  */
   const loadOrderData = async () => {
     const orderId = searchParams.get('order_id');
     const sessionId = searchParams.get('session_id');
@@ -46,24 +53,16 @@ export const OrderConfirmationPage = () => {
       setLoading(true);
       setError(null);
       
-      console.log('Cargando orden:', orderId);
-      console.log('Session ID:', sessionId);
-      
-      // Obtener datos de la orden desde el backend
+                  
       const orderData = await orderService.getOrder(parseInt(orderId));
       
-      // Si la orden ya está pagada
       if (!orderData.paid_at) {
-        console.log('⏳ Orden aún no marcada como pagada - el webhook puede estar en proceso');
-        // Podemos mostrar la orden igual, pero con estado "procesando pago"
       }
       
       setOrder(orderData);
-      console.log('Orden cargada:', orderData);
-      
+            
     } catch (err) {
-      console.error('Error cargando orden:', err);
-      setError(err.message || 'Error al cargar los detalles de la orden');
+            setError(err.message || 'Error al cargar los detalles de la orden');
     } finally {
       setLoading(false);
     }
@@ -72,37 +71,69 @@ export const OrderConfirmationPage = () => {
   loadOrderData();
 }, [orderId]); // Mantener orderId como dependencia
 
-// Polling para verificar si el pago se confirmó
 useEffect(() => {
   if (!order || order.paid_at) return; // Solo si la orden no está pagada
 
   const pollInterval = setInterval(async () => {
     try {
-      console.log('🔄 Verificando estado del pago...');
-      const updatedOrder = await orderService.getOrder(order.id);
+            const updatedOrder = await orderService.getOrder(order.id);
       
       if (updatedOrder.paid_at) {
-        console.log('✅ ¡Pago confirmado!');
-        setOrder(updatedOrder);
+                setOrder(updatedOrder);
         clearInterval(pollInterval);
       }
     } catch (error) {
-      console.error('Error verificando pago:', error);
-    }
+          }
   }, 3000); // Verificar cada 3 segundos
 
   return () => clearInterval(pollInterval);
 }, [order]); // Depende de la orden actual
 
-  // Ver detalles de la orden
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Maneja la visualización de detalles completos de la orden.
+    (Funcionalidad pendiente de implementar)
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleViewOrderDetails = () => {
     alert('Funcionalidad de detalles de orden en desarrollo');
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Navega a la página del catálogo para seguir comprando.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleContinueShopping = () => {
     navigate('/catalogo');
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Navega a la página de inicio.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleGoHome = () => {
     navigate('/');
   };
@@ -125,7 +156,6 @@ useEffect(() => {
     );
   }
 
-  // Estado de error
   if (error) {
     return (
       <div className="confirmation-page">
@@ -156,7 +186,6 @@ useEffect(() => {
     );
   }
 
-  // Confirmación exitosa
   return (
     <div className="confirmation-page">
       <Header />

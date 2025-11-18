@@ -41,6 +41,19 @@ export const BtnGeneral = ({
   );
 };
 
+/*
+  Autor: Erick Rangel
+
+  Descripción: 
+  Reducer que maneja los estados del botón (hover effects).
+
+  Parámetros:
+  state - object: Estado actual del botón
+  action - string: Acción a realizar (mouse_enter, mouse_leave)
+
+  Retorna:
+  object - Nuevo estado del botón
+*/
 function reducer(state, action) {
   if (state.property1 === "variant-2") {
     switch (action) {

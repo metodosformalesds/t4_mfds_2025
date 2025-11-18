@@ -7,7 +7,7 @@
 import React, { useState, useEffect } from "react";
 import { Footer } from '../../../components/Footer';
 import { Header } from '../../../components/Header'; 
-import "./faq.css";
+import './faq.css';
 
 export default function FAQ() {
   const [openItems, setOpenItems] = useState([]);

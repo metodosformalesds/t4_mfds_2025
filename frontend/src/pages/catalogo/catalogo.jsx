@@ -32,7 +32,6 @@ export const Catalogo = () => {
   const [favoritos, setFavoritos] = useState([]);
   const productosPorPagina = 6;
 
-  // Hook para productos - cargar todos los productos sin paginación
   const { 
     products: productosBackend, 
     loading, 
@@ -45,21 +44,30 @@ export const Catalogo = () => {
     autoFetch: true
   });
 
-  // Cargar favoritos al montar el componente
   useEffect(() => {
     cargarFavoritos();
   }, []);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Carga los productos favoritos del usuario autenticado.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    Promise<void>
+  */
   const cargarFavoritos = async () => {
     try {
       const favoriteProducts = await favoriteService.getFavoriteProducts();
       setFavoritos(favoriteProducts.map(fav => fav.product.id));
     } catch (error) {
-      console.error('Error cargando favoritos:', error);
-    }
+          }
   };
 
-  // Opciones de ordenamiento
   const opcionesOrden = [
     { id: 'nombre', nombre: 'Orden alfabético' },
     { id: 'reseñas', nombre: 'Más reseñas' },
@@ -67,7 +75,6 @@ export const Catalogo = () => {
     { id: 'precio', nombre: 'Precio' }
   ];
 
-  // Transformar datos del backend
   const productosTransformados = productosBackend.map(producto => ({
     id: producto.id,
     nombre: producto.name,
@@ -82,12 +89,10 @@ export const Catalogo = () => {
     isMaterial: producto.category === 'material'
   }));
 
-  // Aplicar filtro de stock
   let datosFiltrados = soloEnStock 
     ? productosTransformados.filter(item => item.enStock)
     : productosTransformados;
 
-  // Aplicar ordenamiento en frontend
   const datosOrdenados = [...datosFiltrados].sort((a, b) => {
     switch (ordenActivo) {
       case 'nombre':
@@ -105,28 +110,84 @@ export const Catalogo = () => {
     }
   });
 
-  // Handler para cambiar página
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Cambia la página actual del catálogo y hace scroll al inicio.
+
+    Parámetros:
+    pagina - number: Número de página a mostrar
+
+    Retorna:
+    void
+  */
   const cambiarPagina = (pagina) => {
     setPaginaActual(pagina);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Handler para cambiar sección
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Cambia la sección activa (producto o material) y reinicia la paginación.
+
+    Parámetros:
+    seccion - string: La sección a mostrar ('producto' o 'material')
+
+    Retorna:
+    void
+  */
   const cambiarSeccion = useCallback((seccion) => {
     setSeccionActiva(seccion);
     setPaginaActual(1);
   }, []);
 
-  // Handlers para acciones
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Agrega un producto al carrito. (Funcionalidad pendiente de implementar)
+
+    Parámetros:
+    producto - object: Producto a agregar
+
+    Retorna:
+    void
+  */
   const agregarAlCarrito = useCallback((producto) => {
-    console.log('Agregando al carrito:', producto.nombre);
-  }, []);
+      }, []);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Navega a la página de detalles del producto.
+
+    Parámetros:
+    producto - object: Producto a ver
+
+    Retorna:
+    void
+  */
   const verDetalles = useCallback((producto) => {
-    console.log('Viendo detalles:', producto.nombre);
-    window.location.href = `/producto/${producto.id}`;
+        window.location.href = `/producto/${producto.id}`;
   }, []);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Actualiza el estado de favoritos cuando se agrega o remueve un producto.
+
+    Parámetros:
+    productId - number: ID del producto
+    isFavorite - boolean: Si el producto fue marcado como favorito
+
+    Retorna:
+    void
+  */
   const handleFavoriteChange = useCallback((productId, isFavorite) => {
     if (isFavorite) {
       setFavoritos([...favoritos, productId]);
@@ -135,10 +196,8 @@ export const Catalogo = () => {
     }
   }, [favoritos]);
 
-  // Calcular total de páginas basado en datos filtrados y ordenados
   const totalPaginas = Math.max(1, Math.ceil(datosOrdenados.length / productosPorPagina));
   
-  // Paginar los datos en el cliente
   const startIndex = (paginaActual - 1) * productosPorPagina;
   const endIndex = startIndex + productosPorPagina;
   const productosPaginados = datosOrdenados.slice(startIndex, endIndex);

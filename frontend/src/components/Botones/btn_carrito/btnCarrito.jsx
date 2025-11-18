@@ -25,31 +25,43 @@ export const BtnCarrito = ({
   const { totalItems, addToCart } = useCartContext();
   const [showAuthModal, setShowAuthModal] = useState(false);
 
-  // Manejar click del botón
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Maneja el clic en el botón del carrito. Si el usuario no está autenticado muestra
+    modal de login, si tiene productId lo agrega al carrito.
+
+    Parámetros:
+    e - Event: Evento del click para evitar propagación
+
+    Retorna:
+    Promise<void>
+  */
   const handleClick = async (e) => {
     e.stopPropagation();
 
     if (!isAuthenticated) {
-      // Mostrar modal de autenticación si no está logueado
       setShowAuthModal(true);
       return;
     }
 
     if (productId) {
-      // Si tiene productId, agregar al carrito
       try {
         await addToCart(productId, 1);
         if (onClick) onClick(); // Ejecutar callback si existe
       } catch (error) {
-        console.error('Error adding to cart:', error);
-        // TODO: Mostrar mensaje de error al usuario
       }
     } else {
-      console.log("No hay productId")
-      if (onClick) onClick();
-    }
+          }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Cierra el modal de autenticación.
+  */
   const closeAuthModal = () => {
     setShowAuthModal(false);
   };
@@ -89,11 +101,7 @@ export const BtnCarrito = ({
         )}
       </button>
 
-      {/* Modal de autenticación */}
-      <AuthModal 
-        isOpen={showAuthModal} 
-        onClose={closeAuthModal} 
-      />
+      
     </>
   );
 };

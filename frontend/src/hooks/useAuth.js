@@ -17,18 +17,30 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
 
-/**
- * Hook para manejar autenticación
- */
+/*
+Autor: Erick Rangel
+
+Descripción: Hook personalizado para manejar toda la lógica de autenticación
+
+Parámetros: ninguno
+
+Retorna: Objeto con user, loading, error, register, login, forgotPassword, resetPassword, logout, clearError, isAuthenticated
+*/
 export const useAuth = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  /**
-   * Restaurar sesión al cargar la app
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Restaura la sesión del usuario desde localStorage al montar el componente
+  
+  Parámetros: ninguno
+  
+  Retorna: void
+  */
   useEffect(() => {
     const token = authService.getToken();
     const savedUser = authService.getUser();
@@ -38,9 +50,15 @@ export const useAuth = () => {
     }
   }, []);
 
-  /**
-   * Maneja el proceso de registro de usuario
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Registra un nuevo usuario en el sistema
+  
+  Parámetros: userData - Datos del usuario a registrar
+  
+  Retorna: Response del servidor
+  */
   const register = useCallback(async (userData) => {
     setLoading(true);
     setError(null);
@@ -58,9 +76,15 @@ export const useAuth = () => {
     }
   }, [navigate]);
 
-  /**
-   * Maneja el proceso de inicio de sesión
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Inicia sesión con credenciales y guarda token y usuario
+  
+  Parámetros: credentials - Objeto con email y password
+  
+  Retorna: Response del servidor con token y datos del usuario
+  */
   const login = useCallback(async (credentials) => {
     setLoading(true);
     setError(null);
@@ -68,7 +92,6 @@ export const useAuth = () => {
     try {
       const response = await authService.login(credentials);
 
-      // Guardar token y usuario
       authService.saveToken(response.access_token);
       authService.saveUser(response.user);
 
@@ -88,9 +111,15 @@ export const useAuth = () => {
     }
   }, []);
 
-  /**
-   * Maneja el proceso de recuperación de contraseña
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Solicita recuperación de contraseña mediante email
+  
+  Parámetros: data - Objeto con username y email
+  
+  Retorna: Response del servidor
+  */
   const forgotPassword = useCallback(async (data) => {
     setLoading(true);
     setError(null);
@@ -107,9 +136,15 @@ export const useAuth = () => {
     }
   }, []);
 
-  /**
-   * Maneja el proceso de reseteo de contraseña con token
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Restablece la contraseña usando token de recuperación
+  
+  Parámetros: token - Código de verificación, newPassword - Nueva contraseña
+  
+  Retorna: Response del servidor
+  */
   const resetPassword = useCallback(async (token, newPassword) => {
     setLoading(true);
     setError(null);
@@ -126,9 +161,15 @@ export const useAuth = () => {
     }
   }, []);
 
-  /**
-   * Cierra la sesión del usuario
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Cierra sesión del usuario y limpia todo el estado
+  
+  Parámetros: ninguno
+  
+  Retorna: void
+  */
   const logout = useCallback(() => {
     authService.removeToken();
     authService.removeUser();
@@ -139,9 +180,15 @@ export const useAuth = () => {
     window.location.href = '/';
   }, []);
 
-  /**
-   * Limpia los errores del estado
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Limpia los errores del estado
+  
+  Parámetros: ninguno
+  
+  Retorna: void
+  */
   const clearError = useCallback(() => {
     setError(null);
   }, []);

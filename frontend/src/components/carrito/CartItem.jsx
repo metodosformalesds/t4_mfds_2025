@@ -21,7 +21,6 @@ export const CartItem = ({
 }) => {
   const [updating, setUpdating] = useState(false);
   
-  // DATOS DEL PRODUCTO - Extraer con valores por defecto para evitar errores
   const product = item.product || {};
   const productId = product.id;
   const productName = product.name || 'Producto no disponible';
@@ -30,7 +29,18 @@ export const CartItem = ({
   const productImage = product.images?.[0] || '/placeholder-image.jpg';
   const isAvailable = product.is_available && productStock > 0;
 
-  // Actualizar cantidad con estado de carga
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Actualiza la cantidad del producto en el carrito, manejando estados de carga y errores.
+
+    Parámetros:
+    newQuantity - number: Nueva cantidad del producto
+
+    Retorna:
+    Promise<void>
+  */
   const handleQuantityUpdate = async (newQuantity) => {
     if (disabled || updating) return;
     
@@ -38,24 +48,32 @@ export const CartItem = ({
       setUpdating(true);
       await onQuantityChange(productId, newQuantity);
     } catch (error) {
-      console.error('Error updating quantity:', error);
-    } finally {
+          } finally {
       setUpdating(false);
     }
   };
 
-  // Eliminar item del carrito
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Elimina el producto del carrito.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    Promise<void>
+  */
   const handleRemove = async () => {
     if (disabled) return;
     
     try {
       await onRemove(productId);
     } catch (error) {
-      console.error('Error removing item:', error);
-    }
+          }
   };
 
-  // Subtotal por item
   const itemSubtotal = productPrice * item.quantity;
 
   return (
@@ -67,7 +85,6 @@ export const CartItem = ({
           src={productImage} 
           alt={productName}
           onError={(e) => {
-            // Si la imagen falla, usar placeholder
             e.target.src = 'https://placehold.co/600x400';
           }}
         />

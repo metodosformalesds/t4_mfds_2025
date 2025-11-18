@@ -18,11 +18,21 @@ export const CartSummary = ({
   disabled = false 
 }) => {
   
-  // Subtotal de todos los items disponibles
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Calcula el subtotal del carrito sumando el precio de todos los productos disponibles.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    number - Subtotal del carrito
+  */
   const calculateSubtotal = () => {
     return cartItems.reduce((total, item) => {
       const product = item.product || {};
-      // solo incluir productos disponibles y en stock
       if (product.is_available && product.stock > 0) {
         return total + (parseFloat(product.price) || 0) * item.quantity;
       }
@@ -30,24 +40,44 @@ export const CartSummary = ({
     }, 0);
   };
 
-  // Costo de envío
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Calcula el costo de envío. Es gratis si el subtotal es mayor a $999, sino $99.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    number - Costo de envío
+  */
   const calculateShipping = () => {
     const subtotal = calculateSubtotal();
     return subtotal > 999 ? 0 : 99; // Envío gratis sobre $999
   };
 
-  // Total final
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Calcula el total del carrito sumando subtotal y envío.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    number - Total del carrito
+  */
   const calculateTotal = () => {
     return calculateSubtotal() + calculateShipping();
   };
 
-  // Verificar si hay productos disponibles para checkout
   const hasAvailableItems = cartItems.some(item => {
     const product = item.product || {};
     return product.is_available && product.stock > 0;
   });
 
-  // Items disponibles vs no disponibles
   const availableItemsCount = cartItems.filter(item => {
     const product = item.product || {};
     return product.is_available && product.stock > 0;

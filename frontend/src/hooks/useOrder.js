@@ -10,9 +10,15 @@ import { useState, useCallback } from 'react';
 import { orderService } from '../services/orderService';
 import { useCartContext } from '../context/CartContext';
 
-/**
- * Hook personalizado para manejar la creación y gestión de órdenes
- */
+/*
+Autor: Erick Rangel
+
+Descripción: Hook personalizado para manejar creación y gestión de órdenes
+
+Parámetros: ninguno
+
+Retorna: Objeto con loading, error, currentOrder, createOrder, getOrder, clearError, clearCurrentOrder, cartItems, hasItems, totals
+*/
 export const useOrder = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,9 +26,15 @@ export const useOrder = () => {
   
   const { cartItems, clearCart } = useCartContext();
 
-  /**
-   * Validar que el carrito tenga items disponibles
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Valida que el carrito tenga items disponibles con stock
+  
+  Parámetros: ninguno
+  
+  Retorna: Array de items disponibles
+  */
   const validateCart = useCallback(() => {
     if (!cartItems || cartItems.length === 0) {
       throw new Error('El carrito está vacío');
@@ -40,29 +52,29 @@ export const useOrder = () => {
     return availableItems;
   }, [cartItems]);
 
-  /**
-   * Crear una nueva orden desde el carrito
-   * @param {string} shippingAddress - Dirección de envío
-   * @param {boolean} clearCartAfter - Si debe limpiar el carrito después (default: false)
-   * @returns {Promise<Object>} Orden creada
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Crea una nueva orden desde el carrito actual
+  
+  Parámetros: shippingAddress - Dirección de envío, clearCartAfter - Si debe limpiar carrito después
+  
+  Retorna: Promise con orden creada
+  */
   const createOrder = useCallback(async (shippingAddress, clearCartAfter = false) => {
     try {
       setLoading(true);
       setError(null);
 
-      // 🔍 Validar carrito y stock
       const availableItems = validateCart();
       await orderService.validateStock(availableItems);
 
-      // 📦 Preparar items para la orden
       const orderItems = orderService.prepareOrderItems(availableItems);
       
       if (orderItems.length === 0) {
         throw new Error('No hay items válidos para crear la orden');
       }
 
-      // Crear orden en el backend
       const orderData = {
         address: shippingAddress,
         items: orderItems
@@ -78,18 +90,21 @@ export const useOrder = () => {
 
     } catch (err) {
       setError(err.message || 'Error al crear la orden');
-      console.error('Error creating order:', err);
       throw err;
     } finally {
       setLoading(false);
     }
   }, [cartItems, validateCart, clearCart]);
 
-  /**
-   * Obtener una orden por ID
-   * @param {number} orderId - ID de la orden
-   * @returns {Promise<Object>} Orden
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Obtiene una orden específica por su ID
+  
+  Parámetros: orderId - ID de la orden
+  
+  Retorna: Promise con datos de la orden
+  */
   const getOrder = useCallback(async (orderId) => {
     try {
       setLoading(true);
@@ -101,40 +116,46 @@ export const useOrder = () => {
       
     } catch (err) {
       setError(err.message || 'Error al obtener la orden');
-      console.error('Error fetching order:', err);
       throw err;
     } finally {
       setLoading(false);
     }
   }, []);
 
-  /**
-   * Limpiar error
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Limpia el error actual
+  
+  Parámetros: ninguno
+  
+  Retorna: void
+  */
   const clearError = useCallback(() => {
     setError(null);
   }, []);
 
-  /**
-   * Limpiar orden actual
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Limpia la orden actual del estado
+  
+  Parámetros: ninguno
+  
+  Retorna: void
+  */
   const clearCurrentOrder = useCallback(() => {
     setCurrentOrder(null);
   }, []);
 
   return {
-    // Estado
     loading,
     error,
     currentOrder,
-    
-    // Acciones
     createOrder,
     getOrder,
     clearError,
     clearCurrentOrder,
-    
-    // Utilidades
     cartItems,
     hasItems: cartItems && cartItems.length > 0,
     totals: orderService.calculateTotals(cartItems || [])

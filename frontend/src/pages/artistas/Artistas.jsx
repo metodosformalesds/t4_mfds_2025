@@ -12,6 +12,15 @@ import { CardArtista } from '../../components/Cards/card_artista';
 import artistService from '../../services/artistService';
 import './Artistas.css';
 
+/*
+  Autor: Erick Rangel
+
+  Descripción: Componente que muestra una lista de artistas con opciones de ordenamiento alfabético y paginación.
+
+  Parámetros: Ninguno
+
+  Retorna: JSX.Element - Página con grilla de artistas
+*/
 export default function Artistas() {
   const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,6 +33,15 @@ export default function Artistas() {
     fetchArtists();
   }, []);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Obtiene la lista de artistas desde el servidor.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const fetchArtists = async () => {
     setLoading(true);
     setError(null);
@@ -37,7 +55,6 @@ export default function Artistas() {
     }
   };
 
-  // Ordenar artistas
   const sortedArtists = [...artists].sort((a, b) => {
     if (order === 'az') {
       return a.full_name.localeCompare(b.full_name);
@@ -46,7 +63,6 @@ export default function Artistas() {
     }
   });
 
-  // Paginación
   const totalPages = Math.max(1, Math.ceil(sortedArtists.length / ITEMS_PER_PAGE));
   const paginatedArtists = sortedArtists.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,

@@ -14,6 +14,15 @@ import { authService } from '../../../services/authService';
 import { apiClient } from '../../../services/api';
 import { userService } from '../../../services/userService';
 
+/*
+  Autor: Erick Rangel
+
+  Descripción: Componente que muestra y permite editar la información personal del usuario (nombre, username, teléfono, dirección y foto de perfil). Incluye modales para la edición de cada campo.
+
+  Parámetros: Ninguno
+
+  Retorna: JSX.Element - Página de información personal del usuario con opciones de edición
+*/
 export default function MiInformacion() {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState(null);
@@ -28,13 +37,20 @@ export default function MiInformacion() {
     fetchUserData();
   }, []);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Obtiene los datos del usuario actual desde el servidor y los mapea al estado local. Si falla, intenta cargar desde el almacenamiento local.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const fetchUserData = async () => {
     setLoading(true);
     try {
-      // Obtener usuario desde la API
       const userData = await userService.getCurrentUser();
 
-      // Mapear respuesta del backend a estructura local
       const mappedUser = {
         nombre: userData.full_name || "",
         username: userData.username || "",
@@ -49,9 +65,7 @@ export default function MiInformacion() {
 
       setUsuario(mappedUser);
     } catch (error) {
-      console.error("Error obteniendo datos del usuario:", error);
-      
-      // Fallback: intentar obtener desde localStorage si ya está guardado
+            
       const savedUser = authService.getUser();
       if (savedUser) {
         const mappedUser = {
@@ -72,6 +86,15 @@ export default function MiInformacion() {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Permite al usuario seleccionar y subir una nueva foto de perfil. Valida el tipo y tamaño del archivo antes de enviarlo al servidor.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleEditarFoto = () => {
     const input = document.createElement("input");
     input.type = "file";
@@ -79,7 +102,6 @@ export default function MiInformacion() {
     input.onchange = (e) => {
       const file = e.target.files[0];
       if (file) {
-        // Validaciones simples
         if (!file.type.startsWith('image/')) {
           alert('El archivo debe ser una imagen');
           return;
@@ -91,11 +113,9 @@ export default function MiInformacion() {
           return;
         }
 
-        // Subir la imagen al endpoint PUT /api/users/me como FormData
         (async () => {
           try {
             const formData = new FormData();
-            // El backend espera 'profile_picture' como campo File
             formData.append('profile_picture', file, file.name);
 
             const token = authService.getToken();
@@ -117,7 +137,6 @@ export default function MiInformacion() {
 
             const data = await resp.json();
 
-            // Actualizar UI local con la nueva URL de perfil si viene en la respuesta
             const newAvatar = data.profile_picture || data.profile_picture_url || data.profilePicture || null;
             setUsuario((prev) => ({
               ...prev,
@@ -131,8 +150,7 @@ export default function MiInformacion() {
 
             alert('Foto de perfil actualizada correctamente');
           } catch (error) {
-            console.error('Error subiendo foto de perfil:', error);
-            alert(error.message || 'Error al subir la imagen');
+                        alert(error.message || 'Error al subir la imagen');
           }
         })();
       }
@@ -140,27 +158,80 @@ export default function MiInformacion() {
     input.click();
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Abre el modal para modificar el nombre de usuario.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleModificarUsername = () => {
     setModalState({ isOpen: true, field: "username", value: usuario.username });
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Abre el modal para modificar el nombre personal.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleModificarNombre = () => {
     setModalState({ isOpen: true, field: "nombre", value: usuario.nombre });
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Abre el modal para modificar el teléfono.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleModificarTelefono = () => {
     setModalState({ isOpen: true, field: "telefono", value: usuario.telefono });
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Abre el modal para modificar la dirección.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleModificarDireccion = () => {
     setModalState({ isOpen: true, field: "direccion", value: usuario.direccion });
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Navega a la página de seguridad.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleNavigateToSeguridad = () => {
     navigate("/mi-cuenta/seguridad");
   };
 
-  // Función para guardar cambios vía PATCH
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Guarda los cambios realizados en el modal de edición, enviando una petición PATCH al servidor con los nuevos datos.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const handleGuardarCambio = async () => {
     if (!modalState.value.trim()) {
       alert("El campo no puede estar vacío");
@@ -170,7 +241,6 @@ export default function MiInformacion() {
     try {
       const updateData = {};
       
-      // Mapear campo local a nombre de API
       if (modalState.field === "username") updateData.username = modalState.value;
       if (modalState.field === "nombre") updateData.full_name = modalState.value;
       if (modalState.field === "telefono") updateData.phone = modalState.value;
@@ -196,7 +266,6 @@ export default function MiInformacion() {
 
       const data = await resp.json();
 
-      // Actualizar estado local
       const fieldMapping = {
         username: 'username',
         nombre: 'full_name',
@@ -212,11 +281,19 @@ export default function MiInformacion() {
       setModalState({ isOpen: false, field: null, value: "" });
       alert("Cambio guardado correctamente");
     } catch (error) {
-      console.error("Error guardando cambio:", error);
-      alert(error.message || "Error al guardar el cambio");
+            alert(error.message || "Error al guardar el cambio");
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Cierra el modal de edición y resetea su estado.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleCerrarModal = () => {
     setModalState({ isOpen: false, field: null, value: "" });
   };

@@ -14,6 +14,15 @@ import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 import reviewService from '../../services/reviewService'; 
 
+/*
+  Autor: Erick Rangel
+
+  Descripción: Componente que muestra todas las reseñas de un producto con calificación promedio y sistema de estrellas.
+
+  Parámetros: Ninguno (usa useParams para obtener el productId de la URL)
+
+  Retorna: JSX.Element - Página con lista de reseñas del producto
+*/
 export default function ProductReviews() {
   const { productId } = useParams();
   const [reviews, setReviews] = useState([]);
@@ -25,6 +34,15 @@ export default function ProductReviews() {
     fetchReviews();
   }, [productId]);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Obtiene todas las reseñas del producto desde el servidor y calcula la calificación promedio.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const fetchReviews = async () => {
     try {
       setLoading(true);
@@ -34,7 +52,6 @@ export default function ProductReviews() {
         setReviews(data);
         setTotalReviews(data.length);
         
-        // Calcular rating promedio
         const total = data.reduce((sum, review) => sum + review.rating, 0);
         const avg = total / data.length;
         setAverageRating(avg);
@@ -44,14 +61,23 @@ export default function ProductReviews() {
         setAverageRating(0);
       }
     } catch (error) {
-      console.error('Error fetching reviews:', error);
-      setReviews([]);
+            setReviews([]);
     } finally {
       setLoading(false);
     }
   };
 
-  // Función para renderizar estrellas
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Renderiza las estrellas de calificación (llenas, medio llenas y vacías) según el rating.
+
+    Parámetros:
+    - rating (number): Calificación a mostrar (0-5)
+    - size (string): Tamaño de las estrellas ('small', 'medium', 'large')
+
+    Retorna: JSX.Element[] - Array de estrellas renderizadas
+  */
   const renderStars = (rating, size = 'medium') => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -81,7 +107,16 @@ export default function ProductReviews() {
     return stars;
   };
 
-  // Función para formatear fecha
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Formatea una fecha ISO a formato legible en español.
+
+    Parámetros:
+    - dateString (string): Fecha en formato ISO
+
+    Retorna: string - Fecha formateada
+  */
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('es-MX', { 

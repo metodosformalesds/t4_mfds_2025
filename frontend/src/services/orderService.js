@@ -9,62 +9,75 @@
 import { apiClient } from './api';
 
 class OrderService {
-  /**
-   * Crear una nueva orden desde el carrito
-   * @param {Object} orderData - Datos de la orden
-   * @param {string} orderData.address - Dirección de envío
-   * @param {Array} orderData.items - Items del carrito
-   * @returns {Promise<Object>} Orden creada
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Crea una nueva orden desde el carrito del usuario
+  
+  Parámetros: orderData - Objeto con address e items de la orden
+  
+  Retorna: Orden creada con ID y detalles
+  */
   async createOrder(orderData) {
     return await apiClient.post('/api/orders/', orderData);
   }
 
-  /**
-   * Obtener una orden por ID
-   * @param {number} orderId - ID de la orden
-   * @returns {Promise<Object>} Orden
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Obtiene una orden específica por su ID
+  
+  Parámetros: orderId - ID de la orden
+  
+  Retorna: Objeto con detalles de la orden
+  */
   async getOrder(orderId) {
     return await apiClient.get(`/api/orders/${orderId}`);
   }
 
-  /**
-   * Obtener todas las órdenes del usuario actual
-   * @returns {Promise<Array>} Lista de órdenes
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Obtiene todas las órdenes del usuario actual como comprador
+  
+  Parámetros: ninguno
+  
+  Retorna: Array de órdenes del usuario
+  */
   async getMyOrders() {
-    // El backend expone GET /api/orders/ (con query param `role` opcional).
-    // Llamar a `/api/orders/` sin segmento adicional para evitar 422 cuando
-    // se intenta resolver una ruta de `/{order_id}` con un string.
     return await apiClient.get('/api/orders/', { role: 'buyer' });
   }
 
-  /**
-   * Confirmar (marcar como entregada) una orden del comprador
-   * @param {number} orderId - ID de la orden
-   * @returns {Promise<Object>} Orden actualizada
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Marca una orden como entregada/confirmada por el comprador
+  
+  Parámetros: orderId - ID de la orden a confirmar
+  
+  Retorna: Orden actualizada
+  */
   async confirmOrder(orderId) {
     return await apiClient.post(`/api/orders/${orderId}/confirm`);
   }
 
-  /**
-   * Validar stock de productos antes de crear orden
-   * @param {Array} cartItems - Items del carrito
-   * @returns {Promise<boolean>} True si todo el stock es válido
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Valida que todos los productos tengan stock suficiente antes de crear orden
+  
+  Parámetros: cartItems - Array de items del carrito
+  
+  Retorna: Boolean true si todo es válido, throw Error si hay problemas
+  */
   async validateStock(cartItems) {
-    // Validar que todos los productos tengan stock suficiente
     for (const item of cartItems) {
       const product = item.product;
       
-      // Verificar disponibilidad
       if (!product.is_available) {
         throw new Error(`El producto "${product.name}" no está disponible`);
       }
       
-      // Verificar stock suficiente
       if (product.stock < item.quantity) {
         throw new Error(
           `Stock insuficiente para "${product.name}". ` +
@@ -76,16 +89,19 @@ class OrderService {
     return true;
   }
 
-  /**
-   * Preparar items para crear orden desde el carrito
-   * @param {Array} cartItems - Items del carrito
-   * @returns {Array} Items formateados para la orden
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Prepara los items del carrito para crear una orden filtrando disponibles
+  
+  Parámetros: cartItems - Array de items del carrito
+  
+  Retorna: Array de items formateados con product_id, quantity y unit_price
+  */
   prepareOrderItems(cartItems) {
     return cartItems
       .filter(item => {
         const product = item.product || {};
-        // Solo incluir productos disponibles y con stock
         return product.is_available && product.stock >= item.quantity;
       })
       .map(item => {
@@ -98,32 +114,36 @@ class OrderService {
       });
   }
 
-/**
- * Calcular totales de la orden
- */
-calculateTotals(cartItems) {
-  const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
+  /*
+  Autor: Erick Rangel
   
-  const subtotal = safeCartItems.reduce((total, item) => {
-    const product = item.product || {};
-    if (product.is_available && product.stock >= item.quantity) {
-      return total + (parseFloat(product.price) || 0) * item.quantity;
-    }
-    return total;
-  }, 0);
+  Descripción: Calcula subtotal, costo de envío y total de la orden
+  
+  Parámetros: cartItems - Array de items del carrito
+  
+  Retorna: Objeto con subtotal, shipping y total
+  */
+  calculateTotals(cartItems) {
+    const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
+    
+    const subtotal = safeCartItems.reduce((total, item) => {
+      const product = item.product || {};
+      if (product.is_available && product.stock >= item.quantity) {
+        return total + (parseFloat(product.price) || 0) * item.quantity;
+      }
+      return total;
+    }, 0);
 
-  // Envío fijo $99, gratis sobre $999
-  const shipping = subtotal >= 999 ? 0 : 99;
-  const total = subtotal + shipping;
+    const shipping = subtotal >= 999 ? 0 : 99;
+    const total = subtotal + shipping;
 
-  return {
-    subtotal: parseFloat(subtotal.toFixed(2)),
-    shipping: parseFloat(shipping.toFixed(2)),
-    total: parseFloat(total.toFixed(2))
-  };
+    return {
+      subtotal: parseFloat(subtotal.toFixed(2)),
+      shipping: parseFloat(shipping.toFixed(2)),
+      total: parseFloat(total.toFixed(2))
+    };
+  }
 }
-}
 
-// Instancia global del servicio
 export const orderService = new OrderService();
 export default orderService;

@@ -9,10 +9,6 @@
 import React from 'react';
 import './OrderSummary.css';
 
-/**
- * Componente para mostrar resumen detallado de la orden
- * Incluye productos, precios, envío y totales
- */
 export const OrderSummary = ({ 
   cartItems = [], 
   totals = {},
@@ -20,7 +16,6 @@ export const OrderSummary = ({
   onEditClick 
 }) => {
   
-  // Valores por defecto para evitar errores
   const safeTotals = {
     subtotal: totals?.subtotal || 0,
     shipping: totals?.shipping || 0,
@@ -29,7 +24,6 @@ export const OrderSummary = ({
 
   const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
 
-  // Productos disponibles vs no disponibles
   const availableItems = safeCartItems.filter(item => {
     const product = item.product || {};
     return product.is_available && product.stock >= item.quantity;

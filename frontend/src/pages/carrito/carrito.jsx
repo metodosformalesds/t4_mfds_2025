@@ -23,7 +23,6 @@ export const Carrito = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   
-  // Estado global del carrito
   const { 
     cartItems, 
     loading, 
@@ -34,25 +33,34 @@ export const Carrito = () => {
     refetch 
   } = useCartContext();
 
-  //  UI y modales
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
 
-  //  Verificar autenticación al cargar
   useEffect(() => {
     if (!isAuthenticated) {
       setShowAuthModal(true);
     }
   }, [isAuthenticated]);
 
-  //  Recargar carrito cuando se autentica
   useEffect(() => {
     if (isAuthenticated) {
       refetch();
     }
   }, [isAuthenticated, refetch]);
 
-  //  Actualizar cantidad de un producto
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Actualiza la cantidad de un producto en el carrito.
+
+    Parámetros:
+    productId - number: ID del producto
+    newQuantity - number: Nueva cantidad
+
+    Retorna:
+    Promise<void>
+  */
   const handleQuantityChange = async (productId, newQuantity) => {
     if (actionLoading) return;
     
@@ -60,14 +68,23 @@ export const Carrito = () => {
       setActionLoading(true);
       await updateCartItem(productId, newQuantity);
     } catch (error) {
-      console.error('Error updating cart item:', error);
-      //  Podríamos mostrar un toast de error aquí
     } finally {
       setActionLoading(false);
     }
   };
 
-  // Eliminar item del carrito
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Elimina un producto del carrito.
+
+    Parámetros:
+    productId - number: ID del producto a eliminar
+
+    Retorna:
+    Promise<void>
+  */
   const handleRemoveItem = async (productId) => {
     if (actionLoading) return;
     
@@ -75,18 +92,26 @@ export const Carrito = () => {
       setActionLoading(true);
       await removeFromCart(productId);
     } catch (error) {
-      console.error('Error removing item:', error);
-      //  Mostrar mensaje al usuario
     } finally {
       setActionLoading(false);
     }
   };
 
-  //Vaciar carrito completo
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Vacía completamente el carrito después de confirmar con el usuario.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    Promise<void>
+  */
   const handleClearCart = async () => {
     if (actionLoading || cartItems.length === 0) return;
     
-    //  Pedir confirmación antes de vaciar
     const confirmed = window.confirm(
       '¿Estás seguro de que quieres vaciar todo el carrito?'
     );
@@ -97,16 +122,24 @@ export const Carrito = () => {
       setActionLoading(true);
       await clearCart();
     } catch (error) {
-      console.error('Error clearing cart:', error);
-      // Manejar error de vaciado
     } finally {
       setActionLoading(false);
     }
   };
 
-  //  Proceder al checkout
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Navega a la página de checkout si hay productos disponibles.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleCheckout = () => {
-    // Verificar que hay productos disponibles
     const hasAvailableItems = cartItems.some(item => {
       const product = item.product || {};
       return product.is_available && product.stock > 0;
@@ -120,20 +153,40 @@ export const Carrito = () => {
     navigate('/checkout', { state: { preserveCart: true } });
   };
 
-  // Cerrar modal de autenticación
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Cierra el modal de autenticación y redirige al inicio.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleCloseAuthModal = () => {
     setShowAuthModal(false);
     navigate('/'); // Redirigir al inicio si cierran el modal
   };
 
-  //  Contenido principal de la página
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Renderiza el contenido del carrito (items o mensaje de carrito vacío).
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    JSX.Element - Contenido del carrito
+  */
   const renderCartContent = () => {
-    // CARRITO VACÍO
     if (cartItems.length === 0 && !loading) {
       return <CartEmpty />;
     }
 
-    // LISTA DE PRODUCTOS
     return (
       <div className="cart-content">
         {/* ENCABEZADO DEL CARRITO */}

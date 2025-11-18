@@ -24,7 +24,6 @@ export default function ProductDetail() {
   const [latestReview, setLatestReview] = useState(null);
   const [reviewsLoading, setReviewsLoading] = useState(true);
   
-  // Usar hook personalizado para manejar el estado del producto
   const { 
     product, 
     loading, 
@@ -34,7 +33,6 @@ export default function ProductDetail() {
     hasImages 
   } = useProductDetail(productId);
 
-  // Cargar estado de favorito y reseñas
   useEffect(() => {
     if (product) {
       checkIfFavorite();
@@ -42,35 +40,68 @@ export default function ProductDetail() {
     }
   }, [product]);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Verifica si el producto actual está en la lista de favoritos del usuario.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    Promise<void>
+  */
   const checkIfFavorite = async () => {
     try {
       const favorites = await favoriteService.getFavoriteProducts();
       const isFav = favorites.some(fav => fav.product.id === parseInt(productId));
       setIsFavorite(isFav);
     } catch (error) {
-      console.error('Error checking favorite status:', error);
-    }
+          }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Obtiene las reseñas del producto y guarda la más reciente para preview.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    Promise<void>
+  */
   const fetchReviews = async () => {
     try {
       setReviewsLoading(true);
       const reviews = await reviewService.getProductReviews(productId);
       if (reviews && reviews.length > 0) {
-        // Obtener la reseña más reciente (ordenada por fecha)
         const sortedReviews = reviews.sort((a, b) => 
           new Date(b.created_at) - new Date(a.created_at)
         );
         setLatestReview(sortedReviews[0]);
       }
     } catch (error) {
-      console.error('Error fetching reviews:', error);
-    } finally {
+          } finally {
       setReviewsLoading(false);
     }
   };
 
-  // Función para renderizar estrellas
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Renderiza las estrellas de calificación del producto.
+
+    Parámetros:
+    rating - number: Calificación del 1 al 5
+    size - string: Tamaño de las estrellas ('small', 'medium', 'large')
+
+    Retorna:
+    Array<JSX.Element> - Array de elementos de estrellas
+  */
   const renderStars = (rating, size = "medium") => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -88,48 +119,85 @@ export default function ProductDetail() {
     return stars;
   };
 
-  // Manejar compra
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Navega directamente al checkout con el producto actual.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleBuy = () => {
     if (!product) return;
-    console.log("Comprar producto:", product.id);
-    navigate(`/checkout/${product.id}`);
+        navigate(`/checkout/${product.id}`);
   };
 
-  // Agregar al carrito
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Agrega el producto al carrito. (Funcionalidad pendiente de implementar)
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleAddToCart = () => {
     if (!product) return;
-    console.log("Agregar al carrito:", product.id);
-    // TODO: Implementar lógica de agregar al carrito cuando esté listo
   };
 
-  // Manejar favorito
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Agrega o remueve el producto de favoritos.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    Promise<void>
+  */
   const handleToggleFavorite = async () => {
     if (!product) return;
     setFavoriteLoading(true);
     try {
       if (isFavorite) {
-        // Quitar de favoritos
         await favoriteService.removeFavoriteProduct(product.id);
         setIsFavorite(false);
       } else {
-        // Agregar a favoritos
         await favoriteService.addFavoriteProduct(product.id);
         setIsFavorite(true);
       }
     } catch (error) {
-      console.error('Error toggling favorite:', error);
-    } finally {
+          } finally {
       setFavoriteLoading(false);
     }
   };
 
-  // Ver todas las reseñas
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Navega a la página de todas las reseñas del producto.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleViewAllReviews = () => {
     if (!product) return;
     navigate(`/producto/${product.id}/resenas`);
   };
 
-  // Estados de carga y error
   if (loading) {
     return (
       <div className="product-detail-page">

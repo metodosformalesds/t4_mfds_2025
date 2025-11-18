@@ -17,14 +17,36 @@ export const QuantitySelector = ({
   disabled = false 
 }) => {
   
-  // Asegurar que la cantidad esté dentro de límites válidos
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Valida que la cantidad esté dentro del rango permitido (1 a maxStock).
+
+    Parámetros:
+    newQuantity - number: La cantidad a validar
+
+    Retorna:
+    number - La cantidad validada
+  */
   const validateQuantity = (newQuantity) => {
     if (newQuantity < 1) return 1;
     if (newQuantity > maxStock) return maxStock;
     return newQuantity;
   };
 
-  // Incrementar cantidad con validación de stock
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Incrementa la cantidad del producto en 1 si no se excede el stock máximo.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleIncrement = () => {
     if (quantity < maxStock) {
       const newQuantity = validateQuantity(quantity + 1);
@@ -32,7 +54,18 @@ export const QuantitySelector = ({
     }
   };
 
-  // Decrementar cantidad (mínimo 1)
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Decrementa la cantidad del producto en 1 si no se alcanza el mínimo (1).
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleDecrement = () => {
     if (quantity > 1) {
       const newQuantity = validateQuantity(quantity - 1);
@@ -40,7 +73,18 @@ export const QuantitySelector = ({
     }
   };
 
-  // Cambio manual desde input
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Maneja el cambio directo en el input de cantidad, validando el valor ingresado.
+
+    Parámetros:
+    e - Event: Evento del input
+
+    Retorna:
+    void
+  */
   const handleInputChange = (e) => {
     const value = parseInt(e.target.value) || 1;
     const newQuantity = validateQuantity(value);

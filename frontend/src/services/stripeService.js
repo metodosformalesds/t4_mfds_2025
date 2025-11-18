@@ -11,14 +11,28 @@ import { apiClient } from './api';
 const STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
 
 class StripeService {
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Constructor del servicio Stripe
+  
+  Parámetros: ninguno
+  
+  Retorna: Instancia de StripeService
+  */
   constructor() {
     this.stripePromise = null;
   }
 
-  /**
-   * Inicializar Stripe (cargar solo una vez)
-   * @returns {Promise<Stripe>} Instancia de Stripe
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Inicializa y carga la librería de Stripe (solo una vez)
+  
+  Parámetros: ninguno
+  
+  Retorna: Promise con instancia de Stripe
+  */
   async initializeStripe() {
     if (!this.stripePromise) {
       this.stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
@@ -26,13 +40,15 @@ class StripeService {
     return this.stripePromise;
   }
 
-    /**
-   * Crear Checkout Session para una orden
-   * @param {number} orderId - ID de la orden
-   * @param {string} successUrl - URL a redirigir después de pago exitoso
-   * @param {string} cancelUrl - URL a redirigir si cancela
-   * @returns {Promise<string>} URL de Checkout Session
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Crea una sesión de Checkout de Stripe para procesar el pago de una orden
+  
+  Parámetros: orderId - ID de la orden, successUrl - URL de éxito, cancelUrl - URL de cancelación
+  
+  Retorna: URL de la sesión de checkout
+  */
   async createCheckoutSession(orderId, successUrl, cancelUrl) {
     const response = await apiClient.post('/api/stripe/create-checkout-session', {
       order_id: orderId,
@@ -42,12 +58,15 @@ class StripeService {
     return response.checkoutUrl;
   }
 
-  /**
-   * Redirigir a Stripe Checkout 
-   * @param {number} orderId - ID de la orden
-   * @param {Object} order - Datos de la orden
-   * @returns {Promise<void>}
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Redirige al usuario a Stripe Checkout para completar el pago
+  
+  Parámetros: orderId - ID de la orden, order - Datos de la orden
+  
+  Retorna: void (redirige la página)
+  */
   async redirectToCheckout(orderId, order) {
     try {
       const successUrl = `${window.location.origin}/orden-confirmada?order_id=${orderId}&session_id={CHECKOUT_SESSION_ID}`;
@@ -58,48 +77,64 @@ class StripeService {
       window.location.href = checkoutUrl;
       
     } catch (error) {
-      console.error('Error al crear Checkout Session:', error);
       throw error;
     }
   }
 
-  /**
-   * Verificar estado de una sesión de pago
-   * @param {string} paymentIntentId - ID del Payment Intent
-   * @returns {Promise<Object>} Estado del pago
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Verifica el estado de un pago mediante Payment Intent ID
+  
+  Parámetros: paymentIntentId - ID del Payment Intent
+  
+  Retorna: Objeto con estado del pago
+  */
   async checkPaymentStatus(paymentIntentId) {
     return { status: 'succeeded' };
   }
 
-  /**
-   * Crear cuenta conectada para vendedor
-   * @param {string} country - País del vendedor (ej: "MX")
-   * @returns {Promise<string>} ID de la cuenta creada
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Crea una cuenta conectada de Stripe para un vendedor
+  
+  Parámetros: country - Código de país (default: "MX")
+  
+  Retorna: ID de la cuenta creada
+  */
   async createConnectedAccount(country = "MX") {
     return await apiClient.post('/api/stripe/create-connected-account', {
       country: country
     });
   }
 
-  /**
-   * Crear enlace de onboarding para vendedor
-   * @returns {Promise<string>} URL de onboarding
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Crea enlace de onboarding para configurar cuenta de vendedor
+  
+  Parámetros: ninguno
+  
+  Retorna: URL del enlace de onboarding
+  */
   async createAccountLink() {
     return await apiClient.post('/api/stripe/create-account-link');
   }
 
-  /**
-   * Verificar estado de cuenta de vendedor
-   * @returns {Promise<string>} Estado actualizado
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Verifica el estado actual de la cuenta de vendedor
+  
+  Parámetros: ninguno
+  
+  Retorna: String con estado de la cuenta
+  */
   async verifyAccountStatus() {
     return await apiClient.get('/api/stripe/verify-account-status');
   }
 }
 
-// Instancia global del servicio
 export const stripeService = new StripeService();
 export default stripeService;

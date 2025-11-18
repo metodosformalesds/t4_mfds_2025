@@ -15,12 +15,22 @@ import './CartEmpty.css';
 export const CartEmpty = () => {
   const navigate = useNavigate();
 
-  // Redirigir al catálogo
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Navega a la página del catálogo de productos.
+  */
   const handleBrowseCatalog = () => {
     navigate('/catalogo');
   };
 
-  // Redirigir al inicio
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Navega a la página de inicio.
+  */
   const handleGoHome = () => {
     navigate('/');
   };

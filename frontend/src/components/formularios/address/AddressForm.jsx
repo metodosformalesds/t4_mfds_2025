@@ -10,10 +10,6 @@ import React, { useState, useEffect } from 'react';
 import { BtnGeneral } from '../../Botones/btn_general';
 import './AddressForm.css';
 
-/**
- * Componente para formulario de dirección de envío
- * Permite usar la dirección del perfil o ingresar una nueva
- */
 export const AddressForm = ({ 
   user, 
   onSubmit, 
@@ -24,14 +20,24 @@ export const AddressForm = ({
   const [useProfileAddress, setUseProfileAddress] = useState(true);
   const [errors, setErrors] = useState({});
 
-  //Pre-llenar con dirección del perfil al cargar
   useEffect(() => {
     if (user && user.address) {
       setAddress(user.address);
     }
   }, [user]);
 
-  //Cambiar entre dirección del perfil y personalizada
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Cambia entre usar la dirección del perfil o una dirección personalizada.
+
+    Parámetros:
+    useProfile - boolean: Si se debe usar la dirección del perfil
+
+    Retorna:
+    void
+  */
   const handleUseProfileAddressChange = (useProfile) => {
     setUseProfileAddress(useProfile);
     setErrors({});
@@ -43,7 +49,18 @@ export const AddressForm = ({
     }
   };
 
-  //Verificar que la dirección sea válida
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Valida que la dirección de envío sea válida y tenga al menos 10 caracteres.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    boolean - True si el formulario es válido
+  */
   const validateForm = () => {
     const newErrors = {};
     
@@ -57,7 +74,18 @@ export const AddressForm = ({
     return Object.keys(newErrors).length === 0;
   };
 
-  //Envío del formulario
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Maneja el envío del formulario de dirección validando y llamando al callback.
+
+    Parámetros:
+    e - Event: Evento del formulario
+
+    Retorna:
+    void
+  */
   const handleSubmit = (e) => {
     e.preventDefault();
     

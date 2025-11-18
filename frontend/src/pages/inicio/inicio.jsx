@@ -29,14 +29,12 @@ export const Inicio = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Cargar favoritos al montar
   useEffect(() => {
     cargarFavoritos();
     cargarHomeData();
   }, []);
 
   const cargarFavoritos = async () => {
-    // Solo cargar favoritos si el usuario está autenticado
     if (!authService.isAuthenticated()) {
       return;
     }
@@ -48,40 +46,61 @@ export const Inicio = () => {
       const favoriteArtists = await favoriteService.getFavoriteArtists();
       setFavoritoArtistas(favoriteArtists.map(fav => fav.artist.id));
     } catch (error) {
-      console.error('Error cargando favoritos:', error);
-    }
+          }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Carga los productos más populares (por reseñas) y artistas más recientes para
+    mostrar en la página de inicio.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    Promise<void>
+  */
   const cargarHomeData = async () => {
     try {
       setLoading(true);
-      // Obtener productos disponibles y artistas
       const [productos, artistas] = await Promise.all([
         productService.getProducts({ skip: 0, limit: 100 }),
         artistService.getArtists(),
       ]);
 
-      // Top 3 productos por número de reseñas (desc)
       const top3 = (productos || [])
         .slice() // copiar
         .sort((a, b) => (b.review_count || 0) - (a.review_count || 0))
         .slice(0, 3);
       setProductosPopulares(top3);
 
-      // 4 artistas más recientes por created_at desc
       const recientes = (artistas || [])
         .slice()
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
         .slice(0, 4);
       setArtistasRecientes(recientes);
     } catch (e) {
-      console.error('Error cargando datos de inicio:', e);
-      setError(e.message || 'No se pudieron cargar los datos.');
+            setError(e.message || 'No se pudieron cargar los datos.');
     } finally {
       setLoading(false);
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Actualiza el estado de favoritos cuando se agrega o remueve un producto.
+
+    Parámetros:
+    productId - number: ID del producto
+    isFavorite - boolean: Si el producto fue marcado como favorito
+
+    Retorna:
+    void
+  */
   const handleProductoFavoriteChange = (productId, isFavorite) => {
     if (isFavorite) {
       setFavoritos([...favoritos, productId]);
@@ -90,6 +109,19 @@ export const Inicio = () => {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Actualiza el estado de favoritos cuando se agrega o remueve un artista.
+
+    Parámetros:
+    artistId - number: ID del artista
+    isFavorite - boolean: Si el artista fue marcado como favorito
+
+    Retorna:
+    void
+  */
   const handleArtistFavoriteChange = (artistId, isFavorite) => {
     if (isFavorite) {
       setFavoritoArtistas([...favoritoArtistas, artistId]);
@@ -98,6 +130,18 @@ export const Inicio = () => {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Formatea el precio del producto al formato de moneda mexicana.
+
+    Parámetros:
+    price - number: Precio del producto
+
+    Retorna:
+    string - Precio formateado
+  */
   const formatPrice = (price) => {
     if (typeof price !== 'number') return '$0.00 mxn';
     try {

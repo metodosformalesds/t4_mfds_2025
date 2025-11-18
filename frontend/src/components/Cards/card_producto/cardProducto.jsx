@@ -11,7 +11,6 @@ import { BtnCarrito } from "../../Botones/btn_carrito";
 import { BtnGeneral } from "../../Botones/btn_general";
 import favoriteService from "../../../services/favoriteService";
 import "./cardProducto.css";
-
 /**
  * Componente CardProducto - Muestra un producto individual
  * @param {Object} props - Props del componente
@@ -50,43 +49,58 @@ export const CardProducto = ({
   const [favorite, setFavorite] = useState(isFavorite);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
 
-  // Función para manejar la navegación al producto detallado
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Navega a la página de detalles del producto.
+  */
   const handleViewDetails = () => {
     if (onViewDetails) {
-      // Si hay una función personalizada, usarla
       onViewDetails();
     } else if (productId) {
-      // Navegar al producto detallado
       navigate(`/producto/${productId}`);
     }
   };
 
-  // Manejar click en la imagen
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Maneja el clic en la imagen del producto para ver detalles.
+  */
   const handleImageClick = () => {
     handleViewDetails();
   };
 
-  // Manejar favorito
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Agrega o remueve el producto de favoritos.
+
+    Parámetros:
+    e - Event: Evento del click para evitar propagación
+
+    Retorna:
+    Promise<void>
+  */
   const handleToggleFavorite = async (e) => {
     e.stopPropagation();
     setFavoriteLoading(true);
     try {
       if (favorite) {
-        // Quitar de favoritos
         await favoriteService.removeFavoriteProduct(productId);
         setFavorite(false);
       } else {
-        // Agregar a favoritos
         await favoriteService.addFavoriteProduct(productId);
         setFavorite(true);
       }
-      // Notificar al padre del cambio
       if (onFavoriteChange) {
         onFavoriteChange(!favorite);
       }
     } catch (error) {
-      console.error('Error toggling favorite:', error);
-    } finally {
+          } finally {
       setFavoriteLoading(false);
     }
   };

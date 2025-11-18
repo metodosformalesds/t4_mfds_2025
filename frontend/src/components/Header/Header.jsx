@@ -21,25 +21,66 @@ export const Header = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const { totalItems } = useCartContext();  //usar estado global que actualzia totalItems para reflejar contador del carrito
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Alterna el estado del menú móvil (abierto/cerrado).
+  */
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Cierra el menú móvil.
+  */
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Cierra la sesión del usuario y cierra el menú móvil.
+  */
   const handleLogout = () => {
     logout();
     closeMenu();
   };
 
-  // Navegar al carrito
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Navega a la página del carrito y cierra el menú móvil.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleCartClick = () => {
     navigate('/carrito');
     closeMenu();
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Verifica si la ruta actual coincide con la ruta dada para aplicar estilo activo.
+
+    Parámetros:
+    path - string: La ruta a verificar
+
+    Retorna:
+    boolean - True si la ruta actual coincide con la ruta dada
+  */
   const isActive = (path) => {
     return location.pathname === path;
   };
@@ -72,7 +113,6 @@ export const Header = () => {
             {/* LOGIN MÓVIL - Cambia según autenticación */}
             <li className="mobile-login-item">
               {isAuthenticated ? (
-                // Usuario logueado - móvil
                 <div className="user-menu-mobile">
                   <Link to="/mi-cuenta" className="mobile-login-link" onClick={closeMenu}>
                     <span className="login-icon"></span>
@@ -98,7 +138,6 @@ export const Header = () => {
                   </button>
                 </div>
               ) : (
-                // Usuario no logueado - móvil
                 <Link to="/auth" className="mobile-login-link" onClick={closeMenu}>
                   <span className="login-icon"></span>
                   Bienvenido, identifícate
@@ -140,7 +179,6 @@ export const Header = () => {
         {/* ACCIONES DEL HEADER - Cambia según autenticación */}
         <div className="header-actions">
           {isAuthenticated ? (
-            // Usuario logueado - desktop
             <div className="user-menu-desktop">
               <Link to="/mi-cuenta" className="desktop-login-link">
                 Mi Perfil
@@ -166,7 +204,6 @@ export const Header = () => {
               </button>
             </div>
           ) : (
-            // Usuario no logueado - desktop
             <Link to="/auth" className="desktop-login-link">
               Bienvenido, identifícate
             </Link>

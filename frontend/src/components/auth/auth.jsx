@@ -31,21 +31,58 @@ export const Auth = () => {
     }
   }, [searchParams]);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Cambia el modo de autenticación (login, registro, recuperar contraseña, etc.)
+    y actualiza la URL.
+
+    Parámetros:
+    newMode - string: El nuevo modo de autenticación
+
+    Retorna:
+    void
+  */
   const handleModeChange = (newMode) => {
     setMode(newMode);
     clearError();
     navigate(`/auth?mode=${newMode}`, { replace: true });
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Maneja el envío del formulario de inicio de sesión.
+
+    Parámetros:
+    e - Event: Evento del formulario
+
+    Retorna:
+    Promise<void>
+  */
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
       await login(loginData);
     } catch (error) {
-      console.error('Login failed:', error);
-    }
+          }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Maneja el envío del formulario de registro. Valida que las contraseñas coincidan
+    antes de crear la cuenta.
+
+    Parámetros:
+    e - Event: Evento del formulario
+
+    Retorna:
+    Promise<void>
+  */
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     if (registerData.password !== registerData.confirmPassword) {
@@ -56,20 +93,44 @@ export const Auth = () => {
       const { confirmPassword, ...userData } = registerData;
       await register(userData);
     } catch (error) {
-      console.error('Registration failed:', error);
-    }
+          }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Maneja el envío del formulario de recuperación de contraseña. Envía el código
+    de verificación al correo del usuario.
+
+    Parámetros:
+    e - Event: Evento del formulario
+
+    Retorna:
+    Promise<void>
+  */
   const handleForgotSubmit = async (e) => {
     e.preventDefault();
     try {
       await forgotPassword(forgotData);
       setShowInstructionsModal(true);
     } catch (error) {
-      console.error('Password recovery failed:', error);
-    }
+          }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Maneja el envío del formulario de restablecimiento de contraseña. Valida que
+    las contraseñas coincidan y actualiza la contraseña con el token.
+
+    Parámetros:
+    e - Event: Evento del formulario
+
+    Retorna:
+    Promise<void>
+  */
   const handleResetSubmit = async (e) => {
     e.preventDefault();
     if (resetData.newPassword !== resetData.confirmPassword) {
@@ -81,30 +142,89 @@ export const Auth = () => {
       alert('Contraseña actualizada correctamente');
       handleModeChange('login');
     } catch (error) {
-      console.error('Password reset failed:', error);
-    }
+          }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Actualiza el estado del formulario de login cuando cambian los valores de los campos.
+
+    Parámetros:
+    e - Event: Evento del input
+
+    Retorna:
+    void
+  */
   const handleLoginChange = (e) => {
     const { name, value } = e.target;
     setLoginData(prev => ({ ...prev, [name]: value }));
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Actualiza el estado del formulario de registro cuando cambian los valores de los campos.
+
+    Parámetros:
+    e - Event: Evento del input
+
+    Retorna:
+    void
+  */
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
     setRegisterData(prev => ({ ...prev, [name]: value }));
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Actualiza el estado del formulario de recuperación de contraseña.
+
+    Parámetros:
+    e - Event: Evento del input
+
+    Retorna:
+    void
+  */
   const handleForgotChange = (e) => {
     const { name, value } = e.target;
     setForgotData(prev => ({ ...prev, [name]: value }));
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Actualiza el estado del formulario de restablecimiento de contraseña.
+
+    Parámetros:
+    e - Event: Evento del input
+
+    Retorna:
+    void
+  */
   const handleResetChange = (e) => {
     const { name, value } = e.target;
     setResetData(prev => ({ ...prev, [name]: value }));
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Cierra el modal de instrucciones y cambia al modo de restablecimiento de contraseña.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const closeInstructionsModal = () => {
     setShowInstructionsModal(false);
     handleModeChange('reset-password');

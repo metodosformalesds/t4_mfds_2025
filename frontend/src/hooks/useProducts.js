@@ -13,9 +13,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { productService } from '../services/productService';
 
-/**
- * Hook personalizado para manejar productos con paginación simple
- */
+/*
+Autor: Erick Rangel
+
+Descripción: Hook personalizado para manejar productos con paginación y filtros
+
+Parámetros: options - Objeto con category, skip, limit, autoFetch
+
+Retorna: Objeto con products, loading, error, refetch, fetchProducts, isEmpty, hasError
+*/
 export const useProducts = (options = {}) => {
   const {
     category = null,
@@ -28,9 +34,15 @@ export const useProducts = (options = {}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  /**
-   * Fetch productos desde el backend
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Obtiene productos desde el backend con filtros y paginación
+  
+  Parámetros: fetchOptions - Opciones adicionales para la consulta
+  
+  Retorna: void
+  */
   const fetchProducts = useCallback(async (fetchOptions = {}) => {
     try {
       setLoading(true);
@@ -41,28 +53,30 @@ export const useProducts = (options = {}) => {
         limit: fetchOptions.limit !== undefined ? fetchOptions.limit : limit,
         category: fetchOptions.category !== undefined ? fetchOptions.category : category,
       };
-
-      console.log('Fetching products with params:', params);
       
       const data = await productService.getProducts(params);
       setProducts(data);
 
     } catch (err) {
       setError(err.message);
-      console.error('Error fetching products:', err);
     } finally {
       setLoading(false);
     }
   }, [skip, limit, category]);
 
-  /**
-   * Recargar productos
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Recarga productos con nuevas opciones
+  
+  Parámetros: newOptions - Nuevas opciones para la consulta
+  
+  Retorna: Promise con resultado de fetchProducts
+  */
   const refetch = useCallback((newOptions = {}) => {
     return fetchProducts(newOptions);
   }, [fetchProducts]);
 
-  // Fetch automático cuando cambian las dependencias
   useEffect(() => {
     if (autoFetch) {
       fetchProducts();
@@ -70,16 +84,11 @@ export const useProducts = (options = {}) => {
   }, [fetchProducts, autoFetch]);
 
   return {
-    // Estado
     products,
     loading,
     error,
-    
-    // Acciones
     refetch,
     fetchProducts,
-    
-    // Utilidades
     isEmpty: products.length === 0 && !loading,
     hasError: !!error,
   };

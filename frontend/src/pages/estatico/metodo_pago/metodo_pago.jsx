@@ -7,7 +7,7 @@
 import React, { useEffect } from "react";
 import { Footer } from '../../../components/Footer';
 import { Header } from '../../../components/Header'; 
-import "./metodo_pago.css";
+import './metodo_pago.css';
 
 export default function PaymentMethods() {
   useEffect(() => {

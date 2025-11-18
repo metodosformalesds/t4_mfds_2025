@@ -10,8 +10,17 @@ import { BtnGeneral } from '../../../components/Botones/btn_general';
 import { Footer } from '../../../components/Footer';
 import { Header } from '../../../components/Header'; 
 import orderService from '../../../services/orderService';
-import "./mis_pedidos.css";
+import './mis_pedidos.css';
 
+/*
+  Autor: Erick Rangel
+
+  Descripción: Componente que muestra la lista de pedidos del usuario con filtros por fecha y estado, permitiendo confirmar entregas y escribir reseñas.
+
+  Parámetros: Ninguno
+
+  Retorna: JSX.Element - Página con la lista de pedidos del usuario
+*/
 export default function MisPedidos() {
   const navigate = useNavigate();
   const [pedidos, setPedidos] = useState([]);
@@ -28,11 +37,19 @@ export default function MisPedidos() {
     fetchPedidos();
   }, [filtroMeses, filtroEstado]);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Obtiene los pedidos del usuario, los filtra por fecha y estado, y los prepara para paginación.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const fetchPedidos = async () => {
     setLoading(true);
     setError(null);
     try {
-      // Obtener órdenes del usuario desde el backend
       const response = await orderService.getMyOrders();
       
       if (!response || response.length === 0) {
@@ -41,7 +58,6 @@ export default function MisPedidos() {
         return;
       }
 
-      // Filtrar órdenes por fecha según los meses seleccionados
       const mesesNum = parseInt(filtroMeses);
       const ahora = new Date();
       const fechaLimite = new Date(ahora.getTime() - mesesNum * 30 * 24 * 60 * 60 * 1000);
@@ -62,13 +78,11 @@ export default function MisPedidos() {
         direccion: order.address
       }));
 
-      // Filtro por estado (pending/confirmed) si aplica
       const pedidosPorEstado =
         filtroEstado === 'all'
           ? pedidosFiltrados
           : pedidosFiltrados.filter(p => (p.estado || '').toLowerCase() === filtroEstado);
 
-      // Calcular total de páginas (5 items por página)
       const itemsPerPage = 5;
       const totalPaginasCalculadas = Math.ceil(pedidosPorEstado.length / itemsPerPage);
       
@@ -77,8 +91,7 @@ export default function MisPedidos() {
       setCurrentPage(1);
 
     } catch (err) {
-      console.error('Error al obtener pedidos:', err);
-      setError('No se pudieron cargar los pedidos. Por favor, intenta de nuevo.');
+            setError('No se pudieron cargar los pedidos. Por favor, intenta de nuevo.');
       setPedidos([]);
       setTotalPages(1);
     } finally {
@@ -86,29 +99,57 @@ export default function MisPedidos() {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Navega a la página de creación de reseña para un producto específico.
+
+    Parámetros:
+    - pedidoId (number): ID del pedido
+    - productId (number): ID del producto
+
+    Retorna: void
+  */
   const handleEscribirResena = (pedidoId, productId) => {
     navigate(`/mi-cuenta/pedidos/${pedidoId}/resena/${productId}`);
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Cambia la página actual de pedidos y desplaza la vista al inicio.
+
+    Parámetros:
+    - page (number): Número de página
+
+    Retorna: void
+  */
   const handlePageChange = (page) => {
     setCurrentPage(page);
     window.scrollTo(0, 0);
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Marca un pedido como confirmado/entregado.
+
+    Parámetros:
+    - orderId (number): ID del pedido a confirmar
+
+    Retorna: Promise<void>
+  */
   const handleConfirmarPedido = async (orderId) => {
     try {
       setConfirmLoadingId(orderId);
       await orderService.confirmOrder(orderId);
       await fetchPedidos();
     } catch (e) {
-      console.error('Error confirmando pedido:', e);
-      // Opcional: mostrar notificación/toast aquí
     } finally {
       setConfirmLoadingId(null);
     }
   };
 
-  // Obtener pedidos paginados
   const itemsPerPage = 5;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;

@@ -10,8 +10,17 @@ import { BtnGeneral } from '../../components/Botones/btn_general';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header'; 
 import { productService } from '../../services/productService';
-import "./agregar_producto.css";
+import './agregar_producto.css';
 
+/*
+  Autor: Erick Rangel
+
+  Descripción: Componente de formulario multi-paso para agregar un nuevo producto a la plataforma. Incluye validación de campos y carga de imágenes.
+
+  Parámetros: Ninguno
+
+  Retorna: JSX.Element - Formulario de creación de producto con múltiples pasos
+*/
 export default function AgregarProducto() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
@@ -27,8 +36,18 @@ export default function AgregarProducto() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Categoría ahora limitada a valores del sistema: 'producto' | 'material'
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Actualiza el estado del formulario cuando cambia el valor de un campo.
+
+    Parámetros:
+    - field (string): Nombre del campo a actualizar
+    - value (any): Nuevo valor del campo
+
+    Retorna: void
+  */
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -36,6 +55,15 @@ export default function AgregarProducto() {
     }));
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Obtiene el mensaje de error de validación para el paso actual del formulario.
+
+    Parámetros: Ninguno
+
+    Retorna: string - Mensaje de error o cadena vacía
+  */
   const getValidationError = () => {
     switch (currentStep) {
       case 1:
@@ -77,6 +105,15 @@ export default function AgregarProducto() {
     return "";
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Verifica si el paso actual puede avanzar al siguiente según las validaciones.
+
+    Parámetros: Ninguno
+
+    Retorna: boolean - true si puede avanzar, false si no
+  */
   const canProceed = () => {
     switch (currentStep) {
       case 1:
@@ -96,6 +133,15 @@ export default function AgregarProducto() {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Avanza al siguiente paso del formulario si la validación es correcta.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleNext = () => {
     const error = getValidationError();
     if (error) {
@@ -110,12 +156,31 @@ export default function AgregarProducto() {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Retrocede al paso anterior del formulario.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Maneja la carga de imágenes del producto, validando el límite de 5 imágenes.
+
+    Parámetros:
+    - e (Event): Evento de cambio del input file
+
+    Retorna: void
+  */
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
     if (files.length + formData.imagenes.length <= 5) {
@@ -128,6 +193,16 @@ export default function AgregarProducto() {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Elimina una imagen de la lista de imágenes seleccionadas.
+
+    Parámetros:
+    - index (number): Índice de la imagen a eliminar
+
+    Retorna: void
+  */
   const removeImage = (index) => {
     setFormData((prev) => ({
       ...prev,
@@ -135,6 +210,15 @@ export default function AgregarProducto() {
     }));
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Finaliza el proceso de creación enviando el producto al servidor y redirige a la lista de productos.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const handleFinish = async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
@@ -149,6 +233,15 @@ export default function AgregarProducto() {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Renderiza el contenido del paso actual del formulario.
+
+    Parámetros: Ninguno
+
+    Retorna: JSX.Element | null - Contenido del paso actual
+  */
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:

@@ -12,16 +12,20 @@
   - Exponer utilidades como `isEmpty`, `hasError` y `refetch`
 */
 
-
 import { useState, useEffect, useCallback } from 'react';
 import { cartService } from '../services/cartService';
 import { useAuth } from './useAuth';
 import { orderService } from '../services/orderService';
 
-/**
- * Hook personalizado para manejar el estado del carrito
- * Solo funciona cuando el usuario está autenticado
- */
+/*
+Autor: Erick Rangel
+
+Descripción: Hook personalizado para manejar el estado del carrito (solo funciona autenticado)
+
+Parámetros: ninguno
+
+Retorna: Objeto con cartItems, loading, error, totalItems, totals, addToCart, updateCartItem, removeFromCart, clearCart, refetch, isEmpty, hasError, isAuthenticated, totalPrice
+*/
 export const useCart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -30,11 +34,16 @@ export const useCart = () => {
   
   const { isAuthenticated } = useAuth();
 
-  /**
-   * Cargar items del carrito (solo si está autenticado)
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Carga los items del carrito desde el backend (solo si está autenticado)
+  
+  Parámetros: ninguno
+  
+  Retorna: void
+  */
   const fetchCart = useCallback(async () => {
-    // Si no está autenticado, limpiar el carrito
     if (!isAuthenticated) {
       setCartItems([]);
       setTotalItems(0);
@@ -49,21 +58,25 @@ export const useCart = () => {
       const items = await cartService.getCart();
       setCartItems(items);
       
-      // Calcular total de items
       const total = items.reduce((sum, item) => sum + item.quantity, 0);
       setTotalItems(total);
       
     } catch (err) {
       setError(err.message || 'Error al cargar el carrito');
-      console.error('Error fetching cart:', err);
     } finally {
       setLoading(false);
     }
   }, [isAuthenticated]);
 
-  /**
-   * Agregar producto al carrito
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Agrega un producto al carrito
+  
+  Parámetros: productId - ID del producto, quantity - Cantidad (default: 1)
+  
+  Retorna: void
+  */
   const addToCart = useCallback(async (productId, quantity = 1) => {
     if (!isAuthenticated) {
       throw new Error('Usuario no autenticado');
@@ -75,21 +88,25 @@ export const useCart = () => {
       
       await cartService.addToCart(productId, quantity);
       
-      // Recargar carrito después de agregar
       await fetchCart();
       
     } catch (err) {
       setError(err.message || 'Error al agregar al carrito');
-      console.error('Error adding to cart:', err);
       throw err;
     } finally {
       setLoading(false);
     }
-  }, [isAuthenticated, fetchCart]); 
+  }, [isAuthenticated, fetchCart]);
 
-  /**
-   * Actualizar cantidad en el carrito 
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Actualiza la cantidad de un producto en el carrito
+  
+  Parámetros: productId - ID del producto, quantity - Nueva cantidad
+  
+  Retorna: void
+  */
   const updateCartItem = useCallback(async (productId, quantity) => {
     if (!isAuthenticated) {
       throw new Error('Usuario no autenticado');
@@ -104,16 +121,21 @@ export const useCart = () => {
       
     } catch (err) {
       setError(err.message || 'Error al actualizar el carrito');
-      console.error('Error updating cart:', err);
       throw err;
     } finally {
       setLoading(false);
     }
   }, [isAuthenticated, fetchCart]);
 
-  /**
-   * Eliminar producto del carrito
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Elimina un producto del carrito
+  
+  Parámetros: productId - ID del producto
+  
+  Retorna: void
+  */
   const removeFromCart = useCallback(async (productId) => {
     if (!isAuthenticated) {
       throw new Error('Usuario no autenticado');
@@ -128,16 +150,21 @@ export const useCart = () => {
       
     } catch (err) {
       setError(err.message || 'Error al eliminar del carrito');
-      console.error('Error removing from cart:', err);
       throw err;
     } finally {
       setLoading(false);
     }
   }, [isAuthenticated, fetchCart]);
 
-  /**
-   * Vaciar carrito completo
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Vacía todo el carrito del usuario
+  
+  Parámetros: ninguno
+  
+  Retorna: void
+  */
   const clearCart = useCallback(async () => {
     if (!isAuthenticated) {
       throw new Error('Usuario no autenticado');
@@ -152,35 +179,27 @@ export const useCart = () => {
       
     } catch (err) {
       setError(err.message || 'Error al vaciar el carrito');
-      console.error('Error clearing cart:', err);
       throw err;
     } finally {
       setLoading(false);
     }
   }, [isAuthenticated, fetchCart]);
 
-  // Cargar carrito solo cuando cambie el estado de autenticación
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);
 
   return {
-    // Estado
     cartItems,
     loading,
     error,
     totalItems,
-
     totals: orderService.calculateTotals(cartItems),
-    
-    // Acciones 
     addToCart,
     updateCartItem,
     removeFromCart,
     clearCart,
     refetch: fetchCart,
-    
-    // Utilidades
     isEmpty: cartItems.length === 0 && !loading,
     hasError: !!error,
     isAuthenticated, 

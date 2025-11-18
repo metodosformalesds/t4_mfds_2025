@@ -25,30 +25,44 @@ export const CardArtista = ({
   const [favorite, setFavorite] = useState(isFavorite);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Agrega o remueve el artista de favoritos.
+
+    Parámetros:
+    e - Event: Evento del click para evitar propagación
+
+    Retorna:
+    Promise<void>
+  */
   const handleToggleFavorite = async (e) => {
     e.stopPropagation();
     setFavoriteLoading(true);
     try {
       if (favorite) {
-        // Quitar de favoritos
         await favoriteService.removeFavoriteArtist(artistId);
         setFavorite(false);
       } else {
-        // Agregar a favoritos
         await favoriteService.addFavoriteArtist(artistId);
         setFavorite(true);
       }
-      // Notificar al padre del cambio
       if (onFavoriteChange) {
         onFavoriteChange(!favorite);
       }
     } catch (error) {
-      console.error('Error toggling favorite:', error);
-    } finally {
+          } finally {
       setFavoriteLoading(false);
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Navega a la página de perfil del artista.
+  */
   const handleViewProfile = () => {
     if (onViewProfile) {
       onViewProfile();

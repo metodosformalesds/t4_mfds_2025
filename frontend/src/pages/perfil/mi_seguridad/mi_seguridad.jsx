@@ -14,6 +14,15 @@ import { authService } from '../../../services/authService';
 import { apiClient } from '../../../services/api';
 import { userService } from '../../../services/userService';
 
+/*
+  Autor: Erick Rangel
+
+  Descripción: Componente de la página de seguridad que permite al usuario modificar su correo electrónico, contraseña y convertirse en artista si es cliente.
+
+  Parámetros: Ninguno
+
+  Retorna: JSX.Element - Página de configuración de seguridad con opciones de modificación
+*/
 export default function Seguridad() {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState(null);
@@ -30,6 +39,15 @@ export default function Seguridad() {
     fetchUserData();
   }, []);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Obtiene los datos del usuario desde el servidor incluyendo su rol.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const fetchUserData = async () => {
     setLoading(true);
     try {
@@ -45,8 +63,7 @@ export default function Seguridad() {
       };
       setUsuario(mappedUser);
     } catch (error) {
-      console.error("Error obteniendo datos del usuario:", error);
-      const savedUser = authService.getUser();
+            const savedUser = authService.getUser();
       if (savedUser) {
         const mappedUser = {
           nombre: savedUser.full_name || "",
@@ -64,14 +81,41 @@ export default function Seguridad() {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Abre el modal para modificar el correo electrónico.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleModificarEmail = () => {
     setModalState({ isOpen: true, field: "email", value: usuario.email });
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Abre el modal para modificar la contraseña.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleModificarPassword = () => {
     setModalState({ isOpen: true, field: "password", value: "" });
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Guarda los cambios de email o contraseña realizados en el modal.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const handleGuardarCambio = async () => {
     if (!modalState.value.trim()) {
       alert("El campo no puede estar vacío");
@@ -114,23 +158,58 @@ export default function Seguridad() {
       setModalState({ isOpen: false, field: null, value: "" });
       alert("Cambio guardado correctamente");
     } catch (error) {
-      console.error("Error guardando cambio:", error);
-      alert(error.message || "Error al guardar el cambio");
+            alert(error.message || "Error al guardar el cambio");
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Cierra el modal de edición.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleCerrarModal = () => {
     setModalState({ isOpen: false, field: null, value: "" });
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Navega a la página de información personal.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleNavigateToInfo = () => {
     navigate("/mi-cuenta/informacion");
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Abre el modal de confirmación para convertirse en artista.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleConvertirArtista = () => {
     setShowArtistModal(true);
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Confirma la conversión del usuario de cliente a artista, actualizando su rol en el servidor y en el estado local.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const handleConfirmarConversion = async () => {
     try {
       setConvertingToArtist(true);
@@ -154,13 +233,11 @@ export default function Seguridad() {
 
       const data = await resp.json();
       
-      // Actualizar usuario localmente
       setUsuario((prev) => ({
         ...prev,
         rol: 'artist',
       }));
 
-      // Actualizar en authService si es necesario
       const currentUser = authService.getUser();
       if (currentUser) {
         authService.setUser({ ...currentUser, rol: 'artist' });
@@ -169,13 +246,21 @@ export default function Seguridad() {
       setShowArtistModal(false);
       alert('¡Ahora eres un artista! Puedes comenzar a publicar tus productos.');
     } catch (error) {
-      console.error('Error al convertir a artista:', error);
-      alert(error.message || 'Error al cambiar el rol');
+            alert(error.message || 'Error al cambiar el rol');
     } finally {
       setConvertingToArtist(false);
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Cancela el proceso de conversión a artista y cierra el modal.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleCancelarConversion = () => {
     setShowArtistModal(false);
   };

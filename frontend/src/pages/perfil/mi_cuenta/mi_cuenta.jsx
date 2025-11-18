@@ -51,6 +51,16 @@ export default function MiCuenta() {
     },
   ];
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Navega a la ruta especificada cuando se hace clic en una opción del menú.
+
+    Parámetros:
+    - route (string): Ruta de destino a la cual navegar
+
+    Retorna: void
+  */
   const handleOptionClick = (route) => {
     navigate(route);
   };
@@ -74,7 +84,6 @@ export default function MiCuenta() {
                     alt={option.title}
                     className="card-indicator-img"
                     onError={(e) => {
-                      // Si falla la carga, ocultar la imagen y dejar placeholder
                       e.currentTarget.style.display = 'none';
                       const parent = e.currentTarget.parentElement;
                       if (parent) parent.classList.add('placeholder');

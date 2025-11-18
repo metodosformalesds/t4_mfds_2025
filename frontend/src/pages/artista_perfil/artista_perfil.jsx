@@ -12,13 +12,21 @@ import { BtnGeneral } from "../../components/Botones/btn_general";
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 import artistService from '../../services/artistService';
-import "./artista_perfil.css";
+import './artista_perfil.css';
 
+/*
+  Autor: Erick Rangel
+
+  Descripción: Componente que muestra el perfil público de un artista incluyendo su información, biografía y productos con opciones de filtrado y ordenamiento.
+
+  Parámetros: Ninguno (usa useParams para obtener el artistId de la URL)
+
+  Retorna: JSX.Element - Página de perfil del artista
+*/
 export const ArtistProfile = () => {
   const { artistId } = useParams();
   const navigate = useNavigate();
   
-  // Configuración - cambiar a false para ocultar información sensible
   const SHOW_EMAIL = false;
   const SHOW_PHONE = false;
 
@@ -31,21 +39,27 @@ export const ArtistProfile = () => {
   const [sortBy, setSortBy] = useState("recent");
 
   useEffect(() => {
+    /*
+      Autor: Erick Rangel
+
+      Descripción: Obtiene la información del artista y sus productos desde el servidor.
+
+      Parámetros: Ninguno
+
+      Retorna: Promise<void>
+    */
     const fetchArtistData = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        // Fetch artist details
         const artistResponse = await artistService.getArtistById(artistId);
         setArtist(artistResponse);
 
-        // Fetch artist products
         const productsResponse = await artistService.getArtistProducts(artistId);
         setProducts(productsResponse);
       } catch (err) {
-        console.error('Error fetching artist data:', err);
-        setError('No se pudo cargar la información del artista');
+                setError('No se pudo cargar la información del artista');
       } finally {
         setLoading(false);
       }
@@ -55,6 +69,20 @@ export const ArtistProfile = () => {
       fetchArtistData();
     }
   }, [artistId]);
+
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Navega a la página de detalle del producto.
+
+    Parámetros:
+    - productId (number): ID del producto
+
+    Retorna: void
+  */
+  const handleViewProduct = (productId) => {
+    navigate(`/producto/${productId}`);
+  };
 
   const filteredProducts = (products || [])
     .filter((product) => {
@@ -69,10 +97,6 @@ export const ArtistProfile = () => {
         return new Date(b.created_at) - new Date(a.created_at);
       return 0;
     });
-
-  const handleViewProduct = (productId) => {
-    navigate(`/producto/${productId}`);
-  };
 
   if (loading) {
     return (

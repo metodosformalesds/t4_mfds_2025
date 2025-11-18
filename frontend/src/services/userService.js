@@ -9,38 +9,54 @@
 import { apiClient } from './api';
 
 class UserService {
-  /**
-   * Obtener datos del usuario actual
-   * @returns {Promise<Object>} Datos del usuario
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Obtiene los datos del usuario actualmente autenticado
+  
+  Parámetros: ninguno
+  
+  Retorna: Objeto con datos del usuario
+  */
   async getCurrentUser() {
     return await apiClient.get('/api/users/me');
   }
 
-  /**
-   * Actualizar datos del usuario
-   * @param {Object} userData - Datos a actualizar
-   * @returns {Promise<Object>} Usuario actualizado
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Actualiza los datos del usuario autenticado
+  
+  Parámetros: userData - Objeto con campos a actualizar
+  
+  Retorna: Usuario actualizado
+  */
   async updateUser(userData) {
     return await apiClient.put('/api/users/me', userData);
   }
 
-  /**
-   * Verificar si el usuario tiene dirección completa
-   * @param {Object} user - Datos del usuario
-   * @returns {boolean} True si tiene dirección válida
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Verifica si el usuario tiene dirección completa configurada
+  
+  Parámetros: user - Objeto con datos del usuario
+  
+  Retorna: Boolean indicando si tiene dirección válida
+  */
   hasCompleteAddress(user) {
     return user && user.address && user.address.trim().length > 0;
   }
 
-  /**
-   * Preparar datos de envío desde el usuario
-   * @param {Object} user - Datos del usuario
-   * @param {string} customAddress - Dirección personalizada (opcional)
-   * @returns {Object} Datos de envío formateados
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Prepara los datos de envío desde el usuario o dirección personalizada
+  
+  Parámetros: user - Datos del usuario, customAddress - Dirección personalizada opcional
+  
+  Retorna: Objeto con datos de envío formateados
+  */
   prepareShippingData(user, customAddress = '') {
     const address = customAddress || user.address || '';
     
@@ -57,6 +73,5 @@ class UserService {
   }
 }
 
-// Instancia global del servicio
 export const userService = new UserService();
 export default userService;

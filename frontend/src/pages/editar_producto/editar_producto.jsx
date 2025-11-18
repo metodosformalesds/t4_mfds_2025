@@ -1,6 +1,6 @@
 /* 
-    Autor: GitHub Copilot
-    Fecha: 17 de noviembre de 2025
+    Autor: Erick Rangel
+    Fecha: 17-11-2025
     Descripción: Permite editar un producto existente, cargando sus datos desde el backend y enviando actualizaciones.
 */
 
@@ -10,8 +10,17 @@ import { BtnGeneral } from '../../components/Botones/btn_general';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header'; 
 import { productService } from '../../services/productService';
-import "./editar_producto.css";
+import './editar_producto.css';
 
+/*
+  Autor: Erick Rangel
+
+  Descripción: Componente de formulario multi-paso para editar un producto existente. Carga los datos actuales y permite modificarlos, incluyendo imágenes.
+
+  Parámetros: Ninguno (usa useParams para obtener productId de la URL)
+
+  Retorna: JSX.Element - Formulario de edición de producto con múltiples pasos
+*/
 export default function EditarProducto() {
   const navigate = useNavigate();
   const { productId } = useParams();
@@ -34,6 +43,15 @@ export default function EditarProducto() {
     cargarProducto();
   }, [productId]);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Carga los datos del producto existente desde el servidor y los establece en el formulario.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const cargarProducto = async () => {
     try {
       setLoading(true);
@@ -42,7 +60,6 @@ export default function EditarProducto() {
         setErrorMessage('Producto no encontrado');
         return;
       }
-      // Prellenar formulario
       setFormData({
         nombre: producto.name || "",
         descripcion: producto.description || "",
@@ -54,13 +71,23 @@ export default function EditarProducto() {
       });
       setExistingImages(producto.images || []);
     } catch (e) {
-      console.error('Error cargando producto:', e);
-      setErrorMessage(e.message || 'Error al cargar el producto');
+            setErrorMessage(e.message || 'Error al cargar el producto');
     } finally {
       setLoading(false);
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Actualiza el estado del formulario cuando cambia el valor de un campo.
+
+    Parámetros:
+    - field (string): Nombre del campo a actualizar
+    - value (any): Nuevo valor del campo
+
+    Retorna: void
+  */
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -68,6 +95,15 @@ export default function EditarProducto() {
     }));
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Obtiene el mensaje de error de validación para el paso actual del formulario.
+
+    Parámetros: Ninguno
+
+    Retorna: string - Mensaje de error o cadena vacía
+  */
   const getValidationError = () => {
     switch (currentStep) {
       case 1:
@@ -109,6 +145,15 @@ export default function EditarProducto() {
     return "";
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Verifica si el paso actual puede avanzar al siguiente según las validaciones.
+
+    Parámetros: Ninguno
+
+    Retorna: boolean - true si puede avanzar, false si no
+  */
   const canProceed = () => {
     switch (currentStep) {
       case 1:
@@ -128,6 +173,15 @@ export default function EditarProducto() {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Avanza al siguiente paso del formulario si la validación es correcta.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleNext = () => {
     const error = getValidationError();
     if (error) {
@@ -142,12 +196,31 @@ export default function EditarProducto() {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Retrocede al paso anterior del formulario.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Maneja la carga de nuevas imágenes validando el límite de 5 imágenes totales.
+
+    Parámetros:
+    - e (Event): Evento de cambio del input file
+
+    Retorna: void
+  */
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
     const totalImages = formData.imagenes.length + existingImages.length;
@@ -161,6 +234,16 @@ export default function EditarProducto() {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Elimina una nueva imagen seleccionada de la lista.
+
+    Parámetros:
+    - index (number): Índice de la imagen a eliminar
+
+    Retorna: void
+  */
   const removeNewImage = (index) => {
     setFormData((prev) => ({
       ...prev,
@@ -168,10 +251,29 @@ export default function EditarProducto() {
     }));
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Elimina una imagen existente del producto.
+
+    Parámetros:
+    - url (string): URL de la imagen a eliminar
+
+    Retorna: void
+  */
   const removeExistingImage = (url) => {
     setExistingImages(existingImages.filter(img => img !== url));
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Finaliza el proceso de edición enviando las actualizaciones al servidor y redirige a la lista de productos.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const handleFinish = async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
@@ -186,6 +288,15 @@ export default function EditarProducto() {
     }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Renderiza el contenido del paso actual del formulario de edición.
+
+    Parámetros: Ninguno
+
+    Retorna: JSX.Element | null - Contenido del paso actual
+  */
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:

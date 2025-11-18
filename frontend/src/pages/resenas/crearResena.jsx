@@ -14,6 +14,15 @@ import { BtnGeneral } from '../../components/Botones/btn_general';
 import reviewService from '../../services/reviewService';
 import { useProductDetail } from '../../hooks/useProductDetail';
 
+/*
+  Autor: Erick Rangel
+
+  Descripción: Componente para crear una reseña de un producto, permitiendo al usuario calificar con estrellas, agregar un título y comentario.
+
+  Parámetros: Ninguno (usa useParams para obtener orderId y productId de la URL)
+
+  Retorna: JSX.Element - Página de creación de reseña
+*/
 export default function WriteReview() {
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
@@ -23,20 +32,57 @@ export default function WriteReview() {
   const navigate = useNavigate();
   const { product } = useProductDetail(productId);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Establece la calificación del producto cuando se hace clic en una estrella.
+
+    Parámetros:
+    - selectedRating (number): Calificación seleccionada (1-5)
+
+    Retorna: void
+  */
   const handleStarClick = (selectedRating) => {
     setRating(selectedRating);
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Actualiza el estado visual cuando el cursor pasa sobre una estrella.
+
+    Parámetros:
+    - selectedRating (number): Calificación sobre la que se encuentra el cursor
+
+    Retorna: void
+  */
   const handleStarHover = (selectedRating) => {
     setHoveredRating(selectedRating);
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Resetea el estado visual cuando el cursor sale del área de estrellas.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleStarLeave = () => {
     setHoveredRating(0);
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Valida y envía la reseña al servidor, luego navega a la página de pedidos.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const handleSubmit = async () => {
-    // Validación
     if (rating === 0) {
       alert('Por favor, selecciona una calificación');
       return;
@@ -64,10 +110,18 @@ export default function WriteReview() {
       navigate('/mi-cuenta/mis-pedidos');
     } catch (err) {
       alert(err?.message || 'No se pudo enviar la reseña');
-      console.error('Error creating review:', err);
-    }
+          }
   };
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Cancela la creación de la reseña, resetea los campos y regresa a la página anterior.
+
+    Parámetros: Ninguno
+
+    Retorna: void
+  */
   const handleCancel = () => {
     setRating(0);
     setTitle('');

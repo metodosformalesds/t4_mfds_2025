@@ -24,11 +24,6 @@ import Protected from './Protected';
 import AgregarProducto from '../../pages/agregar_producto/agregar_producto';
 import EditarProducto from '../../pages/editar_producto/editar_producto';
 
-/**
- * AppRoutes centraliza las rutas de la aplicación.
- * Las rutas que requieren autenticación están agrupadas dentro
- * de un <Route element={<Protected/>}> para protegerlas.
- */
 const AppRoutes = () => {
   return (
     <Routes>

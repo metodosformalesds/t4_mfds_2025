@@ -11,10 +11,18 @@ import { Header } from '../../../components/Header';
 import favoriteService from '../../../services/favoriteService';
 import './Favorites.css';
 
+/*
+  Autor: Erick Rangel
+
+  Descripción: Componente que muestra los productos y artistas favoritos del usuario con navegación por tabs y paginación.
+
+  Parámetros: Ninguno
+
+  Retorna: JSX.Element - Página de favoritos con tabs para productos y artistas
+*/
 export default function Favorites() {
   const navigate = useNavigate();
 
-  // Estados
   const [activeTab, setActiveTab] = useState('products');
   const [favoriteProducts, setFavoriteProducts] = useState([]);
   const [favoriteArtists, setFavoriteArtists] = useState([]);
@@ -25,11 +33,19 @@ export default function Favorites() {
 
   const ITEMS_PER_PAGE = 10;
 
-  // Cargar favoritos al montar
   useEffect(() => {
     fetchAllFavorites();
   }, []);
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Obtiene todos los productos y artistas favoritos del usuario desde el servidor.
+
+    Parámetros: Ninguno
+
+    Retorna: Promise<void>
+  */
   const fetchAllFavorites = async () => {
     setLoading(true);
     setError(null);
@@ -40,14 +56,22 @@ export default function Favorites() {
       setFavoriteProducts(Array.isArray(products) ? products : []);
       setFavoriteArtists(Array.isArray(artists) ? artists : []);
     } catch (err) {
-      console.error('Error loading favorites:', err);
-      setError('Error al cargar favoritos. Por favor, intenta de nuevo.');
+            setError('Error al cargar favoritos. Por favor, intenta de nuevo.');
     } finally {
       setLoading(false);
     }
   };
 
-  // Quitar producto de favoritos
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Elimina un producto de la lista de favoritos.
+
+    Parámetros:
+    - productId (number): ID del producto a eliminar
+
+    Retorna: Promise<void>
+  */
   const removeFavoriteProduct = async (productId) => {
     try {
       await favoriteService.removeFavoriteProduct(productId);
@@ -55,12 +79,20 @@ export default function Favorites() {
         prev.filter(fav => fav.product.id !== productId)
       );
     } catch (err) {
-      console.error('Error removing favorite product:', err);
-      setError('Error al eliminar de favoritos');
+            setError('Error al eliminar de favoritos');
     }
   };
 
-  // Quitar artista de favoritos
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Elimina un artista de la lista de favoritos.
+
+    Parámetros:
+    - artistId (number): ID del artista a eliminar
+
+    Retorna: Promise<void>
+  */
   const removeFavoriteArtist = async (artistId) => {
     try {
       await favoriteService.removeFavoriteArtist(artistId);
@@ -68,36 +100,62 @@ export default function Favorites() {
         prev.filter(fav => fav.artist.id !== artistId)
       );
     } catch (err) {
-      console.error('Error removing favorite artist:', err);
-      setError('Error al eliminar de favoritos');
+            setError('Error al eliminar de favoritos');
     }
   };
 
-  // Navegar al detalle del producto
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Navega a la página de detalle del producto.
+
+    Parámetros:
+    - productId (number): ID del producto
+
+    Retorna: void
+  */
   const viewProduct = (productId) => {
     navigate(`/producto/${productId}`);
   };
 
-  // Navegar al perfil del artista
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Navega a la página de perfil del artista.
+
+    Parámetros:
+    - artistId (number): ID del artista
+
+    Retorna: void
+  */
   const viewArtistProfile = (artistId) => {
     navigate(`/artista/${artistId}`);
   };
 
-  // Paginación de productos
   const productsPages = Math.ceil(favoriteProducts.length / ITEMS_PER_PAGE);
   const paginatedProducts = favoriteProducts.slice(
     (currentPageProducts - 1) * ITEMS_PER_PAGE,
     currentPageProducts * ITEMS_PER_PAGE
   );
 
-  // Paginación de artistas
   const artistsPages = Math.ceil(favoriteArtists.length / ITEMS_PER_PAGE);
   const paginatedArtists = favoriteArtists.slice(
     (currentPageArtists - 1) * ITEMS_PER_PAGE,
     currentPageArtists * ITEMS_PER_PAGE
   );
 
-  // Render números de página
+  /*
+    Autor: Erick Rangel
+
+    Descripción: Renderiza los botones de número de página para la paginación.
+
+    Parámetros:
+    - currentPage (number): Página actual
+    - totalPages (number): Total de páginas
+    - setPageFn (function): Función para cambiar la página
+
+    Retorna: JSX.Element[] - Array de botones de página
+  */
   const renderPageNumbers = (currentPage, totalPages, setPageFn) => {
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {

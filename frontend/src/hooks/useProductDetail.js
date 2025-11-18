@@ -14,16 +14,30 @@
 import { useState, useEffect, useCallback } from 'react';
 import { productService } from '../services/productService';
 
+/*
+Autor: Erick Rangel
 
+Descripción: Hook personalizado para obtener y manejar detalles de un producto
+
+Parámetros: productId - ID del producto a cargar
+
+Retorna: Objeto con product, loading, error, selectedImage, handleImageSelect, refetch, hasImages, totalImages, currentImage
+*/
 export const useProductDetail = (productId) => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
 
-  /**
-   * Obtener los datos del producto desde el backend
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Obtiene los datos del producto desde el backend por ID
+  
+  Parámetros: ninguno
+  
+  Retorna: void
+  */
   const fetchProductData = useCallback(async () => {
     if (!productId) {
       setError('ID de producto no válido');
@@ -35,51 +49,55 @@ export const useProductDetail = (productId) => {
       setLoading(true);
       setError(null);
       
-      console.log(`Fetching product details for ID: ${productId}`);
       const productData = await productService.getProductById(productId);
       
       setProduct(productData);
-      setSelectedImage(0); // Resetear imagen seleccionada
+      setSelectedImage(0);
       
     } catch (err) {
       setError(err.message || 'Error al cargar el producto');
-      console.error('Error fetching product details:', err);
     } finally {
       setLoading(false);
     }
   }, [productId]);
 
-  /**
-   * Cambiar imagen seleccionada en la galería
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Maneja el cambio de imagen seleccionada en la galería
+  
+  Parámetros: index - Índice de la imagen a seleccionar
+  
+  Retorna: void
+  */
   const handleImageSelect = useCallback((index) => {
     setSelectedImage(index);
   }, []);
 
-  /**
-   * Recargar datos del producto
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Recarga los datos del producto desde el servidor
+  
+  Parámetros: ninguno
+  
+  Retorna: void
+  */
   const refetch = useCallback(() => {
     fetchProductData();
   }, [fetchProductData]);
 
-  // Cargar datos del producto cuando cambia el ID
   useEffect(() => {
     fetchProductData();
   }, [fetchProductData]);
 
   return {
-    // Estado
     product,
     loading,
     error,
     selectedImage,
-    
-    // Acciones
     handleImageSelect,
     refetch,
-    
-    // Utilidades
     hasImages: product?.images && product.images.length > 0,
     totalImages: product?.images?.length || 0,
     currentImage: product?.images?.[selectedImage] || null,

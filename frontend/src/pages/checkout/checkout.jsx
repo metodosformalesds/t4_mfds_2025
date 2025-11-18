@@ -19,10 +19,6 @@ import { PaymentSection } from '../../components/payment';
 import { orderService } from '../../services/orderService';
 import './checkout.css';
 
-/**
- * Página principal de checkout
- * Maneja el flujo completo: Dirección → Resumen → Pago
- */
 export const CheckoutPage = () => {
   const navigate = useNavigate();
   const { cartItems, totals: cartTotals } = useCartContext();
@@ -30,7 +26,6 @@ export const CheckoutPage = () => {
 
   const [totals, setTotals] = useState({ subtotal: 0, shipping: 0, total: 0 });
   
-  // ESTADOS DEL CHECKOUT
   const [currentStep, setCurrentStep] = useState('address');
   const [user, setUser] = useState(null);
   const [userLoading, setUserLoading] = useState(true);
@@ -38,7 +33,6 @@ export const CheckoutPage = () => {
   const [currentOrder, setCurrentOrder] = useState(null);
   const [shippingAddress, setShippingAddress] = useState('');
 
-  // Calcular totals cuando cambie cartItems
   useEffect(() => {
     if (cartItems && cartItems.length > 0) {
       const calculatedTotals = orderService.calculateTotals(cartItems);
@@ -46,7 +40,6 @@ export const CheckoutPage = () => {
     }
   }, [cartItems]);
 
-  // Cargar datos del usuario al iniciar
   useEffect(() => {
     const loadUserData = async () => {
       try {
@@ -61,8 +54,7 @@ export const CheckoutPage = () => {
         }
         
       } catch (err) {
-        console.error('Error loading user data:', err);
-        setUserError('Error al cargar los datos del usuario');
+                setUserError('Error al cargar los datos del usuario');
       } finally {
         setUserLoading(false);
       }
@@ -71,14 +63,24 @@ export const CheckoutPage = () => {
     loadUserData();
   }, []);
 
-  // Redirigir si el carrito está vacío
   useEffect(() => {
     if (cartItems.length === 0 && currentStep === 'address') {
       navigate('/carrito');
     }
   }, [cartItems, currentStep, navigate]);
 
-  // Envío del formulario de dirección
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Maneja el envío del formulario de dirección, crea la orden y avanza al pago.
+
+    Parámetros:
+    address - string: Dirección de envío
+
+    Retorna:
+    Promise<void>
+  */
   const handleAddressSubmit = async (address) => {
     try {
       setShippingAddress(address);
@@ -89,45 +91,94 @@ export const CheckoutPage = () => {
       setCurrentStep('payment');
       
     } catch (err) {
-      console.error('Error creating order:', err);
-    }
+          }
   };
 
-  // Volver al paso anterior
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Regresa al paso de captura de dirección desde el paso de pago.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleBackToAddress = () => {
     setCurrentStep('address');
     setCurrentOrder(null);
   };
 
-  // Cancelar checkout
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Cancela el proceso de checkout y regresa al carrito.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    void
+  */
   const handleCancelCheckout = () => {
     if (window.confirm('¿Estás seguro de que quieres cancelar el checkout?')) {
       navigate('/carrito');
     }
   };
 
-  // Éxito en el pago (callback para PaymentSection)
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Maneja el éxito del pago. (Funcionalidad pendiente de implementar)
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    Promise<void>
+  */
   const handlePaymentSuccess = async () => {
   try {
 
     const { clearCart } = useCartContext();
     await clearCart();
     
-    console.log('Pago exitoso - Carrito limpiado');
-  } catch (error) {
-    console.error('Error limpiando carrito después del pago:', error);
-  }
+      } catch (error) {
+      }
 };
 
-  // Error en el pago
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Maneja errores en el proceso de pago. (Funcionalidad pendiente de implementar)
+
+    Parámetros:
+    error - Error: El error ocurrido
+
+    Retorna:
+    void
+  */
   const handlePaymentError = (error) => {
-    console.error('Error en el proceso de pago:', error);
-    // El error se muestra en el PaymentSection
   };
 
-  // Contenido basado en el paso actual
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Renderiza el contenido del paso actual del checkout (dirección o pago).
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    JSX.Element - Contenido del paso actual
+  */
   const renderStepContent = () => {
-    // irección de envío
     if (currentStep === 'address') {
       return (
         <div className="checkout-step">
@@ -167,7 +218,6 @@ export const CheckoutPage = () => {
       );
     }
 
-    // Pago
     if (currentStep === 'payment') {
       return (
         <div className="checkout-step">
@@ -191,7 +241,18 @@ export const CheckoutPage = () => {
     return null;
   };
 
-  // Banner de error global
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Renderiza un banner de error global si hay errores en la orden.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    JSX.Element|null - Banner de error o null
+  */
   const renderErrorBanner = () => {
     if (orderError) {
       return (

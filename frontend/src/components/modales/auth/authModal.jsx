@@ -15,6 +15,12 @@ import './authModal.css';
 export const AuthModal = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
 
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Cierra el modal y navega a la página de autenticación en modo login.
+  */
   const handleLogin = () => {
     onClose();
     navigate('/auth?mode=login');

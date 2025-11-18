@@ -1,15 +1,35 @@
-// src/services/api.js
+/*
+  Autor: Erick Rangel
+  Fecha: 14-11-2025
+  Servicio: api.js
+  Descripción: Cliente HTTP centralizado para comunicación con el backend
+*/
 import { authService } from './authService';
 const API_BASE_URL = import.meta.env.VITE_API_URL
 
 class ApiClient {
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Constructor del cliente API
+  
+  Parámetros: baseURL - URL base del API (opcional)
+  
+  Retorna: Instancia de ApiClient
+  */
   constructor(baseURL = API_BASE_URL) {
     this.baseURL = baseURL;
   }
 
-  /**
-   * Obtener headers con autenticación
-   */
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Obtiene headers de autenticación incluyendo el token JWT
+  
+  Parámetros: ninguno
+  
+  Retorna: Objeto con headers incluyendo Authorization si hay token
+  */
   getAuthHeaders() {
     const token = authService.getToken();
     const headers = {
@@ -23,10 +43,18 @@ class ApiClient {
     return headers;
   }
 
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Realiza una petición HTTP al servidor con manejo de errores y autenticación
+  
+  Parámetros: endpoint - Ruta del endpoint, options - Opciones de configuración de fetch
+  
+  Retorna: Datos de respuesta del servidor o null si es 204
+  */
   async request(endpoint, options = {}) {
     const url = `${this.baseURL}${endpoint}`;
     
-    // Combinar headers de autenticación con headers personalizados
     const authHeaders = this.getAuthHeaders();
     const config = {
       ...options,
@@ -36,7 +64,6 @@ class ApiClient {
       }
     };
 
-    // Si el body es FormData, eliminar Content-Type para que el navegador lo asigne correctamente
     if (config.body instanceof FormData) {
       if (config.headers['Content-Type']) {
         delete config.headers['Content-Type'];
@@ -44,12 +71,9 @@ class ApiClient {
     }
 
     try {
-      console.log(`API Request: ${url}`, config);
       const response = await fetch(url, config);
       
-      // Manejar errores de autenticación
       if (response.status === 401) {
-        // Token inválido o expirado
         authService.removeToken();
         throw new Error('Authentication required. Please login again.');
       }
@@ -59,7 +83,6 @@ class ApiClient {
       }
       
       if (!response.ok) {
-        // Intentar obtener mensaje de error del backend
         try {
           const errorData = await response.json();
           throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
@@ -68,27 +91,42 @@ class ApiClient {
         }
       }
 
-      // Cuando se elimina un item del carrito
       if (response.status === 204) {
         return null;
       }
 
       const data = await response.json();
-      console.log(`API Response: ${url}`, data);
       return data;
 
     } catch (error) {
-      console.error(`API Error: ${url}`, error);
       throw error;
     }
   }
 
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Realiza petición GET con parámetros de query
+  
+  Parámetros: endpoint - Ruta del endpoint, params - Objeto con parámetros de query
+  
+  Retorna: Datos de respuesta del servidor
+  */
   get(endpoint, params = {}) {
     const queryString = new URLSearchParams(params).toString();
     const url = queryString ? `${endpoint}?${queryString}` : endpoint;
     return this.request(url);
   }
 
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Realiza petición POST con datos JSON
+  
+  Parámetros: endpoint - Ruta del endpoint, data - Datos a enviar
+  
+  Retorna: Datos de respuesta del servidor
+  */
   post(endpoint, data) {
     return this.request(endpoint, {
       method: 'POST',
@@ -96,6 +134,15 @@ class ApiClient {
     });
   }
 
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Realiza petición PUT con datos JSON
+  
+  Parámetros: endpoint - Ruta del endpoint, data - Datos a actualizar
+  
+  Retorna: Datos de respuesta del servidor
+  */
   put(endpoint, data) {
     return this.request(endpoint, {
       method: 'PUT',
@@ -103,6 +150,15 @@ class ApiClient {
     });
   }
 
+  /*
+  Autor: Erick Rangel
+  
+  Descripción: Realiza petición DELETE
+  
+  Parámetros: endpoint - Ruta del endpoint
+  
+  Retorna: Datos de respuesta del servidor
+  */
   delete(endpoint) {
     return this.request(endpoint, {
       method: 'DELETE',
@@ -110,6 +166,5 @@ class ApiClient {
   }
 }
 
-// Instancia global del cliente API
 export const apiClient = new ApiClient();
 export default apiClient;

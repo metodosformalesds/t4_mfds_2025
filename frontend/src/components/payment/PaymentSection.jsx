@@ -11,10 +11,6 @@ import { BtnGeneral } from '../Botones/btn_general';
 import { stripeService } from '../../services/stripeService';
 import './PaymentSection.css';
 
-/**
- * Componente para procesar pagos con Stripe Checkout
- * Maneja la redirección a Stripe y estados de carga
- */
 export const PaymentSection = ({ 
   order, 
   onBack, 
@@ -24,35 +20,39 @@ export const PaymentSection = ({
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
 
-  // Procesar pago con Stripe
+  /*
+    Autor: Erick Rangel
+
+    Descripción: 
+    Procesa el pago redirigiendo a Stripe Checkout.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    Promise<void>
+  */
   const handlePayment = async () => {
     setProcessing(true);
     setError('');
 
     try {
-      //Que tenemos una orden válida
       if (!order || !order.id) {
         throw new Error('No hay una orden válida para procesar el pago');
       }
 
-      console.log('Iniciando proceso de pago para orden:', order.id);
-      
-      // A Stripe Checkout
+            
       await stripeService.redirectToCheckout(order.id, order);
       
-      // Si llegamos aquí, la redirección fue exitosa
-      // Stripe manejará el resto del flujo
       
     } catch (err) {
-      console.error('Error en el proceso de pago:', err);
-      setError(err.message || 'Error al procesar el pago');
+            setError(err.message || 'Error al procesar el pago');
       if (onPaymentError) onPaymentError(err);
     } finally {
       setProcessing(false);
     }
   };
 
-  // Comisión de plataforma (5%)
   const platformFee = order ? (order.platform_fee || order.total_amount * 0.05) : 0;
   const sellerAmount = order ? (order.seller_amount || order.total_amount - platformFee) : 0;
 
