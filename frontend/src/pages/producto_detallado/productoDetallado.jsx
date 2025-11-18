@@ -9,7 +9,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BtnGeneral } from '../../components/Botones/btn_general';
-import { Footer } from '../../components/footer';
+import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header'; 
 import { useProductDetail } from '../../hooks/useProductDetail';
 import favoriteService from '../../services/favoriteService';

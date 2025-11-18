@@ -9,7 +9,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Header } from '../../components/Header';
-import { Footer } from '../../components/footer';
+import { Footer } from '../../components/Footer';
 import { BtnGeneral } from '../../components/Botones/btn_general';
 import { orderService } from '../../services/orderService';
 import './confirmation.css';

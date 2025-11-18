@@ -18,7 +18,7 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { Header } from '../../components/Header';
-import { Footer } from '../../components/footer';
+import { Footer } from '../../components/Footer';
 import { CardProducto } from '../../components/Cards/card_producto';
 import { useProducts } from '../../hooks/useProducts';
 import favoriteService from '../../services/favoriteService';

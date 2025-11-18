@@ -12,7 +12,7 @@ import { useCartContext } from '../../context/CartContext';
 import { useOrder } from '../../hooks/useOrder';
 import { userService } from '../../services/userService';
 import { Header } from '../../components/Header';
-import { Footer } from '../../components/footer';
+import { Footer } from '../../components/Footer';
 import { AddressForm } from '../../components/formularios/address';
 import { OrderSummary } from '../../components/order';
 import { PaymentSection } from '../../components/payment';

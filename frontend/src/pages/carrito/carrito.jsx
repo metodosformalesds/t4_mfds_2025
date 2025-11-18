@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCartContext } from '../../context/CartContext';
 import { useAuth } from '../../hooks/useAuth';
 import { Header } from '../../components/Header';
-import { Footer } from '../../components/footer';
+import { Footer } from '../../components/Footer';
 import { CartItem } from '../../components/carrito/CartItem.jsx';
 import { CartSummary } from '../../components/carrito/CartSummary.jsx';
 import { CartEmpty } from '../../components/carrito/CartEmpty.jsx';
