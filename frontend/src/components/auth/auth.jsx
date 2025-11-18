@@ -152,7 +152,7 @@ export const Auth = () => {
             <div className="auth-logo">Reborn</div>
             <form onSubmit={handleLoginSubmit} className="auth-form-container">
               <div className="auth-input-group">
-                <img className="auth-input-icon email-icon" alt="Email" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon email-icon" alt="Email" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/email-icon.svg" />
                 <input
                   type="email"
                   name="email"
@@ -164,7 +164,7 @@ export const Auth = () => {
                 />
               </div>
               <div className="auth-input-group">
-                <img className="auth-input-icon" alt="Contraseña" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon" alt="Contraseña" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/password-icon.svg" />
                 <input
                   type="password"
                   name="password"
@@ -238,7 +238,7 @@ export const Auth = () => {
             <div className="auth-logo">Reborn</div>
             <form onSubmit={handleRegisterSubmit} className="auth-form-container">
               <div className="auth-input-group">
-                <img className="auth-input-icon" alt="Usuario" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon" alt="Usuario" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/user-icon.svg" />
                 <input
                   type="text"
                   name="username"
@@ -250,7 +250,7 @@ export const Auth = () => {
                 />
               </div>
               <div className="auth-input-group">
-                <img className="auth-input-icon" alt="Nombre completo" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon" alt="Nombre completo" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/user-icon.svg" />
                 <input
                   type="text"
                   name="full_name"
@@ -262,7 +262,7 @@ export const Auth = () => {
                 />
               </div>
               <div className="auth-input-group">
-                <img className="auth-input-icon email-icon" alt="Email" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon email-icon" alt="Email" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/email-icon.svg" />
                 <input
                   type="email"
                   name="email"
@@ -274,7 +274,7 @@ export const Auth = () => {
                 />
               </div>
               <div className="auth-input-group">
-                <img className="auth-input-icon direccion-icon" alt="Direccion" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon direccion-icon" alt="Direccion" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/address-icon.svg" />
                 <input
                   type="text"
                   name="address"
@@ -286,7 +286,7 @@ export const Auth = () => {
                 />
               </div>
               <div className="auth-input-group">
-                <img className="auth-input-icon" alt="Contraseña" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon" alt="Contraseña" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/password-icon.svg" />
                 <input
                   type="password"
                   name="password"
@@ -298,7 +298,7 @@ export const Auth = () => {
                 />
               </div>
               <div className="auth-input-group">
-                <img className="auth-input-icon" alt="Confirmar contraseña" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon" alt="Confirmar contraseña" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/password-icon.svg" />
                 <input
                   type="password"
                   name="confirmPassword"
@@ -354,7 +354,7 @@ export const Auth = () => {
             <div className="auth-logo">Reborn</div>
             <form onSubmit={handleForgotSubmit} className="auth-form-container">
               <div className="auth-input-group">
-                <img className="auth-input-icon" alt="Usuario" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon" alt="Usuario" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/user-icon.svg" />
                 <input
                   type="text"
                   name="username"
@@ -366,7 +366,7 @@ export const Auth = () => {
                 />
               </div>
               <div className="auth-input-group">
-                <img className="auth-input-icon email-icon" alt="Email" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon email-icon" alt="Email" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/email-icon.svg" />
                 <input
                   type="email"
                   name="email"
@@ -422,7 +422,7 @@ export const Auth = () => {
             <div className="auth-logo">Reborn</div>
             <form onSubmit={handleResetSubmit} className="auth-form-container">
               <div className="auth-input-group">
-                <img className="auth-input-icon" alt="Token" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon" alt="Token" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/password-icon.svg" />
                 <input
                   type="text"
                   name="token"
@@ -434,7 +434,7 @@ export const Auth = () => {
                 />
               </div>
               <div className="auth-input-group">
-                <img className="auth-input-icon" alt="Nueva contraseña" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon" alt="Nueva contraseña" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/password-icon.svg" />
                 <input
                   type="password"
                   name="newPassword"
@@ -446,7 +446,7 @@ export const Auth = () => {
                 />
               </div>
               <div className="auth-input-group">
-                <img className="auth-input-icon" alt="Confirmar contraseña" src="https://placehold.co/10x10" />
+                <img className="auth-input-icon" alt="Confirmar contraseña" src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/authentication/password-icon.svg" />
                 <input
                   type="password"
                   name="confirmPassword"

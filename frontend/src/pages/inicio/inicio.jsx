@@ -173,7 +173,7 @@ export const Inicio = () => {
         <div className="contenido-nosotros">
           <div className="nosotros-logo">
             <img 
-              src="../src/assets/logo-reborn.png" 
+              src="https://reborn-s3-metodos.s3.us-east-1.amazonaws.com/logo-reborn.png" 
               alt="Reborn - Artesanía y Segunda Mano" 
               className="logo-nosotros"
             />
