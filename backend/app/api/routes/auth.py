@@ -5,6 +5,8 @@
 
 # app/api/routes/auth.py
 from fastapi import APIRouter, Depends, HTTPException, status
+from utils.email import send_reset_email
+from core.security import create_password_reset_token, verify_password_reset_token
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from datetime import timedelta
@@ -70,3 +72,61 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
         "token_type": "bearer",
         "user": user
     }
+
+# --- Paso 1: El usuario solicita el reseteo ---
+@router.post("/forgot-password")
+async def forgot_password(username: str, email: str, db: Session = Depends(get_db)):
+    """
+    Solicita el reseteo de contraseña.
+
+    Ahora recibe `username` y `email`. Por seguridad la respuesta es siempre
+    genérica (200 OK) para no filtrar si un correo o usuario existen.
+
+    Flujo:
+    - Se busca el usuario por email.
+    - Si no existe, devolver mensaje genérico.
+    - Si existe, verificar que el `username` proporcionado coincida con el
+      usuario encontrado. Si no coinciden, devolver mensaje genérico.
+    - Si coinciden, generar token y enviar el email con instrucciones.
+    """
+
+    user = user_service.get_user_by_email(db, email)
+
+    # POR SEGURIDAD: Siempre responder con el mismo mensaje si no hay match
+    generic_msg = {"msg": "Si el correo existe, se ha enviado un enlace."}
+
+    if not user:
+        return generic_msg
+
+    # Verificar que el username coincida con el usuario encontrado
+    if getattr(user, 'username', None) != username:
+        return generic_msg
+
+    # Generar token y enviar email
+    token = create_password_reset_token(user.email)
+    await send_reset_email(user.email, token)
+
+    return generic_msg
+
+
+# --- Paso 2: El usuario envía la nueva contraseña y el token ---
+@router.post("/reset-password")
+async def reset_password(token: str, new_password: str, db: Session = Depends(get_db)):
+    # 1. Validar el token
+    email = verify_password_reset_token(token)
+    if not email:
+        raise HTTPException(status_code=400, detail="Token inválido o expirado")
+
+    # 2. Obtener usuario
+    user = user_service.get_user_by_email(db, email)
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    # 3. Cambiar la contraseña (hashear de nuevo)
+    # Aquí deberías tener un método en tu service para actualizar pass
+    hashed_password = user_service.get_password_hash(new_password)
+    user.hashed_password = hashed_password
+    db.add(user)
+    db.commit()
+
+    return {"msg": "Contraseña actualizada correctamente"}
