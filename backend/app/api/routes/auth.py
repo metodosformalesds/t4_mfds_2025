@@ -77,17 +77,29 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 @router.post("/forgot-password")
 async def forgot_password(username: str, email: str, db: Session = Depends(get_db)):
     """
-    Solicita el reseteo de contraseña.
 
-    Ahora recibe `username` y `email`. Por seguridad la respuesta es siempre
-    genérica (200 OK) para no filtrar si un correo o usuario existen.
+    Autor: Raúl Aniles 222802
 
-    Flujo:
-    - Se busca el usuario por email.
-    - Si no existe, devolver mensaje genérico.
-    - Si existe, verificar que el `username` proporcionado coincida con el
-      usuario encontrado. Si no coinciden, devolver mensaje genérico.
-    - Si coinciden, generar token y enviar el email con instrucciones.
+    Descripción:
+        Solicita el reseteo de contraseña.
+
+        Ahora recibe `username` y `email`. Por seguridad la respuesta es siempre
+        genérica (200 OK) para no filtrar si un correo o usuario existen.
+
+        Flujo:
+        - Se busca el usuario por email.
+        - Si no existe, devolver mensaje genérico.
+        - Si existe, verificar que el `username` proporcionado coincida con el
+        usuario encontrado. Si no coinciden, devolver mensaje genérico.
+        - Si coinciden, generar token y enviar el email con instrucciones.
+    
+    Parámetros:
+        username (str): Username del usuario.
+        email (str): Email del usuario.
+        db (Session): Sesión de la base de datos inyectada por Depends.
+
+    Retorna:
+        dict: Mensaje genérico.
     """
 
     user = user_service.get_user_by_email(db, email)
@@ -112,6 +124,26 @@ async def forgot_password(username: str, email: str, db: Session = Depends(get_d
 # --- Paso 2: El usuario envía la nueva contraseña y el token ---
 @router.post("/reset-password")
 async def reset_password(token: str, new_password: str, db: Session = Depends(get_db)):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción:
+        Resetea la contraseña del usuario usando el token enviado por email.
+
+        Flujo:
+        - Validar el token.
+        - Obtener el usuario.
+        - Cambiar la contraseña (hashear de nuevo).
+        - Devolver mensaje genérico.
+
+    Parámetros:
+        token (str): Token generado en el paso 1.
+        new_password (str): Nueva contraseña proporcionada por el usuario.
+        db (Session): Sesión de la base de datos inyectada por Depends.
+
+    Retorna:
+        dict: Mensaje genérico.
+    """
     # 1. Validar el token
     email = verify_password_reset_token(token)
     if not email:

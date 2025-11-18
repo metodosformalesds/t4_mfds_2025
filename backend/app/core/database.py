@@ -1,3 +1,7 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Configuración de la base de datos usando SQLAlchemy.
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker

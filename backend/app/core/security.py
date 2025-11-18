@@ -1,4 +1,8 @@
-# app/core/security.py
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Funciones para crear y verificar tokens JWT, incluyendo
+# tokens de acceso y de restablecimiento de contraseña.
+
 from datetime import datetime, timedelta
 from jose import jwt
 from .config import settings
