@@ -56,10 +56,26 @@ export const authService = {
 
   async forgotPassword(data) {
     try {
-      const response = await apiClient.post('/api/auth/forgot-password', data);
+      // Backend espera username y email como query params
+      const response = await apiClient.post(
+        `/api/auth/forgot-password?username=${encodeURIComponent(data.username)}&email=${encodeURIComponent(data.email)}`
+      );
       return response;
     } catch (error) {
       console.error('Error en recuperación de contraseña:', error);
+      throw error;
+    }
+  },
+
+  async resetPassword(token, newPassword) {
+    try {
+      // Backend espera token y new_password como query params
+      const response = await apiClient.post(
+        `/api/auth/reset-password?token=${encodeURIComponent(token)}&new_password=${encodeURIComponent(newPassword)}`
+      );
+      return response;
+    } catch (error) {
+      console.error('Error en reseteo de contraseña:', error);
       throw error;
     }
   },

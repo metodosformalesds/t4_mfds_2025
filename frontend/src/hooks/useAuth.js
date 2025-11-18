@@ -108,6 +108,25 @@ export const useAuth = () => {
   }, []);
 
   /**
+   * Maneja el proceso de reseteo de contraseña con token
+   */
+  const resetPassword = useCallback(async (token, newPassword) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await authService.resetPassword(token, newPassword);
+      setLoading(false);
+      return response;
+
+    } catch (error) {
+      setLoading(false);
+      setError(error.message || 'Error en el reseteo de contraseña');
+      throw error;
+    }
+  }, []);
+
+  /**
    * Cierra la sesión del usuario
    */
   const logout = useCallback(() => {
@@ -134,6 +153,7 @@ export const useAuth = () => {
     register,
     login,
     forgotPassword,
+    resetPassword,
     logout,
     clearError,
     isAuthenticated: !!user?.isAuthenticated

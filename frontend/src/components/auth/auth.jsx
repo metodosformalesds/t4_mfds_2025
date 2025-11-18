@@ -14,17 +14,19 @@ import './auth.css';
 export const Auth = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { register, login, forgotPassword, loading, error, clearError } = useAuth();
+  const { register, login, forgotPassword, resetPassword, loading, error, clearError } = useAuth();
   const [mode, setMode] = useState('login');
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const [registerData, setRegisterData] = useState({
     username: '', email: '', full_name: '', bio: '', address: '', phone: '', password: '', confirmPassword: ''
   });
   const [forgotData, setForgotData] = useState({ username: '', email: '' });
+  const [resetData, setResetData] = useState({ token: '', newPassword: '', confirmPassword: '' });
+  const [showInstructionsModal, setShowInstructionsModal] = useState(false);
 
   useEffect(() => {
     const urlMode = searchParams.get('mode');
-    if (urlMode && ['login', 'register', 'forgot-password'].includes(urlMode)) {
+    if (urlMode && ['login', 'register', 'forgot-password', 'reset-password'].includes(urlMode)) {
       setMode(urlMode);
     }
   }, [searchParams]);
@@ -62,10 +64,24 @@ export const Auth = () => {
     e.preventDefault();
     try {
       await forgotPassword(forgotData);
-      alert('Se ha enviado un enlace de recuperación a tu email');
-      handleModeChange('login');
+      setShowInstructionsModal(true);
     } catch (error) {
       console.error('Password recovery failed:', error);
+    }
+  };
+
+  const handleResetSubmit = async (e) => {
+    e.preventDefault();
+    if (resetData.newPassword !== resetData.confirmPassword) {
+      alert('Las contraseñas no coinciden');
+      return;
+    }
+    try {
+      await resetPassword(resetData.token, resetData.newPassword);
+      alert('Contraseña actualizada correctamente');
+      handleModeChange('login');
+    } catch (error) {
+      console.error('Password reset failed:', error);
     }
   };
 
@@ -84,8 +100,50 @@ export const Auth = () => {
     setForgotData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleResetChange = (e) => {
+    const { name, value } = e.target;
+    setResetData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const closeInstructionsModal = () => {
+    setShowInstructionsModal(false);
+    handleModeChange('reset-password');
+  };
+
   return (
-    <div className={`auth-container ${mode === 'register' ? 'auth-register-mode' : ''} ${mode === 'forgot-password' ? 'auth-recovery-mode' : ''}`}>
+    <div className={`auth-container ${mode === 'register' ? 'auth-register-mode' : ''} ${mode === 'forgot-password' || mode === 'reset-password' ? 'auth-recovery-mode' : ''}`}>
+      
+      {/* MODAL DE INSTRUCCIONES */}
+      {showInstructionsModal && (
+        <div className="auth-modal-overlay" onClick={closeInstructionsModal}>
+          <div className="auth-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="auth-modal-header">
+              <h2>Revisa tu correo electrónico</h2>
+            </div>
+            <div className="auth-modal-body">
+              <p>
+                Si el correo existe en nuestro sistema, hemos enviado un email con instrucciones 
+                para restablecer tu contraseña.
+              </p>
+              <p>
+                Por favor revisa tu bandeja de entrada y busca el <strong>código de verificación</strong>.
+              </p>
+              <p className="auth-modal-note">
+                <strong>Nota:</strong> El código expira en 15 minutos.
+              </p>
+            </div>
+            <div className="auth-modal-footer">
+              <BtnGeneral
+                property1='default'
+                text="Continuar"
+                color="morado"
+                onClick={closeInstructionsModal}
+                className="auth-modal-button"
+              />
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* MODO LOGIN */}
       {mode === 'login' && (
@@ -328,6 +386,86 @@ export const Auth = () => {
                   text={loading ? "Procesando..." : "Recuperar contraseña"} 
                   color="morado"
                   onClick={handleForgotSubmit}
+                  disabled={loading}
+                  className="auth-form-button"
+                />
+                <BtnGeneral 
+                  property1='default'
+                  text="Volver a inicio" 
+                  color="amarillo"
+                  onClick={() => navigate('/')}
+                  disabled={loading}
+                  className="auth-form-button"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* RESETEAR PASSWORD CON TOKEN */}
+      {mode === 'reset-password' && (
+        <div className="auth-card auth-fade-in">
+          <div className="auth-side-purple">
+            <div className="auth-welcome-text">
+              Ingresa el código que recibiste en tu correo y tu nueva contraseña
+            </div>
+            <BtnGeneral 
+              property1='default'
+              text="Regresar" 
+              color="rosa"
+              onClick={() => handleModeChange('login')}
+              className="auth-side-button"
+            />
+          </div>
+          <div className="auth-side-white">
+            <div className="auth-logo">Reborn</div>
+            <form onSubmit={handleResetSubmit} className="auth-form-container">
+              <div className="auth-input-group">
+                <img className="auth-input-icon" alt="Token" src="https://placehold.co/10x10" />
+                <input
+                  type="text"
+                  name="token"
+                  placeholder="Código de verificación"
+                  value={resetData.token}
+                  onChange={handleResetChange}
+                  required
+                  className="auth-input"
+                />
+              </div>
+              <div className="auth-input-group">
+                <img className="auth-input-icon" alt="Nueva contraseña" src="https://placehold.co/10x10" />
+                <input
+                  type="password"
+                  name="newPassword"
+                  placeholder="Nueva contraseña"
+                  value={resetData.newPassword}
+                  onChange={handleResetChange}
+                  required
+                  className="auth-input"
+                />
+              </div>
+              <div className="auth-input-group">
+                <img className="auth-input-icon" alt="Confirmar contraseña" src="https://placehold.co/10x10" />
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirmar contraseña"
+                  value={resetData.confirmPassword}
+                  onChange={handleResetChange}
+                  required
+                  className="auth-input"
+                />
+              </div>
+              
+              {error && <div className="auth-error-message">{error}</div>}
+              
+              <div className="auth-buttons-container">
+                <BtnGeneral 
+                  property1='default'
+                  text={loading ? "Actualizando..." : "Restablecer contraseña"} 
+                  color="morado"
+                  onClick={handleResetSubmit}
                   disabled={loading}
                   className="auth-form-button"
                 />

@@ -55,6 +55,15 @@ class Settings(BaseSettings):
     STRIPE_SECRET_KEY: str
     STRIPE_WEBHOOK_SECRET: Optional[str] = None
 
+    # AWS SES Configuration
+    MAIL_USERNAME: str
+    MAIL_PASSWORD: str
+    MAIL_FROM: str
+    MAIL_PORT: str
+    MAIL_SERVER: str
+
+    FRONTEND_URL: str  # URL del frontend para enlaces
+
     class Config:
         # La ruta al .env se busca desde la raíz del proyecto (backend/)
         # Pydantic busca en orden: .env en el directorio actual, luego sube
