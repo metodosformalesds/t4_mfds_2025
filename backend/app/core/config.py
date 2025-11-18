@@ -1,4 +1,7 @@
-# app/core/config.py
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Configuración centralizada usando Pydantic Settings.
+
 from pydantic_settings import BaseSettings
 from pydantic import model_validator  # Importa el validador
 from typing import Optional

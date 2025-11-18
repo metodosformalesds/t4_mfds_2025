@@ -1,3 +1,8 @@
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Utilidades para el envío de correos electrónicos,
+# específicamente para la recuperación de contraseñas.
+
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig, MessageType
 from pydantic import EmailStr
 from core.config import settings # Tu archivo de configuración

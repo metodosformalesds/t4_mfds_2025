@@ -1,4 +1,8 @@
-# app/main.py
+# Autor: Raúl Esteban Aniles Macias 222802
+# Fecha: 13/11/2025
+# Descripción: Punto de entrada principal de la aplicación FastAPI,
+# configuración de middleware y enrutadores.
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from core.database import engine, Base

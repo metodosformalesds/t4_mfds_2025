@@ -184,6 +184,19 @@ async def patch_user_me(
 
 @router.get("/{user_id}", response_model=UserResponse)
 def get_user(user_id: int, db: Session = Depends(get_db)):
+    """
+    Autor: Raúl Aniles 222802
+
+    Descripción: Muetra el perfil de un usuario por su ID.
+
+    Parámetros:
+        request (Request): Request con el JSON que contiene el ID del usuario.
+        db (Session): Sesión de la base de datos.
+
+    Retorna:
+        UserResponse: Usuario solicitado.
+
+    """
     user = user_service.get_user_by_id(db, user_id)
     if not user:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
